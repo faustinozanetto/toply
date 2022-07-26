@@ -13,7 +13,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": "./",
+    "paths": {
+      "@lib/*": ["src/lib/*"],
+      "@types/*": ["src/types/*"],
+      "@modules/*": ["src/modules/*"],
+      "@pages/*": ["src/pages/*"]
+    }
   },
   "include": [
     "process.d.ts",
