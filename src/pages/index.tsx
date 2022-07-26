@@ -1,12 +1,22 @@
-import Dashboard from '@modules/dashboard/components/dashboard';
 import Layout from '@modules/layout/components/layout';
+import { SpotifyTrackType } from '@types/toply.typesdefs';
 import HomeView from '@views/home/home-view';
-import { signIn, signOut, useSession } from 'next-auth/react';
-import React from 'react';
+import { useSession } from 'next-auth/react';
+import { GetServerSideProps } from 'next/types';
+import React, { useEffect, useState } from 'react';
 
 const HomePage: React.FC = (props) => {
   const {} = props;
-  const { data: session } = useSession();
+  const [data, setData] = useState<SpotifyTrackType[]>([]);
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      const data = fetch('/api/user/top-songs')
+        .then((res) => res.json())
+        .then((data) => setData(data));
+    }
+  }, [session]);
 
   return (
     <Layout
