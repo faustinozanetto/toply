@@ -43,3 +43,7 @@ export type SpotifyTrackType = {
   album?: SpotifyAlbumType;
   artists?: SpotifyArtistType[];
 };
+
+export type ToplyStateType = {
+  topSongs: SpotifyTrackType[];
+};

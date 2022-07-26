@@ -3,7 +3,7 @@ import {
   SpotifyAlbumType,
   SpotifyArtistType,
   SpotifyTrackType,
-} from '@types/toply.typesdefs';
+} from '@typedefs/toply.typesdefs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 
@@ -11,13 +11,13 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse<SpotifyTrackType[]>
 ) => {
-  const apiURL = `me/top/tracks?limit=10&time_range=short_term`;
+  const apiURL = `me/top/tracks?limit=50&time_range=short_term`;
   const session = await getSession({ req });
   // @ts-ignore
   const data = await fetchSpotifyEndpoint(apiURL, session?.user?.accessToken);
   let tracks: SpotifyTrackType[] = [];
   if (data.items.length) {
-    data.items.map((track: any, index) => {
+    data.items.map((track: any) => {
       // Populate basic track data.
       const foundTrack: SpotifyTrackType = {
         id: track.id,

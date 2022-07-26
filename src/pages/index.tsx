@@ -1,20 +1,23 @@
 import Layout from '@modules/layout/components/layout';
-import { SpotifyTrackType } from '@types/toply.typesdefs';
+import { setTopSongs } from '@state/slices/toply.slice';
+import { SpotifyTrackType } from '@typedefs/toply.typesdefs';
 import HomeView from '@views/home/home-view';
 import { useSession } from 'next-auth/react';
-import { GetServerSideProps } from 'next/types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 const HomePage: React.FC = (props) => {
   const {} = props;
-  const [data, setData] = useState<SpotifyTrackType[]>([]);
   const { data: session, status } = useSession();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (status === 'authenticated') {
-      const data = fetch('/api/user/top-songs')
+      fetch('/api/user/top-songs')
         .then((res) => res.json())
-        .then((data) => setData(data));
+        .then((data) => {
+          dispatch(setTopSongs(data as SpotifyTrackType[]));
+        });
     }
   }, [session]);
 

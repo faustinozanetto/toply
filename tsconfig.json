@@ -17,11 +17,12 @@
     "baseUrl": "./",
     "paths": {
       "@lib/*": ["src/lib/*"],
-      "@types/*": ["src/types/*"],
+      "@typedefs/*": ["src/typedefs/*"],
       "@modules/*": ["src/modules/*"],
       "@pages/*": ["src/pages/*"],
       "@styles/*": ["src/styles/*"],
-      "@views/*": ["src/views/*"]
+      "@views/*": ["src/views/*"],
+      "@state/*": ["src/state/*"]
     }
   },
   "include": [
