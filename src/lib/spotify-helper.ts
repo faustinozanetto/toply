@@ -1,26 +1,24 @@
-import { BASIC, SPOTIFY_API, SPOTIFY_USER_TOKEN } from './constants';
+import { SPOTIFY_API } from './constants';
 
-export const getAccessToken = async (refreshToken: string) => {
-  const response = await fetch(SPOTIFY_USER_TOKEN, {
-    method: 'POST',
-    headers: {
-      Authorization: `Basic ${BASIC}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({
-      grant_type: 'refresh_token',
-      refreshToken,
-    }),
-  });
-
-  return response.json();
-};
-
-export const getUserTopTracks = async (refresh_token: string) => {
-  const { access_token } = await getAccessToken(refresh_token);
-  return fetch(`${SPOTIFY_API}/me/top/tracks`, {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-  });
+/**
+ *
+ * @param endpoint Spotify API endpoint
+ * @param accessToken The access token to use for the request
+ * @returns The response from the Spotify API
+ */
+export const fetchSpotifyEndpoint = async (
+  endpoint: string,
+  accessToken: string
+) => {
+  const url = `${SPOTIFY_API}/${endpoint}`;
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
+  };
+  const response = await fetch(url, { headers })
+    .then((res) => res.json())
+    .catch((error) => {
+      console.error(error);
+      return null;
+    });
+  return response;
 };
