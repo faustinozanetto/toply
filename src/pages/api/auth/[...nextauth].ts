@@ -7,21 +7,31 @@ import type { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth';
 import SpotifyProvider from 'next-auth/providers/spotify';
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     SpotifyProvider({
       clientId: SPOTIFY_CLIENT_ID,
       clientSecret: SPOTIFY_CLIENT_SECRET,
-      profile(profile) {
-        return {
-          id: profile.id,
-          name: profile.display_name,
-          email: profile.email,
-          picture: profile.images?.[0]?.url,
-        };
+      authorization: {
+        params: { scope: 'user-read-recently-played user-top-read' },
       },
     }),
   ],
+  // Callbacks Configuration
+  callbacks: {
+    async jwt({ token, account }) {
+      if (account) {
+        token.id = account.id;
+        token.expires_at = account.expires_at;
+        token.accessToken = account.access_token;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user = token;
+      return session;
+    },
+  },
 
   // Session Configuration
   session: {
