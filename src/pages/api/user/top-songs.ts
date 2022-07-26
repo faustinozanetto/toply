@@ -7,6 +7,7 @@ import { getSession } from 'next-auth/react';
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const apiURL = `me/top/tracks`;
   const session = await getSession({ req });
+  // @ts-ignore
   const data = await fetchSpotifyEndpoint(apiURL, session?.user?.accessToken);
   console.log(data);
   res.status(200).json(data);

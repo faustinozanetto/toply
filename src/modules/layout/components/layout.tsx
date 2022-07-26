@@ -17,7 +17,7 @@ const Layout: React.FC<ILayoutProps> = (props) => {
 
       {/* Content */}
       <div className='flex flex-col flex-1 p-4 sm:px-6 md:px-8'>
-        <main className='max-w-3xl mx-auto'>{children}</main>
+        <main className='max-w-xl mx-auto'>{children}</main>
       </div>
 
       {/* Footer */}
