@@ -10,7 +10,7 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
   const topSongs = useSelector(selectTopSongs);
 
   return (
-    <div className='w-[350px] p-4 mt-10 shadow-2xl bg-gradient-to-r from-gray-100 to-gray-300 rounded-xl'>
+    <div className='w-[350px] p-4 shadow-2xl bg-gradient-to-r from-gray-100 to-gray-300 rounded-xl'>
       <div
         className='grid gap-1.5'
         style={{
