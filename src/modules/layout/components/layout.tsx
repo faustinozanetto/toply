@@ -17,7 +17,7 @@ const Layout: React.FC<ILayoutProps> = (props) => {
 
       {/* Content */}
       <div className='flex flex-col flex-1 p-4 sm:px-6 md:px-8'>
-        <main className='max-w-xl mx-auto'>
+        <main className='max-w-xl mx-auto w-full'>
           {/* Title */}
           <div
             className='flex flex-col w-full p-4 mb-4 rounded-lg drop-shadow-2xl'
@@ -34,7 +34,7 @@ const Layout: React.FC<ILayoutProps> = (props) => {
       </div>
 
       {/* Footer */}
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

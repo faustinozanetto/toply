@@ -1,16 +1,50 @@
 import { handleImageGeneration, saveImageToFile } from '@lib/image-generation';
+import { fetchTopSongs } from '@lib/spotify-helper';
 import ResultImage from '@modules/image/components/result-image';
-import { selectTopSongs } from '@state/slices/toply.slice';
-import React, { useRef } from 'react';
-import { useSelector } from 'react-redux';
+import Results from '@modules/image/components/results';
+import Loading from '@modules/loading/components/loading';
+import { selectTopSongs, setTopSongs } from '@state/slices/toply.slice';
+import {
+  SpotifyTrackType,
+  ToplyDataTimeStapEnum,
+} from '@typedefs/toply.typesdefs';
+import { useSession } from 'next-auth/react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Customization from '../../customization/components/customization';
 
 interface IDashboardProps {}
 
 const Dashboard: React.FC<IDashboardProps> = (props) => {
   const {} = props;
-  const frameRef = useRef<HTMLDivElement>(null);
+  const { data: session } = useSession();
+  const dispatch = useDispatch();
+  const [fetchingSongs, setFetchingSongs] = useState(false);
   const topSongs = useSelector(selectTopSongs);
+  const frameRef = useRef<HTMLDivElement>(null);
+
+  /*
+   * Fetchs the top songs from Spotify and sets them in the store
+   */
+  useEffect(() => {
+    if (topSongs.length === 0) {
+      const fetchData = async () => {
+        setFetchingSongs(true);
+        await fetchTopSongs(
+          // @ts-ignore
+          session?.user.accessToken,
+          ToplyDataTimeStapEnum.MONTH
+        ).then((data) => {
+          dispatch(setTopSongs(data as SpotifyTrackType[]));
+        });
+      };
+
+      fetchData().then(() => setFetchingSongs(false));
+    } else {
+      console.log('Already fetched');
+      setFetchingSongs(false);
+    }
+  }, [session?.user?.name]);
 
   const handleExport = async (): Promise<void> => {
     if (frameRef && frameRef.current) {
@@ -29,35 +63,20 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
   };
 
   return (
-    <div className='flex flex-col w-full '>
+    <div className='flex flex-col w-full'>
       {/* Header */}
       {/* <DashboardHeader /> */}
       {/* Customization */}
       <Customization />
-
-      {/*  {topSongs?.length &&
-        topSongs.map((song) => {
-          return (
-            <div
-              className='flex flex-col bg-white p-3 mb-1 rounded-lg drop-shadow-2xl justify-center '
-              key={song.id}
-            >
-              <span className='text-lg font-semibold text-black'>
-                {song.name}
-              </span>
-            </div>
-          );
-        })} */}
       <div
         className='grid grid-rows-2 items-center justify-center mt-10'
         ref={frameRef}
       >
-        <ResultImage rotation='10deg' />
-        <ResultImage rotation='-10deg' />
+        {fetchingSongs && !topSongs?.length ? <Loading /> : <Results />}
       </div>
 
       {/* Make a button float on the bottom right */}
-      <div className='fixed right-0 bottom-0 p-2'>
+      <div className='fixed right-0 bottom-5 p-2'>
         <button
           className='transition-colors inline-flex items-center justify-center p-2 overflow-hidden text-lg font-semibold text-white rounded-lg bg-rose-700 hover:bg-pink-600 '
           aria-label='Load Data'

@@ -13,7 +13,9 @@ export const authOptions: NextAuthOptions = {
       clientId: SPOTIFY_CLIENT_ID,
       clientSecret: SPOTIFY_CLIENT_SECRET,
       authorization: {
-        params: { scope: 'user-read-recently-played user-top-read' },
+        params: {
+          scope: 'user-top-read',
+        },
       },
     }),
   ],

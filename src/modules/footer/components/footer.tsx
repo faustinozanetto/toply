@@ -6,7 +6,7 @@ const Footer: React.FC<IFooterProps> = (props) => {
   const {} = props;
 
   return (
-    <footer className='flex flex-col items-center justify-center text-center text-gray-500'>
+    <footer className='flex flex-col items-center justify-center text-center text-gray-500 mt-10 p-4'>
       <p className='text-lg text-black font-semibold'>
         Made with{' '}
         <span role='img' aria-label='heart'>
