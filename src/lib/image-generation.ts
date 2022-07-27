@@ -22,7 +22,7 @@ export const handleImageGeneration = async (elementRef: HTMLDivElement) => {
     quality: 1,
   };
 
-  return toBlob(elementRef, options);
+  return toPng(elementRef, options);
 };
 
 /**

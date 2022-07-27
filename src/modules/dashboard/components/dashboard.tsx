@@ -12,7 +12,7 @@ import {
   ToplyDataTimeStapEnum,
 } from '@typedefs/toply.typesdefs';
 import { useSession } from 'next-auth/react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Customization from '../../customization/components/customization';
 
@@ -48,12 +48,12 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
     }
   }, [session?.user?.name]);
 
-  const handleExport = async (): Promise<void> => {
+  const handleExport = useCallback(() => {
     if (frameRef && frameRef.current) {
       return handleImageGeneration(frameRef.current).then(async (dataUrl) => {
         try {
           if (dataUrl) {
-            copyImageToClipboard(dataUrl).then(() => {
+            saveImageToFile(dataUrl).then(() => {
               console.log('Image copied');
             });
           }
@@ -62,7 +62,7 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
         }
       });
     }
-  };
+  }, [frameRef]);
 
   return (
     <div className='flex flex-col w-full'>
@@ -82,9 +82,7 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
         <button
           className='transition-colors inline-flex items-center justify-center p-2 overflow-hidden text-lg font-semibold text-white rounded-lg bg-rose-700 hover:bg-pink-600 '
           aria-label='Load Data'
-          onClick={async () => {
-            await handleExport();
-          }}
+          onClick={handleExport}
         >
           Save Image
         </button>
