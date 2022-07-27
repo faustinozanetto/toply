@@ -2,7 +2,6 @@ import { selectTopSongs } from '@state/slices/toply.slice';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Customization from '../../customization/components/customization';
-import DashboardHeader from './dashboard-header';
 
 interface IDashboardProps {}
 
@@ -20,8 +19,13 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
       {topSongs?.length &&
         topSongs.map((song) => {
           return (
-            <div className='flex flex-col items-center justify-center text-center pb-4'>
-              <h2 className='text-2xl font-semibold text-black'>{song.name}</h2>
+            <div
+              className='flex flex-col bg-white p-3 mb-1 rounded-lg drop-shadow-2xl justify-center '
+              key={song.id}
+            >
+              <span className='text-lg font-semibold text-black'>
+                {song.name}
+              </span>
             </div>
           );
         })}

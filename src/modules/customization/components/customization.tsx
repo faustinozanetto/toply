@@ -1,11 +1,29 @@
-import { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
+import { fetchTopSongs, parseTimeSpan } from '@lib/spotify-helper';
+import {
+  setTopSongs,
+  setTimeSpan,
+  selectTimeSpan,
+} from '@state/slices/toply.slice';
+import { SpotifyTrackType } from '@typedefs/toply.typesdefs';
+import { useSession } from 'next-auth/react';
 import React from 'react';
-import CustomizationTimespanButton from './customization-timespan-button';
+import { useDispatch, useSelector } from 'react-redux';
+import CustomizationTimespan from './time-span/customization-timespan';
 
 interface ICustomizationProps {}
 
 const Customization: React.FC<ICustomizationProps> = (props) => {
   const {} = props;
+  const dispatch = useDispatch();
+  const { data: session } = useSession();
+  const timeSpan = useSelector(selectTimeSpan);
+
+  const fetchSongs = () => {
+    // @ts-ignore
+    fetchTopSongs(session?.user.accessToken, timeSpan).then((data) => {
+      dispatch(setTopSongs(data as SpotifyTrackType[]));
+    });
+  };
 
   return (
     <div className='flex flex-col bg-white p-4 mb-4 rounded-lg drop-shadow-2xl justify-center '>
@@ -13,17 +31,18 @@ const Customization: React.FC<ICustomizationProps> = (props) => {
         Customize your picture
       </h2>
       {/* Timespan */}
-      <div className='flex flex-col items-center justify-center text-center pb-4'>
-        <h3 className='text-xl text-semibold font-normal'>
-          Select the time span of the data
-        </h3>
-      </div>
-      <div className='grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-4'>
-        <CustomizationTimespanButton timeSpan={ToplyDataTimeStapEnum.MONTH} />
-        <CustomizationTimespanButton
-          timeSpan={ToplyDataTimeStapEnum.SEMESTER}
-        />
-        <CustomizationTimespanButton timeSpan={ToplyDataTimeStapEnum.ALLTIME} />
+      <CustomizationTimespan />
+
+      <div className='flex flex-col mt-2 justify-center '>
+        <button
+          className='transition-colors inline-flex items-center justify-center p-1 overflow-hidden text-md font-semibold text-white rounded-lg bg-orange-700 hover:bg-orange-600 '
+          aria-label='Load Data'
+          onClick={() => {
+            fetchSongs();
+          }}
+        >
+          <span className='relative py-2 px-3'>Load </span>
+        </button>
       </div>
     </div>
   );
