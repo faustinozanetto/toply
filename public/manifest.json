@@ -1,0 +1,11 @@
+{
+  "theme_color": "#4f46e5",
+  "background_color": "#4f46e5",
+  "display": "minimal-ui",
+  "scope": "/",
+  "start_url": "/",
+  "id": "/",
+  "name": "Toply",
+  "short_name": "Toply",
+  "description": "Toply is a web app for retrieve and showing your favourite artists and songs from Spotify."
+}

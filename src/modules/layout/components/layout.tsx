@@ -17,7 +17,20 @@ const Layout: React.FC<ILayoutProps> = (props) => {
 
       {/* Content */}
       <div className='flex flex-col flex-1 p-4 sm:px-6 md:px-8'>
-        <main className='max-w-xl mx-auto'>{children}</main>
+        <main className='max-w-xl mx-auto'>
+          {/* Title */}
+          <div
+            className='flex flex-col w-full p-4 mb-4 rounded-lg drop-shadow-2xl'
+            style={{
+              background:
+                'linear-gradient(to right, rgb(202, 138, 4), rgb(220, 38, 38))',
+            }}
+          >
+            <h1 className='text-4xl font-black text-white'>Toply</h1>
+          </div>
+          {/* Children */}
+          {children}
+        </main>
       </div>
 
       {/* Footer */}

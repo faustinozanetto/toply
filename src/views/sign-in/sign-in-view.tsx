@@ -8,7 +8,7 @@ const SignInView: React.FC<ISignInViewProps> = (props) => {
   const {} = props;
 
   return (
-    <div className='flex flex-col w-full bg-white p-4 rounded-lg drop-shadow-2xl'>
+    <div className='flex flex-col w-full p-4 rounded-lg drop-shadow-2xl bg-white'>
       {/* Heading */}
       <div className='flex flex-col items-center justify-center text-center pb-4'>
         <h1 className='text-3xl font-semibold text-black'>Sign In Now</h1>
