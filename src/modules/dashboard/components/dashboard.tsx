@@ -1,7 +1,7 @@
 import { selectTopSongs } from '@state/slices/toply.slice';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import DashboardCustomization from './dashboard-customization';
+import Customization from '../../customization/components/customization';
 import DashboardHeader from './dashboard-header';
 
 interface IDashboardProps {}
@@ -15,7 +15,7 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
       {/* Header */}
       {/* <DashboardHeader /> */}
       {/* Customization */}
-      <DashboardCustomization />
+      <Customization />
 
       {topSongs?.length &&
         topSongs.map((song) => {

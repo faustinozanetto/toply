@@ -44,6 +44,13 @@ export type SpotifyTrackType = {
   artists?: SpotifyArtistType[];
 };
 
+export enum ToplyDataTimeStapEnum {
+  MONTH = 'Month',
+  SEMESTER = 'Semester',
+  ALLTIME = 'All Time',
+}
+
 export type ToplyStateType = {
   topSongs: SpotifyTrackType[];
+  timeSpan: ToplyDataTimeStapEnum;
 };
