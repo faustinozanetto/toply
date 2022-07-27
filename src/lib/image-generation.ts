@@ -1,4 +1,4 @@
-import { toPng } from 'html-to-image';
+import { toBlob, toPng } from 'html-to-image';
 import type { Options } from 'html-to-image/lib/options';
 
 /*
@@ -22,7 +22,7 @@ export const handleImageGeneration = async (elementRef: HTMLDivElement) => {
     quality: 1,
   };
 
-  return toPng(elementRef, options);
+  return toBlob(elementRef, options);
 };
 
 /**
@@ -42,4 +42,27 @@ export const saveImageToFile = (dataUrl: string | Blob): Promise<void> => {
       reject(error);
     }
   });
+};
+
+/**
+ * Asks for permission and creates the clipboard object with the image data and then tries to copy it to the clipboard.
+ * @param dataUrl url from the generated image.
+ * @returns a promise containing the result of the copy operation.
+ */
+export const copyImageToClipboard = async (
+  dataUrl: string | Blob
+): Promise<void> => {
+  const IS_FIREFOX = !(navigator.userAgent.indexOf('Firefox') < 0);
+  if (!IS_FIREFOX) {
+    navigator.permissions
+      // @ts-ignore
+      .query({ name: 'clipboard-write' })
+      .then(async (result) => {
+        if (result.state === 'granted') {
+          const type = 'image/png';
+          const data = [new ClipboardItem({ [type]: dataUrl })];
+          return navigator.clipboard.write(data);
+        }
+      });
+  }
 };

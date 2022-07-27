@@ -1,4 +1,8 @@
-import { handleImageGeneration, saveImageToFile } from '@lib/image-generation';
+import {
+  copyImageToClipboard,
+  handleImageGeneration,
+  saveImageToFile,
+} from '@lib/image-generation';
 import { fetchTopSongs } from '@lib/spotify-helper';
 import Results from '@modules/image/components/results';
 import Loading from '@modules/loading/components/loading';
@@ -49,8 +53,8 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
       return handleImageGeneration(frameRef.current).then(async (dataUrl) => {
         try {
           if (dataUrl) {
-            saveImageToFile(dataUrl).then(() => {
-              console.log('Image saved');
+            copyImageToClipboard(dataUrl).then(() => {
+              console.log('Image copied');
             });
           }
         } catch (error) {
