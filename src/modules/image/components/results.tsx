@@ -10,10 +10,10 @@ const Results: React.FC<IResultsProps> = (props) => {
   const { data: session } = useSession();
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col w-full'>
       {/* Header */}
-      <div className='flex flex-col items-center justify-center text-center bg-white rounded-xl mb-4'>
-        <h2 className='text-2xl w-full text-black font-bold leading-loose'>
+      <div className='flex flex-col items-center justify-center text-center bg-white rounded-xl mb-4 w-full'>
+        <h2 className='text-xl w-full text-black font-bold leading-loose xs:text-2xl sm:text-3xl'>
           📊 {session?.user?.name}&apos;s Toply
         </h2>
       </div>

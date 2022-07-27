@@ -10,13 +10,8 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
   const topSongs = useSelector(selectTopSongs);
 
   return (
-    <div className='w-[350px] p-4 shadow-2xl bg-gradient-to-r from-gray-100 to-gray-300 rounded-xl'>
-      <div
-        className='grid gap-1.5'
-        style={{
-          gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
-        }}
-      >
+    <div className='w-full p-4 shadow-2xl bg-gradient-to-r from-gray-100 to-gray-300 rounded-xl'>
+      <div className='grid grid-cols-3 gap-2'>
         {topSongs?.map((song, index) => {
           return (
             <motion.div
@@ -40,7 +35,7 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
                 type: 'spring',
               }}
             >
-              <div className='flex flex-col justify-center items-center w-[100px] h-[100px]'>
+              <div className='flex flex-col justify-center items-center '>
                 <img
                   src={song.album?.images?.[0]?.url}
                   alt={song.name}

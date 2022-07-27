@@ -37,14 +37,14 @@ const CustomizationTimespanButton: React.FC<
 
   return (
     <button
-      className='transition-colors inline-flex items-center justify-center p-1 overflow-hidden text-md font-semibold text-white rounded-lg bg-rose-700 hover:bg-pink-600 '
+      className='transition-colors inline-flex items-center justify-center p-1 overflow-hidden text-sm font-semibold text-white rounded-lg bg-rose-700 hover:bg-pink-600 sm:text-md'
       aria-label={`${timeSpan} Time Span`}
       onClick={async () => {
         dispatch(setTimeSpan(timeSpan));
         fetchSongs();
       }}
     >
-      <span className='relative py-2 px-3'>{timeSpan}</span>
+      <span className='relative py-1.5 sm:py-2'>{timeSpan}</span>
     </button>
   );
 };

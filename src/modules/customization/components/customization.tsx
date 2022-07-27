@@ -8,7 +8,7 @@ const Customization: React.FC<ICustomizationProps> = (props) => {
 
   return (
     <div className='flex flex-col bg-white p-4 mb-4 rounded-lg drop-shadow-2xl justify-center '>
-      <h2 className='text-2xl font-semibold text-black'>
+      <h2 className='text-xl font-semibold text-black sm:text-2xl'>
         Customize your picture
       </h2>
       {/* Timespan */}
