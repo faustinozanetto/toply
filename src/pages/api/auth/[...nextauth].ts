@@ -36,8 +36,8 @@ export const authOptions: NextAuthOptions = {
   // Session Configuration
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60 * 24 * 7,
-    updateAge: 60 * 60 * 24,
+    maxAge: 60 * 2,
+    updateAge: 60,
   },
 
   // Secret Configuration

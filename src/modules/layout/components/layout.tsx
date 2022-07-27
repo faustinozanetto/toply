@@ -34,7 +34,7 @@ const Layout: React.FC<ILayoutProps> = (props) => {
       </div>
 
       {/* Footer */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

@@ -16,7 +16,7 @@ const CustomizationTimespan: React.FC<ICustomizationTimespanProps> = (
           Select the time span of the data
         </h3>
       </div>
-      <div className='grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-4'>
+      <div className='grid grid-cols-3 gap-2 md:gap-4'>
         <CustomizationTimespanButton timeSpan={ToplyDataTimeStapEnum.MONTH} />
         <CustomizationTimespanButton
           timeSpan={ToplyDataTimeStapEnum.SEMESTER}
