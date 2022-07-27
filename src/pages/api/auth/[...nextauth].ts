@@ -24,7 +24,6 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, account }) {
       if (account) {
         token.id = account.id;
-        token.expires_at = account.expires_at;
         token.accessToken = account.access_token;
       }
       return token;
@@ -38,8 +37,8 @@ export const authOptions: NextAuthOptions = {
   // Session Configuration
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 2,
-    updateAge: 60,
+    maxAge: 60 * 5,
+    updateAge: 60 * 2,
   },
 
   // Secret Configuration

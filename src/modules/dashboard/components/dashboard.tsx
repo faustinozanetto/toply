@@ -27,7 +27,7 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
    * Fetchs the top songs from Spotify and sets them in the store
    */
   useEffect(() => {
-    if (topSongs.length === 0) {
+    if (topSongs.length === 0 && session?.user?.name) {
       const fetchData = async () => {
         setFetchingSongs(true);
         await fetchTopSongs(

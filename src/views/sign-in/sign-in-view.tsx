@@ -1,5 +1,4 @@
 import SignInButton from '@modules/auth/sign-in/components/sign-in-button';
-import { signIn } from 'next-auth/react';
 import React from 'react';
 
 interface ISignInViewProps {}
@@ -21,16 +20,7 @@ const SignInView: React.FC<ISignInViewProps> = (props) => {
         </p>
       </div>
       {/* Sign in */}
-      <SignInButton
-        onClick={async () =>
-          await signIn('spotify', {
-            redirect: true,
-            callbackUrl: '/',
-          })
-        }
-      >
-        Sign In with Spotify
-      </SignInButton>
+      <SignInButton>Sign In with Spotify</SignInButton>
     </div>
   );
 };
