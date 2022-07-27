@@ -15,17 +15,25 @@ const ResultImage: React.FC<IResultImageProps> = (props) => {
 
   const getTracks = useMemo(() => {
     if (topSongs && topSongs.length) {
-      return topSongs.slice(startingIndex, startingIndex + 5);
+      return topSongs.slice(startingIndex, startingIndex + 10);
     }
   }, [topSongs]);
 
   return (
     <div
-      className='block w-[320px] p-2 bg-gradient-to-r from-gray-100 to-gray-300'
-      style={{ transform: `rotate(${rotation})` }}
+      className='relative w-[350px] h-[330px] p-4shadow-2xl'
+      style={{
+        transform: `rotate(${rotation})`,
+        background: 'url(./assets/images/rough-paper.png)',
+        backgroundSize: '100%',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
     >
+      {/* Red Dot */}
+      <div className='absolute top-0 left-1/2 w-8 h-8 rounded-full z-10 bg-red-500' />
       {/* Image Content */}
-      <div className='flex flex-col w-full mb-2 p-2 bg-zinc-800 justify-start items-start sepia'>
+      <div className='flex flex-col w-full p-2 justify-start items-start sepia'>
         {getTracks?.map((song, index) => {
           return (
             <motion.div
@@ -54,11 +62,6 @@ const ResultImage: React.FC<IResultImageProps> = (props) => {
           );
         })}
       </div>
-
-      {/* Bottom */}
-      <span className='font-black'>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-      </span>
     </div>
   );
 };

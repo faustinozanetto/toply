@@ -1,17 +1,13 @@
 import React from 'react';
 import ResultImage from './result-image';
+import ResultPhoto from './result-photo';
 
 interface IResultsProps {}
 
 const Results: React.FC<IResultsProps> = (props) => {
   const {} = props;
 
-  return (
-    <>
-      <ResultImage rotation='10deg' startingIndex={0} />
-      <ResultImage rotation='-10deg' startingIndex={5} />
-    </>
-  );
+  return <ResultPhoto />;
 };
 
 export default Results;
