@@ -1,6 +1,5 @@
 import { handleImageGeneration, saveImageToFile } from '@lib/image-generation';
 import { fetchTopSongs } from '@lib/spotify-helper';
-import ResultImage from '@modules/image/components/result-image';
 import Results from '@modules/image/components/results';
 import Loading from '@modules/loading/components/loading';
 import { selectTopSongs, setTopSongs } from '@state/slices/toply.slice';
@@ -41,7 +40,6 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
 
       fetchData().then(() => setFetchingSongs(false));
     } else {
-      console.log('Already fetched');
       setFetchingSongs(false);
     }
   }, [session?.user?.name]);
