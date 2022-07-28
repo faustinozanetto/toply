@@ -81,12 +81,11 @@ export const openImageInBrowser = (dataUrl: Blob | string): Promise<void> => {
   return new Promise((resolve, reject) => {
     try {
       const data = window.URL.createObjectURL(dataUrl as Blob);
-      const link = document.createElement('a');
-      link.href = data as string;
-      link.target = '_blank';
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
+      const win = window.open(data, '_blank');
+      if (win) {
+        win.focus();
+        resolve();
+      }
       resolve();
     } catch (error) {
       reject(error);
