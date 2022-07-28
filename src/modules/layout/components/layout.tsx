@@ -23,10 +23,10 @@ const Layout: React.FC<ILayoutProps> = (props) => {
             className='flex flex-col w-full p-4 mb-4 rounded-lg drop-shadow-2xl'
             style={{
               background:
-                'linear-gradient(to right, rgb(202, 138, 4), rgb(220, 38, 38))',
+                'linear-gradient(to right, rgb(190, 18, 60), rgb(219, 39, 119))',
             }}
           >
-            <h1 className='text-4xl font-black text-white'>Toply</h1>
+            <h1 className='text-3xl font-black text-white'>Toply</h1>
           </div>
           {/* Children */}
           {children}

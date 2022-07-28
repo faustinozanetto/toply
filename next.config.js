@@ -5,6 +5,9 @@ module.exports = {
   eslint: {
     dirs: ['.'],
   },
+  images: {
+    domains: ['i.scdn.co'],
+  },
   swcMinify: true,
   poweredByHeader: false,
   trailingSlash: true,

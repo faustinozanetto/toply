@@ -33,6 +33,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     authOptions
   );
 
+  // If not logged in, redirect to login page
   if (!session) {
     return {
       redirect: {

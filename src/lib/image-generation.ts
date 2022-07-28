@@ -4,25 +4,31 @@ import type { Options } from 'html-to-image/lib/options';
 /*
  * Generates the actual image using the correct quality and styling.
  */
-export const handleImageGeneration = async (elementRef: HTMLDivElement) => {
+export const handleImageGeneration = async (
+  elementRef: HTMLDivElement,
+  isBlob: boolean = false
+) => {
   if (!elementRef) {
     return;
   }
 
   const options: Options = {
     height: elementRef.clientHeight + 100,
-    width: elementRef.clientWidth,
+    width: elementRef.clientWidth + 25,
     style: {
       background: 'linear-gradient(to right, #6366f1, #a855f7, #ec4899)',
       padding: '0',
       margin: '0',
       border: '0',
     },
+    cacheBust: true,
     pixelRatio: 2,
     quality: 1,
   };
 
-  return toPng(elementRef, options);
+  // Generate the image.
+  if (!isBlob) return toPng(elementRef, options);
+  return toBlob(elementRef, options);
 };
 
 /**

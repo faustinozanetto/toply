@@ -8,6 +8,7 @@ import {
 
 const initialState: ToplyStateType = {
   topSongs: [],
+  topSongsLoading: true,
   timeSpan: ToplyDataTimeStapEnum.MONTH,
 };
 
@@ -18,13 +19,19 @@ export const toplySlice = createSlice({
     setTopSongs: (state, action: PayloadAction<SpotifyTrackType[]>) => {
       Object.assign(state, { topSongs: action.payload });
     },
+    setTopSongsLoading: (state, action: PayloadAction<boolean>) => {
+      Object.assign(state, { topSongsLoading: action.payload });
+    },
     setTimeSpan: (state, action: PayloadAction<ToplyDataTimeStapEnum>) => {
       Object.assign(state, { timeSpan: action.payload });
     },
   },
 });
 
-export const { setTopSongs, setTimeSpan } = toplySlice.actions;
+export const { setTopSongs, setTopSongsLoading, setTimeSpan } =
+  toplySlice.actions;
 
 export const selectTopSongs = (state: RootState) => state.topSongs;
+export const selectTopSongsLoading = (state: RootState) =>
+  state.topSongsLoading;
 export const selectTimeSpan = (state: RootState) => state.timeSpan;

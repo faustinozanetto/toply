@@ -11,15 +11,6 @@ export const parseTopSongs = (
 ): SpotifyTrackType[] => {
   let tracks: SpotifyTrackType[] = [];
   data.items.map((track) => {
-    // Populate basic track data.
-    const foundTrack: SpotifyTrackType = {
-      id: track.id,
-      name: track.name,
-      href: track.href,
-      thumbnail: track.href,
-      uri: track.uri,
-      popularity: track.popularity,
-    };
     const trackArtists: SpotifyArtistType[] = [];
     // Populate track artists.
     track.artists.map((artist) => {
@@ -36,7 +27,7 @@ export const parseTopSongs = (
       trackArtists.push(foundArtist);
     });
     // Populate track album.
-    const foundAlbum: SpotifyAlbumType = {
+    const trackAlbum: SpotifyAlbumType = {
       id: track.album.id,
       name: track.album.name,
       uri: track.album.uri,
@@ -48,8 +39,17 @@ export const parseTopSongs = (
           ? SpotifyAlbumCategoryEnum.ALBUM
           : SpotifyAlbumCategoryEnum.SINGLE,
     };
-    foundTrack.artists = trackArtists;
-    foundTrack.album = foundAlbum;
+    // Populate basic track data.
+    const foundTrack: SpotifyTrackType = {
+      id: track.id,
+      name: track.name,
+      href: track.href,
+      thumbnail: track.href,
+      uri: track.uri,
+      popularity: track.popularity,
+      album: trackAlbum,
+      artists: trackArtists,
+    };
     // Populate track
     tracks.push(foundTrack);
   });

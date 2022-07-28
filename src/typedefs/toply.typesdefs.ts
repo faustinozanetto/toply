@@ -14,10 +14,10 @@ export type SpotifyAlbumType = {
   href: string;
   name: string;
   uri: string;
-  images?: SpotifyImageType[];
-  type?: SpotifyAlbumCategoryEnum;
-  artists?: SpotifyArtistType[];
-  external_urls?: {
+  images: SpotifyImageType[];
+  type: SpotifyAlbumCategoryEnum;
+  artists: SpotifyArtistType[];
+  external_urls: {
     spotify: string;
   };
 };
@@ -40,8 +40,8 @@ export type SpotifyTrackType = {
   thumbnail: string;
   uri: string;
   popularity: number;
-  album?: SpotifyAlbumType;
-  artists?: SpotifyArtistType[];
+  album: SpotifyAlbumType;
+  artists: SpotifyArtistType[];
 };
 
 export enum ToplyDataTimeStapEnum {
@@ -52,5 +52,6 @@ export enum ToplyDataTimeStapEnum {
 
 export type ToplyStateType = {
   topSongs: SpotifyTrackType[];
+  topSongsLoading: boolean;
   timeSpan: ToplyDataTimeStapEnum;
 };
