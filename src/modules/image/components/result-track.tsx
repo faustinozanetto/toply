@@ -36,9 +36,11 @@ const ResultTrack: React.FC<IResultTrackProps> = (props) => {
       }}
     >
       <Image
-        src={track.album.images[0].url}
+        src={track.album.images[1].url}
         alt={track.name}
         key={track.id}
+        layout='responsive'
+        quality={45}
         width={165}
         height={165}
       />

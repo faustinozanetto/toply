@@ -15,7 +15,7 @@ const Results: React.FC<IResultsProps> = (props) => {
   return (
     <div className='flex flex-col w-full'>
       {/* Header */}
-      <div className='flex flex-col items-center justify-center text-center bg-white rounded-lg mb-4 w-full'>
+      <div className='flex flex-col items-center justify-center  bg-white rounded-lg mb-4 p-1 w-full'>
         {fetchingSongs ? (
           <Skeleton style={{ height: '50px' }} />
         ) : (

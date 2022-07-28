@@ -1,4 +1,4 @@
-import { toBlob, toPng } from 'html-to-image';
+import { toBlob, toJpeg, toPng } from 'html-to-image';
 import type { Options } from 'html-to-image/lib/options';
 
 /*
@@ -13,7 +13,7 @@ export const handleImageGeneration = async (
   }
 
   const options: Options = {
-    height: elementRef.clientHeight + 100,
+    height: elementRef.clientHeight + 75,
     width: elementRef.clientWidth + 25,
     style: {
       background: 'linear-gradient(to right, #6366f1, #a855f7, #ec4899)',
@@ -21,13 +21,12 @@ export const handleImageGeneration = async (
       margin: '0',
       border: '0',
     },
-    cacheBust: true,
-    pixelRatio: 2,
+    pixelRatio: 1.35,
     quality: 1,
   };
 
   // Generate the image.
-  if (!isBlob) return toPng(elementRef, options);
+  if (!isBlob) return toJpeg(elementRef, options);
   return toBlob(elementRef, options);
 };
 
@@ -40,7 +39,7 @@ export const saveImageToFile = (dataUrl: string | Blob): Promise<void> => {
     try {
       const link = document.createElement('a');
       const NAME = 'Toply';
-      link.download = `${NAME}.png`;
+      link.download = `${NAME}.jpg`;
       link.href = dataUrl as string;
       link.click();
       resolve();
