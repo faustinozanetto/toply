@@ -7,3 +7,4 @@ export const BASIC = Buffer.from(
 export const SPOTIFY_API: string = 'https://api.spotify.com/v1';
 export const SPOTIFY_USER_TOKEN: string =
   'https://accounts.spotify.com/api/token';
+export const GOOGLE_CLIENT_ID: string = 'G-Z61YWCGW02';

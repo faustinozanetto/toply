@@ -1,12 +1,18 @@
+import { trackPageView } from '@lib/google';
 import Layout from '@modules/layout/components/layout';
 import HomeView from '@views/home/home-view';
 import { GetServerSideProps } from 'next';
 import { unstable_getServerSession } from 'next-auth/next';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { authOptions } from './api/auth/[...nextauth]';
 
 const HomePage: React.FC = (props) => {
   const {} = props;
+
+  useEffect(() => {
+    trackPageView('home');
+  }, []);
+
   return (
     <Layout
       headProps={{
@@ -37,9 +43,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   return {
-    props: {
-    
-    },
+    props: {},
   };
 };
 

@@ -1,3 +1,4 @@
+import { trackEvent } from '@lib/google';
 import { handleImageGeneration, saveImageToFile } from '@lib/image-generation';
 import { parseTopSongs } from '@lib/spotify-helper';
 import Results from '@modules/image/components/results';
@@ -44,6 +45,7 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
         try {
           if (dataUrl) {
             saveImageToFile(dataUrl);
+            trackEvent('Home', 'Save Photo');
           }
         } catch (error) {
           console.error(error);

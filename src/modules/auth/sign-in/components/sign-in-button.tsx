@@ -11,7 +11,6 @@ const SignInButton: React.FC<ISignInButtonProps> = (props) => {
     <button
       className='inline-flex items-center justify-center mt-2 p-1.5 overflow-hidden text-md font-semibold text-[#191414] rounded-lg bg-[#1ed760] hover:bg-[#1db954]'
       onClick={async () => {
-        console.log('hi');
         await signIn('spotify', {
           redirect: true,
           callbackUrl: '/',
