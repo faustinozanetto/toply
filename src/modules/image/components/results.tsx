@@ -4,6 +4,7 @@ import ResultPhoto from './result-photo';
 import { useSelector } from 'react-redux';
 import { selectTopSongsLoading } from '@state/slices/toply.slice';
 import Skeleton from '@modules/loading/components/skeleton';
+import SpotifyLogo from '@modules/branding/components/spotify-logo';
 
 interface IResultsProps {}
 
@@ -19,9 +20,12 @@ const Results: React.FC<IResultsProps> = (props) => {
         {fetchingSongs ? (
           <Skeleton style={{ height: '50px' }} />
         ) : (
-          <h2 className='text-lg w-full text-black font-bold leading-loose sm:text-2xl md:text-3xl'>
-            📊 {session?.user?.name}&apos;s Toply
-          </h2>
+          <div className='flex flex-row items-center justify-start w-full pl-2'>
+            <SpotifyLogo color='#1ed760' size={36} />
+            <h2 className='text-lg w-full text-black font-bold ml-2 leading-loose sm:text-2xl md:text-3xl'>
+              {session?.user?.name}&apos;s Toply
+            </h2>
+          </div>
         )}
       </div>
       {/* Content */}

@@ -18,7 +18,7 @@ const ResultExport: React.FC<ResultExportProps> = (props) => {
         try {
           if (dataUrl) {
             saveImageToFile(dataUrl);
-            trackEvent('Home', 'Save Photo');
+            trackEvent('Home', 'exportPhoto');
           }
         } catch (error) {
           console.error(error);
@@ -31,6 +31,7 @@ const ResultExport: React.FC<ResultExportProps> = (props) => {
     <button
       className='transition-colors inline-flex items-center justify-center p-2 overflow-hidden text-lg font-semibold text-white rounded-lg bg-pink-700 hover:bg-pink-600 '
       aria-label='Export Image'
+      id='export-photo'
       onClick={handleExport}
     >
       <svg

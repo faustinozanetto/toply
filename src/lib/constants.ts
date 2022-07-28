@@ -8,3 +8,4 @@ export const SPOTIFY_API: string = 'https://api.spotify.com/v1';
 export const SPOTIFY_USER_TOKEN: string =
   'https://accounts.spotify.com/api/token';
 export const GOOGLE_CLIENT_ID: string = 'G-Z61YWCGW02';
+export const GOOGLE_TAG_ID: string = 'GTM-PZ97BBV';

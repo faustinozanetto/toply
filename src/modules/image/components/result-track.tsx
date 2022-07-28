@@ -35,7 +35,7 @@ const ResultTrack: React.FC<IResultTrackProps> = (props) => {
         type: 'spring',
       }}
     >
-      <Image
+      {/*   <Image
         src={track.album.images[1].url}
         alt={track.name}
         key={track.id}
@@ -43,7 +43,10 @@ const ResultTrack: React.FC<IResultTrackProps> = (props) => {
         quality={45}
         width={165}
         height={165}
-      />
+      /> */}
+      <picture>
+        <img src={track.album.images[1].url} alt={track.name} key={track.id} />
+      </picture>
     </motion.div>
   );
 };

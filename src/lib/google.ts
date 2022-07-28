@@ -1,5 +1,5 @@
 import ReactGA from 'react-ga';
-import { GOOGLE_CLIENT_ID } from './constants';
+import { GOOGLE_CLIENT_ID, GOOGLE_TAG_ID } from './constants';
 
 export const initializeGTag = () => {
   ReactGA.initialize(GOOGLE_CLIENT_ID); // put your tracking id here
