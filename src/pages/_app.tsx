@@ -19,7 +19,6 @@ const ToplyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider store={store}>
       <SessionProvider session={pageProps.session}>
-        <GoogleAnalytics />
         <Component {...pageProps} />
       </SessionProvider>
     </Provider>
