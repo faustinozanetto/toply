@@ -21,8 +21,7 @@ export const handleImageGeneration = async (
       margin: '0',
       border: '0',
     },
-    pixelRatio: 1.35,
-    quality: 1,
+    quality: 0.5,
   };
 
   // Generate the image.
@@ -81,7 +80,10 @@ export const openImageInBrowser = (dataUrl: Blob | string): Promise<void> => {
   return new Promise((resolve, reject) => {
     try {
       const data = window.URL.createObjectURL(dataUrl as Blob);
-      const win = window.open(data, '_blank');
+      const win = window.open(
+        data,
+        'menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes'
+      );
       if (win) {
         win.focus();
         resolve();
