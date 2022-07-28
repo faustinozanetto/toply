@@ -1,5 +1,9 @@
 import { trackEvent } from '@lib/google';
-import { handleImageGeneration, saveImageToFile } from '@lib/image-generation';
+import {
+  handleImageGeneration,
+  openImageInBrowser,
+  saveImageToFile,
+} from '@lib/image-generation';
 import React, { useCallback } from 'react';
 
 interface ResultExportProps {
@@ -14,16 +18,18 @@ const ResultExport: React.FC<ResultExportProps> = (props) => {
    */
   const handleExport = useCallback(() => {
     if (resultRef && resultRef.current) {
-      return handleImageGeneration(resultRef.current).then(async (dataUrl) => {
-        try {
-          if (dataUrl) {
-            saveImageToFile(dataUrl);
-            trackEvent('Home', 'exportPhoto');
+      return handleImageGeneration(resultRef.current, true).then(
+        async (dataUrl) => {
+          try {
+            if (dataUrl) {
+              openImageInBrowser(dataUrl);
+              trackEvent('Home', 'exportPhoto');
+            }
+          } catch (error) {
+            console.error(error);
           }
-        } catch (error) {
-          console.error(error);
         }
-      });
+      );
     }
   }, [resultRef]);
 

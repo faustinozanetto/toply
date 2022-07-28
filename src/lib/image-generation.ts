@@ -71,3 +71,25 @@ export const copyImageToClipboard = async (
       });
   }
 };
+
+/**
+ *
+ * @param dataUrl url from the generated image.
+ * @returns a promise containing the result of the open operation.
+ */
+export const openImageInBrowser = (dataUrl: Blob | string): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    try {
+      const data = window.URL.createObjectURL(dataUrl as Blob);
+      const link = document.createElement('a');
+      link.href = data as string;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
