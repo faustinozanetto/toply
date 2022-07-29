@@ -1,7 +1,7 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from './constants';
 
-const scopes = ['user-read-email', 'user-top-read'].join(',');
+const scopes = ['user-top-read'].join(',');
 
 const params = {
   scope: scopes,

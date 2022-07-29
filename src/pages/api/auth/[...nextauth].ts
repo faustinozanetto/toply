@@ -1,8 +1,4 @@
-import {
-  NEXTAUTH_SECRET,
-  SPOTIFY_CLIENT_ID,
-  SPOTIFY_CLIENT_SECRET,
-} from '@lib/constants';
+import { NEXTAUTH_SECRET, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from '@lib/constants';
 import spotifyApi, { LOGIN_URL } from '@lib/spotify-api';
 import type { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth';
@@ -48,7 +44,6 @@ export const authOptions: NextAuthOptions = {
           ...token,
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
-          username: account.providerAccountId,
           // @ts-ignore
           accessTokenExpires: account.expires_at * 1000,
         };
@@ -69,8 +64,6 @@ export const authOptions: NextAuthOptions = {
         session.user.accessToken = token.accessToken;
         // @ts-ignore
         session.user.refreshToken = token.refreshToken;
-        // @ts-ignore
-        session.user.username = token.username;
       }
       return session;
     },
