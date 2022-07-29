@@ -36,11 +36,15 @@ export const handleImageGeneration = async (
 export const saveImageToFile = (dataUrl: string | Blob): Promise<void> => {
   return new Promise((resolve, reject) => {
     try {
-      const link = document.createElement('a');
-      const NAME = 'Toply';
-      link.download = `${NAME}.jpg`;
-      link.href = dataUrl as string;
-      link.click();
+      const a = document.createElement('a');
+      if (typeof dataUrl === 'string') {
+        a.href = dataUrl;
+        a.download = 'Toply.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        resolve();
+      }
       resolve();
     } catch (error) {
       reject(error);

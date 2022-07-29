@@ -18,20 +18,16 @@ const ResultExport: React.FC<ResultExportProps> = (props) => {
    */
   const handleExport = useCallback(() => {
     if (resultRef && resultRef.current) {
-      alert('here');
-      return handleImageGeneration(resultRef.current, true).then(
-        async (dataUrl) => {
-          try {
-            if (dataUrl) {
-              alert('Image exported!');
-              openImageInBrowser(dataUrl);
-              trackEvent('Home', 'exportPhoto');
-            }
-          } catch (error) {
-            console.error(error);
+      return handleImageGeneration(resultRef.current).then(async (dataUrl) => {
+        try {
+          if (dataUrl) {
+            saveImageToFile(dataUrl);
+            trackEvent('Home', 'exportPhoto');
           }
+        } catch (error) {
+          console.error(error);
         }
-      );
+      });
     }
   }, [resultRef]);
 
