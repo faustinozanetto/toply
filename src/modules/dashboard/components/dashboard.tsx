@@ -2,6 +2,7 @@ import { parseTopSongs } from '@lib/spotify-helper';
 import ResultCopy from '@modules/image/components/result-copy';
 import ResultExport from '@modules/image/components/result-export';
 import Results from '@modules/image/components/results';
+import LogoutButton from '@modules/user/components/logout-button';
 import {
   selectTopSongs,
   setTopSongs,
@@ -51,9 +52,14 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
       </div>
 
       {/* Export button */}
-      <div className='grid grid-cols-2 gap-2 fixed right-0 bottom-5 p-2'>
+      <div className='grid grid-cols-1 gap-2 fixed right-0 bottom-5 p-2'>
         <ResultExport resultRef={containerRef} />
-        <ResultCopy resultRef={containerRef} />
+        {/* <ResultCopy resultRef={containerRef} /> */}
+      </div>
+
+      {/* Logout Button */}
+      <div className='fixed left-0 bottom-5 p-2'>
+        <LogoutButton />
       </div>
     </div>
   );
