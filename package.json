@@ -22,6 +22,8 @@
     "start:prod": "next start",
     "build": "next build",
     "docker:build": "docker build -t faustizanetto/toply:latest .",
+    "docker:run": "docker-compose up",
+    "docker:start": "docker run -p 3000:3000 -e NODE_ENV=development faustizanetto/toply:latest",
     "eslint": "next lint --fix --dir src",
     "prettier": "prettier -l \"src/**/*.{js,jsx,md,ts,tsx}\"",
     "lint": "yarn prettier && yarn eslint"

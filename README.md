@@ -1,26 +1,44 @@
-# Install dependencies
-FROM node:lts-alpine as DEPS
+# Toply
 
-WORKDIR /opt/app
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+![Alt text](public/assets/images/toply-showcase.jpg 'Showcase')
 
-FROM node:lts-alpine as BUILDER
+## 👀 What is Toply
 
-ENV NODE_ENV production
-WORKDIR /opt/app
-COPY . .
-COPY --from=DEPS /opt/app/node_modules ./node_modules
-RUN yarn build
+Toply is a simple to use and free web application that lets you visualize your most listened songs in Spotify.
 
-FROM node:lts-alpine AS RUNNER
+---
 
-ARG X_TAG
-WORKDIR /opt/app
-ENV NODE_ENV=production
-COPY --from=builder /opt/app/next.config.js ./
-COPY --from=builder /opt/app/public ./public
-COPY --from=builder /opt/app/.next ./.next
-COPY --from=builder /opt/app/node_modules ./node_modules
+## Table of Contents
 
-CMD ["node_modules/.bin/next", "start:dev"]
+- [TechStack](#👨🏻‍💻-tech-stack)
+- [Features](#🌌-features)
+- [Installation](#installation)
+
+---
+
+## 👨🏻‍💻 Tech Stack
+
+Snappy is being developed with a broad variety of technologies such as:
+
+- NextJS - The React Framework for Production.
+- Typescript - JavaScript with syntax for types.
+- TailwindCSS
+
+---
+
+## 🌌 Features
+
+- Visualize your most listened songs on Spotify in a clean and modern way.
+- Download the generated image and share it on your social media!.
+
+---
+
+## 🔧 Installation
+
+```sh
+git clone https://github.com/faustinozanetto/toply # Clone the repo in the folder of choice.
+cd toply # Cd into the cloned repo.
+yarn install # Install the deps with yarn or npm.
+cp .env.example .env # Copy the example env to the .env
+yarn start:dev # Start Toply!.
+```
