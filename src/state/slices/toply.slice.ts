@@ -1,15 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@state/store';
-import {
-  SpotifyTrackType,
-  ToplyDataTimeStapEnum,
-  ToplyStateType,
-} from '@typedefs/toply.typesdefs';
+import { SpotifyTrackType, ToplyDataTimeStapEnum, ToplyStateType } from '@typedefs/toply.typesdefs';
 
 const initialState: ToplyStateType = {
   topSongs: [],
   topSongsLoading: true,
   timeSpan: ToplyDataTimeStapEnum.MONTH,
+  backgroundColor: 'linear-gradient(to right, rgb(251, 113, 133), rgb(217, 70, 239), rgb(99, 102, 241))',
 };
 
 export const toplySlice = createSlice({
@@ -25,13 +22,15 @@ export const toplySlice = createSlice({
     setTimeSpan: (state, action: PayloadAction<ToplyDataTimeStapEnum>) => {
       Object.assign(state, { timeSpan: action.payload });
     },
+    setBackgroundColor: (state, action: PayloadAction<string>) => {
+      Object.assign(state, { backgroundColor: action.payload });
+    },
   },
 });
 
-export const { setTopSongs, setTopSongsLoading, setTimeSpan } =
-  toplySlice.actions;
+export const { setTopSongs, setTopSongsLoading, setTimeSpan, setBackgroundColor } = toplySlice.actions;
 
 export const selectTopSongs = (state: RootState) => state.topSongs;
-export const selectTopSongsLoading = (state: RootState) =>
-  state.topSongsLoading;
+export const selectTopSongsLoading = (state: RootState) => state.topSongsLoading;
 export const selectTimeSpan = (state: RootState) => state.timeSpan;
+export const selectBackgroundColor = (state: RootState) => state.backgroundColor;

@@ -54,4 +54,5 @@ export type ToplyStateType = {
   topSongs: SpotifyTrackType[];
   topSongsLoading: boolean;
   timeSpan: ToplyDataTimeStapEnum;
+  backgroundColor: string;
 };

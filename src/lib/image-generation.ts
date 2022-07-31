@@ -6,17 +6,18 @@ import type { Options } from 'html-to-image/lib/options';
  */
 export const handleImageGeneration = async (
   elementRef: HTMLDivElement,
+  backgroundColor: string,
   isBlob: boolean = false
 ) => {
   if (!elementRef) {
     return;
   }
-
+  console.log(backgroundColor);
   const options: Options = {
     height: elementRef.clientHeight + 75,
     width: elementRef.clientWidth + 25,
     style: {
-      background: 'linear-gradient(to right, #6366f1, #a855f7, #ec4899)',
+      background: backgroundColor,
       padding: '0',
       margin: '0',
       border: '0',
@@ -57,9 +58,7 @@ export const saveImageToFile = (dataUrl: string | Blob): Promise<void> => {
  * @param dataUrl url from the generated image.
  * @returns a promise containing the result of the copy operation.
  */
-export const copyImageToClipboard = async (
-  dataUrl: string | Blob
-): Promise<void> => {
+export const copyImageToClipboard = async (dataUrl: string | Blob): Promise<void> => {
   const IS_FIREFOX = !(navigator.userAgent.indexOf('Firefox') < 0);
   if (!IS_FIREFOX) {
     navigator.permissions
@@ -84,10 +83,7 @@ export const openImageInBrowser = (dataUrl: Blob | string): Promise<void> => {
   return new Promise((resolve, reject) => {
     try {
       const data = window.URL.createObjectURL(dataUrl as Blob);
-      const win = window.open(
-        data,
-        'menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes'
-      );
+      const win = window.open(data, 'menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes');
       if (win) {
         win.focus();
         resolve();
