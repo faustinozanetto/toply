@@ -8,12 +8,9 @@ const GoogleAnalytics: React.FC<IGoogleAnalyticsProps> = (props) => {
 
   return (
     <>
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-Z61YWCGW02" />
       <Script
-        async
-        src='https://www.googletagmanager.com/gtag/js?id=G-Z61YWCGW02'
-      />
-      <Script
-        id='gtag-init'
+        id="gtag-init"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];

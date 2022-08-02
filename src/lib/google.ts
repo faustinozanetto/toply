@@ -16,3 +16,11 @@ export const trackEvent = (category: string, event: string) => {
     nonInteraction: false,
   });
 };
+
+export const trackGAEvent = (name: string, params: Record<string, unknown>): void => {
+  try {
+    window.gtag('event', name, params);
+  } catch (error) {
+    console.warn('Error tracking event', error);
+  }
+};
