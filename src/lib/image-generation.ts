@@ -12,7 +12,7 @@ export const handleImageGeneration = async (
   if (!elementRef) {
     return;
   }
-  console.log(backgroundColor);
+
   const options: Options = {
     height: elementRef.clientHeight + 75,
     width: elementRef.clientWidth + 25,

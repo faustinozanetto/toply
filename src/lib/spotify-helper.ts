@@ -6,9 +6,7 @@ import {
   ToplyDataTimeStapEnum,
 } from '@typedefs/toply.typesdefs';
 
-export const parseTopSongs = (
-  data: SpotifyApi.UsersTopTracksResponse
-): SpotifyTrackType[] => {
+export const parseTopSongs = (data: SpotifyApi.UsersTopTracksResponse): SpotifyTrackType[] => {
   let tracks: SpotifyTrackType[] = [];
   data.items.map((track) => {
     const trackArtists: SpotifyArtistType[] = [];
@@ -34,10 +32,7 @@ export const parseTopSongs = (
       href: track.album.href,
       // @ts-ignore
       images: track.album.images,
-      type:
-        track.album.type === 'album'
-          ? SpotifyAlbumCategoryEnum.ALBUM
-          : SpotifyAlbumCategoryEnum.SINGLE,
+      type: track.album.type === 'album' ? SpotifyAlbumCategoryEnum.ALBUM : SpotifyAlbumCategoryEnum.SINGLE,
     };
     // Populate basic track data.
     const foundTrack: SpotifyTrackType = {
@@ -56,9 +51,7 @@ export const parseTopSongs = (
   return tracks;
 };
 
-export const parseTimeSpan = (
-  timeSpan: ToplyDataTimeStapEnum
-): 'short_term' | 'medium_term' | 'long_term' => {
+export const parseTimeSpan = (timeSpan: ToplyDataTimeStapEnum): 'short_term' | 'medium_term' | 'long_term' => {
   switch (timeSpan) {
     case ToplyDataTimeStapEnum.MONTH:
       return 'short_term';
