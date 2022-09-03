@@ -18,6 +18,7 @@ interface IHomePageProps {
 const HomePage: React.FC<IHomePageProps> = (props) => {
   const { songs } = props;
   const dispatch = useDispatch();
+  
   useEffect(() => {
     trackPageView('home');
   }, []);

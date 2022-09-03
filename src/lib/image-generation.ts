@@ -22,7 +22,7 @@ export const handleImageGeneration = async (
       margin: '0',
       border: '0',
     },
-    quality: 0.65,
+    quality: 0.85,
   };
 
   // Generate the image.
