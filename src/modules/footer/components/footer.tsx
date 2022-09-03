@@ -1,4 +1,5 @@
 import React from 'react';
+
 import FooterLink from './footer-link';
 
 interface IFooterProps {}
@@ -7,12 +8,12 @@ const Footer: React.FC<IFooterProps> = (props) => {
   const {} = props;
 
   return (
-    <footer className='flex flex-col items-center justify-center text-center p-4'>
+    <footer className="flex flex-col items-center justify-center p-4 text-center">
       {/* Top */}
-      <div className='flex flex-row items-center justify-center'>
-        <FooterLink href='/'>Home</FooterLink>
-        <FooterLink href='/privacy'>Privacy</FooterLink>
-        <FooterLink href='/about'>About</FooterLink>
+      <div className="flex flex-row items-center justify-center">
+        <FooterLink href="/">Home</FooterLink>
+        <FooterLink href="/privacy">Privacy</FooterLink>
+        <FooterLink href="/about">About</FooterLink>
       </div>
       {/* Bottom */}
       {/* <div className='flex flex-col items-center justify-center'>

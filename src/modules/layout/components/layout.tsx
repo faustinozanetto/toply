@@ -2,6 +2,7 @@ import Footer from '@modules/footer/components/footer';
 import { selectBackgroundColor } from '@state/slices/toply.slice';
 import React from 'react';
 import { useSelector } from 'react-redux';
+
 import LayoutHead from './layout-head';
 
 interface ILayoutProps {
@@ -15,18 +16,18 @@ const Layout: React.FC<ILayoutProps> = (props) => {
 
   return (
     <div
-      className="flex flex-col min-h-screen font-poppins overflow-hidden subpixel-antialiased transition-all"
+      className="flex min-h-screen flex-col overflow-hidden font-poppins subpixel-antialiased transition-all"
       style={{ background: backgroundColor }}
     >
       {/* Head */}
       <LayoutHead {...headProps} />
 
       {/* Content */}
-      <div className="flex flex-col flex-1 p-4 sm:px-6 md:px-8">
-        <main className="max-w-xl mx-auto w-full">
+      <div className="flex flex-1 flex-col p-4 sm:px-6 md:px-8">
+        <main className="mx-auto w-full max-w-xl">
           {/* Title */}
           <div
-            className="flex flex-col w-full p-4 mb-4 rounded-lg drop-shadow-2xl"
+            className="mb-4 flex w-full flex-col rounded-lg p-4 drop-shadow-2xl"
             style={{
               background: 'linear-gradient(to right, rgb(190, 18, 60), rgb(219, 39, 119))',
             }}

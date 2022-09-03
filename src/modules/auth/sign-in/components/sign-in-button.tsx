@@ -9,7 +9,7 @@ const SignInButton: React.FC<ISignInButtonProps> = (props) => {
 
   return (
     <button
-      className='inline-flex items-center justify-center mt-2 p-1.5 overflow-hidden text-md font-semibold text-[#191414] rounded-lg bg-[#1ed760] hover:bg-[#1db954]'
+      className="mt-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-[#1ed760] p-1.5 text-base font-semibold text-[#191414] hover:bg-[#1db954]"
       onClick={async () => {
         await signIn('spotify', {
           redirect: true,
@@ -18,8 +18,8 @@ const SignInButton: React.FC<ISignInButtonProps> = (props) => {
       }}
       {...rest}
     >
-      <SpotifyLogo color='black' />
-      <span className='relative px-2.5 py-2.5'>{children}</span>
+      <SpotifyLogo color="black" />
+      <span className="relative p-2.5">{children}</span>
     </button>
   );
 };

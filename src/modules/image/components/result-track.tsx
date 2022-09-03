@@ -1,10 +1,9 @@
-import React from 'react';
-import { SpotifyTrackType } from '@typedefs/toply.typesdefs';
+import type { SpotifyTrackType } from '@typedefs/toply.typesdefs';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import React from 'react';
 
 interface IResultTrackProps {
-  /** Track data*/
+  /** Track data */
   track: SpotifyTrackType;
   /** Index, used for cascading animation */
   index: number;
@@ -26,8 +25,8 @@ const ResultTrack: React.FC<IResultTrackProps> = (props) => {
           y: -15,
         },
       }}
-      initial='hidden'
-      animate='visible'
+      initial="hidden"
+      animate="visible"
       transition={{
         duration: 0.75,
         delay: index * 0.1,
@@ -45,7 +44,7 @@ const ResultTrack: React.FC<IResultTrackProps> = (props) => {
         height={165}
       /> */}
       <picture>
-        <img src={track.album.images[1].url} alt={track.name} key={track.id} />
+        <img src={track?.album?.images[1]?.url!} alt={track.name} key={track.id} />
       </picture>
     </motion.div>
   );

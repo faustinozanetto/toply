@@ -1,5 +1,5 @@
 import { trackEvent } from '@lib/google';
-import { handleImageGeneration, openImageInBrowser, saveImageToFile } from '@lib/image-generation';
+import { handleImageGeneration, saveImageToFile } from '@lib/image-generation';
 import { selectBackgroundColor } from '@state/slices/toply.slice';
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
@@ -17,7 +17,7 @@ const ResultExport: React.FC<ResultExportProps> = (props) => {
    */
   const handleExport = useCallback(async () => {
     if (resultRef && resultRef.current) {
-      return await handleImageGeneration(resultRef.current, backgroundColor).then(async (dataUrl) => {
+      return handleImageGeneration(resultRef.current, backgroundColor).then(async (dataUrl) => {
         try {
           if (dataUrl) {
             await saveImageToFile(dataUrl);
@@ -32,7 +32,7 @@ const ResultExport: React.FC<ResultExportProps> = (props) => {
 
   return (
     <button
-      className="transition-colors inline-flex items-center justify-center p-2 overflow-hidden text-lg font-semibold text-white rounded-lg bg-pink-700 hover:bg-pink-600 "
+      className="inline-flex items-center justify-center overflow-hidden rounded-lg bg-pink-700 p-2 text-lg font-semibold text-white transition-colors hover:bg-pink-600 "
       aria-label="Export Image"
       id="export-photo"
       onClick={handleExport}

@@ -1,9 +1,9 @@
-import React from 'react';
-import { setTimeSpan, setTopSongs } from '@state/slices/toply.slice';
-import { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
-import { useDispatch } from 'react-redux';
+import useSpotify from '@hooks/use-spotify';
 import { parseTimeSpan, parseTopSongs } from '@lib/spotify-helper';
-import useSpotify from 'src/hooks/use-spotify';
+import { setTimeSpan, setTopSongs } from '@state/slices/toply.slice';
+import type { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
 interface ICustomizationTimespanButtonProps {
   timeSpan: ToplyDataTimeStapEnum;
@@ -26,7 +26,7 @@ const CustomizationTimespanButton: React.FC<ICustomizationTimespanButtonProps> =
 
   return (
     <button
-      className="transition-colors inline-flex items-center justify-center p-1 overflow-hidden text-sm font-semibold text-white rounded-lg bg-rose-700 hover:bg-pink-600 sm:text-md"
+      className="inline-flex items-center justify-center overflow-hidden rounded-lg bg-rose-700 p-1 text-sm font-semibold text-white transition-colors hover:bg-pink-600 sm:text-base"
       aria-label={`${timeSpan} Time Span`}
       onClick={async () => {
         dispatch(setTimeSpan(timeSpan));

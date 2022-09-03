@@ -10,13 +10,13 @@ const CustomizationBackgroundButton: React.FC<ICustomizationBackgroundButtonProp
   const dispatch = useDispatch();
 
   const handleClick = useCallback(() => {
-    const randomBackground = BACKGROUNDS[Math.floor(Math.random() * BACKGROUNDS.length)];
+    const randomBackground: string = BACKGROUNDS[Math.floor(Math.random() * BACKGROUNDS.length)]!;
     dispatch(setBackgroundColor(randomBackground));
   }, [dispatch]);
 
   return (
     <button
-      className="transition-colors inline-flex items-center justify-center p-1 overflow-hidden text-sm font-semibold text-white rounded-lg bg-rose-700 hover:bg-pink-600 sm:text-md"
+      className="inline-flex items-center justify-center overflow-hidden rounded-lg bg-rose-700 p-1 text-sm font-semibold text-white transition-colors hover:bg-pink-600 sm:text-base"
       aria-label="Customize Background"
       onClick={handleClick}
     >

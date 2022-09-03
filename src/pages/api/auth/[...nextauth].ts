@@ -38,7 +38,7 @@ export const authOptions: NextAuthOptions = {
   // Callbacks Configuration
   callbacks: {
     async jwt({ token, account, user }) {
-      //initial Signin
+      // initial Signin
       if (account && user) {
         return {
           ...token,
@@ -49,14 +49,14 @@ export const authOptions: NextAuthOptions = {
         };
       }
 
-      //Return previous token if the access token has not expired
+      // Return previous token if the access token has not expired
       // @ts-ignore
       if (Date.now() < token.accessTokenExpires) {
         return token;
       }
 
-      //Access token expired, time to refresh it
-      return await refreshAccessToken(token);
+      // Access token expired, time to refresh it
+      return refreshAccessToken(token);
     },
     async session({ session, token }) {
       if (session && session.user) {

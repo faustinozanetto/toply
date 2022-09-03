@@ -7,16 +7,15 @@ const SignInView: React.FC<ISignInViewProps> = (props) => {
   const {} = props;
 
   return (
-    <div className='flex flex-col w-full p-4 rounded-lg drop-shadow-2xl bg-white'>
+    <div className="flex w-full flex-col rounded-lg bg-white p-4 drop-shadow-2xl">
       {/* Heading */}
-      <div className='flex flex-col items-center justify-center text-center pb-4'>
-        <h1 className='text-3xl font-semibold text-black'>Sign In Now</h1>
+      <div className="flex flex-col items-center justify-center pb-4 text-center">
+        <h1 className="text-3xl font-semibold text-black">Sign In Now</h1>
       </div>
       {/* Options */}
-      <div className='flex flex-col items-center justify-center text-center pb-4'>
-        <p className='text-lg text-black font-normal'>
-          Sign in to Toply to generate a cool showcase of your top songs and
-          artists from Spotify.
+      <div className="flex flex-col items-center justify-center pb-4 text-center">
+        <p className="text-lg font-normal text-black">
+          Sign in to Toply to generate a cool showcase of your top songs and artists from Spotify.
         </p>
       </div>
       {/* Sign in */}

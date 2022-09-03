@@ -10,8 +10,8 @@ const HomeView: React.FC<IHomeViewProps> = (props) => {
 
   if (status === 'loading' && session === null) {
     return (
-      <div className='flex flex-col bg-white p-4 mb-4 rounded-lg drop-shadow-2xl '>
-        <h1 className='text-3xl font-semibold text-black'>Loading...</h1>
+      <div className="mb-4 flex flex-col rounded-lg bg-white p-4 drop-shadow-2xl ">
+        <h1 className="text-3xl font-semibold text-black">Loading...</h1>
       </div>
     );
   }

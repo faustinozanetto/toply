@@ -1,6 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '@state/store';
-import { SpotifyTrackType, ToplyDataTimeStapEnum, ToplyStateType } from '@typedefs/toply.typesdefs';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import type { RootState } from '@state/store';
+import type { SpotifyTrackType, ToplyStateType } from '@typedefs/toply.typesdefs';
+import { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
 
 const initialState: ToplyStateType = {
   topSongs: [],

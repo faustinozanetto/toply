@@ -16,8 +16,7 @@ const AboutPage: React.FC<IAboutPageProps> = (props) => {
     <Layout
       headProps={{
         title: 'About | Toply',
-        description:
-          'Toply is web app for generating a cool showcase of your top songs and artists from Spotify.',
+        description: 'Toply is web app for generating a cool showcase of your top songs and artists from Spotify.',
       }}
     >
       <AboutView />

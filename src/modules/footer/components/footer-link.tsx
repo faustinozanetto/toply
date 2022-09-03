@@ -11,9 +11,7 @@ const FooterLink: React.FC<IFooterLinkProps> = (props) => {
 
   return (
     <Link href={href} passHref>
-      <a className='block p-2 text-gray-800 font-semibold cursor-pointer'>
-        {children}
-      </a>
+      <a className="block cursor-pointer p-2 font-semibold text-gray-800">{children}</a>
     </Link>
   );
 };

@@ -1,7 +1,8 @@
-import React from 'react';
-import ResultTrack from './result-track';
 import { selectTopSongs } from '@state/slices/toply.slice';
+import React from 'react';
 import { useSelector } from 'react-redux';
+
+import ResultTrack from './result-track';
 
 interface IResultPhotoProps {}
 
@@ -11,7 +12,7 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
 
   return (
     <div
-      className='w-full p-4 rounded-lg'
+      className="w-full rounded-lg p-4"
       style={{
         filter: 'sepia(0.35)',
         backgroundImage: `url(/assets/images/rough-paper.jpg)`,
@@ -21,15 +22,10 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
           'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset',
       }}
     >
-      <div className='grid grid-cols-3 gap-2'>
-        {topSongs &&
-          topSongs.map((song, index) => (
-            <ResultTrack key={song.id} track={song} index={index} />
-          ))}
+      <div className="grid grid-cols-3 gap-2">
+        {topSongs && topSongs.map((song, index) => <ResultTrack key={song.id} track={song} index={index} />)}
       </div>
-      <div className='mt-2 opacity-60 text-black font-bold'>
-        https://toply.vercel.app/
-      </div>
+      <div className="mt-2 font-bold text-black opacity-60">https://toply.vercel.app/</div>
     </div>
   );
 };

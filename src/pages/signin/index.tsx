@@ -11,8 +11,7 @@ const SignInPage: React.FC<ISignInPageProps> = (props) => {
     <Layout
       headProps={{
         title: 'Sign In | Toply',
-        description:
-          'Sign in to Toply to generate a cool showcase of your top songs and artists from Spotify.',
+        description: 'Sign in to Toply to generate a cool showcase of your top songs and artists from Spotify.',
       }}
     >
       <SignInView />

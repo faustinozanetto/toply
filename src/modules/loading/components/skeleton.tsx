@@ -8,7 +8,7 @@ const Skeleton: React.FC<ISkeletonProps> = (props) => {
   const { children, ...rest } = props;
 
   return (
-    <div className='animate-pulse bg-gray-400 rounded-lg w-full' {...rest}>
+    <div className="w-full animate-pulse rounded-lg bg-gray-400" {...rest}>
       {children}
     </div>
   );

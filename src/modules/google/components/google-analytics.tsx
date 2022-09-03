@@ -1,6 +1,6 @@
-import React from 'react';
 import Script from 'next/script';
-import { GOOGLE_CLIENT_ID } from '@lib/constants';
+import React from 'react';
+
 interface IGoogleAnalyticsProps {}
 
 const GoogleAnalytics: React.FC<IGoogleAnalyticsProps> = (props) => {

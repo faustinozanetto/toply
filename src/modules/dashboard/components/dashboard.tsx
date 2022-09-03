@@ -2,6 +2,7 @@ import ResultExport from '@modules/image/components/result-export';
 import Results from '@modules/image/components/results';
 import LogoutButton from '@modules/user/components/logout-button';
 import React, { useRef } from 'react';
+
 import Customization from '../../customization/components/customization';
 
 interface IDashboardProps {}
@@ -11,7 +12,7 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex w-full flex-col">
       {/* Customization */}
       <Customization />
       {/* Loading and results */}
@@ -20,7 +21,7 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
       </div>
 
       {/* Export button */}
-      <div className="grid grid-cols-1 gap-2 fixed right-0 bottom-5 p-2">
+      <div className="fixed right-0 bottom-5 grid grid-cols-1 gap-2 p-2">
         <ResultExport resultRef={containerRef} />
         {/* <ResultCopy resultRef={containerRef} /> */}
       </div>

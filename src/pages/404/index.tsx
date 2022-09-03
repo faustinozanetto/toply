@@ -16,8 +16,7 @@ const NotFoundPage: React.FC<INotFoundPageProps> = (props) => {
     <Layout
       headProps={{
         title: '404 | Toply',
-        description:
-          'Toply is web app for generating a cool showcase of your top songs and artists from Spotify.',
+        description: 'Toply is web app for generating a cool showcase of your top songs and artists from Spotify.',
       }}
     >
       <NotFoundView />

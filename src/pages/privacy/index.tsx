@@ -16,8 +16,7 @@ const PrivacyPage: React.FC<IPrivacyPageProps> = (props) => {
     <Layout
       headProps={{
         title: 'Privacy | Toply',
-        description:
-          'Toply is web app for generating a cool showcase of your top songs and artists from Spotify.',
+        description: 'Toply is web app for generating a cool showcase of your top songs and artists from Spotify.',
       }}
     >
       <PrivacyView />

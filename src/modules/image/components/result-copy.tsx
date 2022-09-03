@@ -1,5 +1,5 @@
 import { trackEvent } from '@lib/google';
-import { copyImageToClipboard, handleImageGeneration, saveImageToFile } from '@lib/image-generation';
+import { copyImageToClipboard, handleImageGeneration } from '@lib/image-generation';
 import { selectBackgroundColor } from '@state/slices/toply.slice';
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
@@ -17,7 +17,7 @@ const ResultCopy: React.FC<ResultCopyProps> = (props) => {
    */
   const handleCopy = useCallback(async () => {
     if (resultRef && resultRef.current) {
-      return await handleImageGeneration(resultRef.current, backgroundColor, true).then(async (dataUrl) => {
+      return handleImageGeneration(resultRef.current, backgroundColor, true).then(async (dataUrl) => {
         try {
           if (dataUrl) {
             await copyImageToClipboard(dataUrl);
@@ -32,7 +32,7 @@ const ResultCopy: React.FC<ResultCopyProps> = (props) => {
 
   return (
     <button
-      className="transition-colors inline-flex items-center justify-center p-2 overflow-hidden text-lg font-semibold text-white rounded-lg bg-red-700 hover:bg-red-600 "
+      className="inline-flex items-center justify-center overflow-hidden rounded-lg bg-red-700 p-2 text-lg font-semibold text-white transition-colors hover:bg-red-600 "
       aria-label="Copy Image"
       onClick={handleCopy}
     >

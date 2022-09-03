@@ -3,12 +3,13 @@ import spotifyApi from '@lib/spotify-api';
 import { parseTopSongs } from '@lib/spotify-helper';
 import Layout from '@modules/layout/components/layout';
 import { setTopSongs } from '@state/slices/toply.slice';
-import { SpotifyTrackType } from '@typedefs/toply.typesdefs';
+import type { SpotifyTrackType } from '@typedefs/toply.typesdefs';
 import HomeView from '@views/home/home-view';
-import { GetServerSideProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import { unstable_getServerSession } from 'next-auth/next';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { authOptions } from './api/auth/[...nextauth]';
 
 interface IHomePageProps {
@@ -18,7 +19,7 @@ interface IHomePageProps {
 const HomePage: React.FC<IHomePageProps> = (props) => {
   const { songs } = props;
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     trackPageView('home');
   }, []);

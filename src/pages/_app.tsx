@@ -1,20 +1,21 @@
 import '../styles/globals.css';
 import '@fontsource/poppins';
-import type { AppProps } from 'next/app';
-import { SessionProvider } from 'next-auth/react';
-import { store } from '@state/store';
-import { Provider } from 'react-redux';
-import { useEffect } from 'react';
-import { initializeGTag, trackGAEvent } from '@lib/google';
+
 import { GOOGLE_TAG_ID } from '@lib/constants';
-import TagManager from 'react-gtm-module';
-import { useRouter } from 'next/router';
+import { trackGAEvent } from '@lib/google';
 import GoogleAnalytics from '@modules/google/components/google-analytics';
+import { store } from '@state/store';
+import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
+import { SessionProvider } from 'next-auth/react';
+import { useEffect } from 'react';
+import TagManager from 'react-gtm-module';
+import { Provider } from 'react-redux';
 
 const ToplyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   useEffect(() => {
-    //initializeGTag();
+    // initializeGTag();
     TagManager.initialize({ gtmId: GOOGLE_TAG_ID });
   }, []);
 

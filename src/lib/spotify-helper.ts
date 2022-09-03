@@ -1,17 +1,9 @@
-import {
-  SpotifyAlbumCategoryEnum,
-  SpotifyAlbumType,
-  SpotifyArtistType,
-  SpotifyTrackType,
-  ToplyDataTimeStapEnum,
-} from '@typedefs/toply.typesdefs';
+import type { SpotifyAlbumType, SpotifyArtistType, SpotifyTrackType } from '@typedefs/toply.typesdefs';
+import { SpotifyAlbumCategoryEnum, ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
 
 export const parseTopSongs = (data: SpotifyApi.UsersTopTracksResponse): SpotifyTrackType[] => {
-  let tracks: SpotifyTrackType[] = [];
-  data.items.map((track) => {
-    const trackArtists: SpotifyArtistType[] = [];
-    // Populate track artists.
-    track.artists.map((artist) => {
+  const tracks: SpotifyTrackType[] = data.items.map((track) => {
+    const trackArtists: SpotifyArtistType[] = track.artists.map((artist) => {
       const foundArtist: SpotifyArtistType = {
         id: artist.id,
         name: artist.name,
@@ -22,7 +14,7 @@ export const parseTopSongs = (data: SpotifyApi.UsersTopTracksResponse): SpotifyT
           spotify: artist.external_urls.spotify,
         },
       };
-      trackArtists.push(foundArtist);
+      return foundArtist;
     });
     // Populate track album.
     const trackAlbum: SpotifyAlbumType = {
@@ -45,8 +37,8 @@ export const parseTopSongs = (data: SpotifyApi.UsersTopTracksResponse): SpotifyT
       album: trackAlbum,
       artists: trackArtists,
     };
-    // Populate track
-    tracks.push(foundTrack);
+
+    return foundTrack;
   });
   return tracks;
 };
