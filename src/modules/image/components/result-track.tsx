@@ -1,6 +1,10 @@
+import { SelectedSongContext } from '@modules/selected-song/context/selected-song-context';
+import { setSelectedSong } from '@state/slices/toply.slice';
 import type { SpotifyTrackType } from '@typedefs/toply.typesdefs';
 import { motion } from 'framer-motion';
-import React from 'react';
+import Image from 'next/image';
+import React, { useContext } from 'react';
+import { useDispatch } from 'react-redux';
 
 interface IResultTrackProps {
   /** Track data */
@@ -11,6 +15,20 @@ interface IResultTrackProps {
 
 const ResultTrack: React.FC<IResultTrackProps> = (props) => {
   const { track, index } = props;
+  const dispatch = useDispatch();
+  const { setShowModal } = useContext(SelectedSongContext);
+
+  /**
+   * Shows the selected song modal and it sets the current selected song.
+   * @returns void.
+   */
+  const handleImageSelection = (): void => {
+    if (!track.id) return;
+    setShowModal(true);
+    dispatch(setSelectedSong(track));
+  };
+
+  if (!track.album?.images[1]) return null;
 
   return (
     <motion.div
@@ -34,18 +52,14 @@ const ResultTrack: React.FC<IResultTrackProps> = (props) => {
         type: 'spring',
       }}
     >
-      {/*   <Image
+      <Image
         src={track.album.images[1].url}
         alt={track.name}
-        key={track.id}
-        layout='responsive'
-        quality={45}
-        width={165}
-        height={165}
-      /> */}
-      <picture>
-        <img src={track?.album?.images[1]?.url!} alt={track.name} key={track.id} />
-      </picture>
+        layout="responsive"
+        width={250}
+        height={250}
+        onClick={handleImageSelection}
+      />
     </motion.div>
   );
 };
