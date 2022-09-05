@@ -9,16 +9,19 @@ const SelectedSongEmbed = () => {
    * Generates the emebbed track linkg for the song.
    */
   const generateEmbedLink = useMemo(() => {
-    if (!selectedSong.uri) return '';
-
-    const trackId: string = selectedSong.uri.split(':')[2]!;
-    const url: string = 'https://open.spotify.com/embed/track/'.concat(trackId);
+    let url: string = '';
+    try {
+      const trackId: string = selectedSong?.uri?.split(':')[2]!;
+      const path: string = `https://open.spotify.com/embed/track/${trackId}`;
+      url = new URL(path).href;
+      // eslint-disable-next-line no-empty
+    } catch (error) {}
     return url;
   }, [selectedSong]);
 
   return (
-    <div className="mt-2 flex flex-1 flex-col items-stretch">
-      <iframe className="h-20" src={generateEmbedLink}></iframe>
+    <div id="embed-iframe" className="mt-2 flex flex-1 flex-col items-stretch">
+      <iframe className="h-20" title="Spotify Web Player" src={generateEmbedLink} frameBorder={0} />
     </div>
   );
 };

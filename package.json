@@ -1,6 +1,7 @@
 {
   "name": "toply",
   "description": "Toply is a web app for retrieve and showing your favourite artists and songs from Spotify.",
+  "version": "0.0.2",
   "repository": {
     "url": "https://github.com/faustinozanetto/toply",
     "type": "git"
