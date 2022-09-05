@@ -5,6 +5,7 @@ import React, { Fragment, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { SelectedSongContext } from '../context/selected-song-context';
+import SelectedSongEmbed from './selected-song-embed';
 
 const SelectedSong: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,10 @@ const SelectedSong: React.FC = () => {
 
   if (!selectedSong) return null;
 
+  /**
+   * Retrieves the song name
+   * @returns the corresponding react jsx code.
+   */
   const songName = (): React.ReactNode => {
     if (!selectedSong.name) return null;
 
@@ -27,7 +32,7 @@ const SelectedSong: React.FC = () => {
   };
 
   /**
-   *
+   * Retrieves the song artists.
    * @returns the corresponding react jsx code.
    */
   const songArtists = (): React.ReactNode => {
@@ -61,7 +66,7 @@ const SelectedSong: React.FC = () => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-md overflow-hidden rounded-2xl bg-gray-100 p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Panel className="w-full max-w-sm overflow-hidden rounded-2xl bg-gray-100 p-6 text-left align-middle shadow-xl transition-all">
                     <Image
                       src={selectedSong?.album?.images[1]?.url!}
                       alt={selectedSong.name}
@@ -69,18 +74,18 @@ const SelectedSong: React.FC = () => {
                       width={200}
                       height={200}
                     />
-                    <div className="flex flex-col">
+                    <div className="mt-2 flex flex-col">
                       <Dialog.Title as="h3" className="text-xl font-bold leading-6 text-gray-900 sm:text-2xl">
                         {selectedSong.name}
                       </Dialog.Title>
 
-                      {/* Song Details */}
-                      <div>
-                        {/* Name */}
-                        {songName()}
-                        {/* Artists */}
-                        {songArtists()}
-                      </div>
+                      {/* Song Name */}
+                      {songName()}
+                      {/* Song Artists */}
+                      {songArtists()}
+
+                      {/* Listen Song */}
+                      <SelectedSongEmbed />
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>
