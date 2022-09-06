@@ -1,4 +1,5 @@
 import { toBlob, toJpeg } from 'html-to-image';
+import type { Options } from 'html-to-image/lib/types';
 /*
  * Generates the actual image using the correct quality and styling.
  */
@@ -11,7 +12,7 @@ export const handleImageGeneration = async (
     return;
   }
 
-  const options = {
+  const options: Options = {
     height: elementRef.clientHeight + 75,
     width: elementRef.clientWidth + 25,
     style: {
@@ -20,7 +21,7 @@ export const handleImageGeneration = async (
       margin: '0',
       border: '0',
     },
-    quality: 0.85,
+    pixelRatio: 1.25,
   };
 
   // Generate the image.

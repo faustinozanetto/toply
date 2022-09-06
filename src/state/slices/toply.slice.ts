@@ -7,6 +7,7 @@ import { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
 const initialState: ToplyStateType = {
   topSongs: [],
   topSongsLoading: true,
+  selectedSong: {},
   timeSpan: ToplyDataTimeStapEnum.MONTH,
   backgroundColor: 'linear-gradient(to right, rgb(251, 113, 133), rgb(217, 70, 239), rgb(99, 102, 241))',
 };
@@ -21,6 +22,9 @@ export const toplySlice = createSlice({
     setTopSongsLoading: (state, action: PayloadAction<boolean>) => {
       Object.assign(state, { topSongsLoading: action.payload });
     },
+    setSelectedSong: (state, action: PayloadAction<SpotifyTrackType>) => {
+      Object.assign(state, { selectedSong: action.payload });
+    },
     setTimeSpan: (state, action: PayloadAction<ToplyDataTimeStapEnum>) => {
       Object.assign(state, { timeSpan: action.payload });
     },
@@ -30,9 +34,10 @@ export const toplySlice = createSlice({
   },
 });
 
-export const { setTopSongs, setTopSongsLoading, setTimeSpan, setBackgroundColor } = toplySlice.actions;
+export const { setTopSongs, setTopSongsLoading, setTimeSpan, setBackgroundColor, setSelectedSong } = toplySlice.actions;
 
 export const selectTopSongs = (state: RootState) => state.topSongs;
 export const selectTopSongsLoading = (state: RootState) => state.topSongsLoading;
 export const selectTimeSpan = (state: RootState) => state.timeSpan;
 export const selectBackgroundColor = (state: RootState) => state.backgroundColor;
+export const selectSelectedSong = (state: RootState) => state.selectedSong;
