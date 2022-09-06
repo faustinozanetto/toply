@@ -56,7 +56,7 @@ const SelectedSong: React.FC = () => {
         <Transition appear show={showModal} as={Fragment}>
           <Dialog as="div" className="relative z-10" onClose={handleModalClose} open={showModal}>
             <div className="fixed inset-0 overflow-y-auto">
-              <div className="flex min-h-full items-center justify-center p-4 text-center drop-shadow-2xl">
+              <div className="flex min-h-full items-center justify-center text-center drop-shadow-2xl">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-out duration-300"
@@ -66,13 +66,15 @@ const SelectedSong: React.FC = () => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-sm overflow-hidden rounded-2xl bg-gray-100 p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Panel className="w-full max-w-xs overflow-hidden rounded-2xl bg-gray-100 p-6 text-left align-middle shadow-xl transition-all sm:max-w-sm">
                     <Image
-                      src={selectedSong?.album?.images[1]?.url!}
+                      src={selectedSong?.album?.images[0]?.url!}
                       alt={selectedSong.name}
+                      placeholder="blur"
+                      blurDataURL={selectedSong?.album?.images[2]?.url!}
                       layout="responsive"
-                      width={200}
-                      height={200}
+                      width={300}
+                      height={300}
                     />
                     <div className="mt-2 flex flex-col">
                       <Dialog.Title as="h3" className="text-xl font-bold leading-6 text-gray-900 sm:text-2xl">

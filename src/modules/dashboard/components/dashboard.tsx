@@ -32,9 +32,10 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
         <div className="fixed left-0 bottom-5 p-2">
           <LogoutButton />
         </div>
+
+        {/* Selected Song */}
+        <SelectedSong />
       </div>
-      {/* Selected Song */}
-      <SelectedSong />
     </React.Fragment>
   );
 };
