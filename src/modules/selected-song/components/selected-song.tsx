@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { selectSelectedSong, setSelectedSong } from '@state/slices/toply.slice';
 import Image from 'next/image';
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { SelectedSongContext } from '../context/selected-song-context';
@@ -18,6 +18,15 @@ const SelectedSong: React.FC = () => {
   };
 
   if (!selectedSong) return null;
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    if (!showModal) return;
+
+    setTimeout(() => {
+      document.documentElement.style.paddingRight = '0px';
+    }, 10);
+  }, [showModal]);
 
   /**
    * Retrieves the song name
