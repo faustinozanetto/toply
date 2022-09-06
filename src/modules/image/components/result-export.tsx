@@ -1,7 +1,7 @@
 import { trackEvent } from '@lib/google';
 import { handleImageGeneration, saveImageToFile } from '@lib/image-generation';
 import { selectBackgroundColor } from '@state/slices/toply.slice';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 interface ResultExportProps {
@@ -15,27 +15,27 @@ const ResultExport: React.FC<ResultExportProps> = (props) => {
   /**
    * Handle the export of the image
    */
-  const handleExport = useCallback(async () => {
-    if (resultRef && resultRef.current) {
-      return handleImageGeneration(resultRef.current, backgroundColor).then(async (dataUrl) => {
-        try {
-          if (dataUrl) {
-            await saveImageToFile(dataUrl);
-            trackEvent('Home', 'exportPhoto');
-          }
-        } catch (error) {
-          console.error(error);
+  const handleExport = () => {
+    if (!resultRef.current) return;
+    return handleImageGeneration(resultRef.current, backgroundColor).then(async (dataUrl) => {
+      try {
+        if (dataUrl) {
+          await saveImageToFile(dataUrl);
+          trackEvent('Home', 'exportPhoto');
         }
-      });
-    }
-  }, [backgroundColor, resultRef]);
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  };
 
   return (
     <button
+      type="button"
       className="inline-flex items-center justify-center overflow-hidden rounded-lg bg-pink-700 p-2 text-lg font-semibold text-white transition-colors hover:bg-pink-600 "
       aria-label="Export Image"
       id="export-photo"
-      onClick={handleExport}
+      onClick={() => handleExport()}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

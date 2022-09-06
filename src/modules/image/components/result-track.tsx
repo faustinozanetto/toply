@@ -28,8 +28,6 @@ const ResultTrack: React.FC<IResultTrackProps> = (props) => {
     dispatch(setSelectedSong(track));
   };
 
-  if (!track.album?.images[1]) return null;
-
   return (
     <motion.div
       key={track.id}
@@ -53,11 +51,14 @@ const ResultTrack: React.FC<IResultTrackProps> = (props) => {
       }}
     >
       <Image
-        src={track.album.images[1].url}
+        src={track?.album?.images[0]?.url!}
         alt={track.name}
+        placeholder="blur"
+        priority={index <= 6}
+        blurDataURL={track?.album?.images[2]?.url!}
         layout="responsive"
-        width={250}
-        height={250}
+        width={300}
+        height={300}
         onClick={handleImageSelection}
       />
     </motion.div>
