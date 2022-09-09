@@ -8,12 +8,18 @@ import SelectedSongProvider from '@modules/selected-song/context/selected-song-c
 import { store } from '@state/store';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
+import type { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import { useEffect } from 'react';
 import TagManager from 'react-gtm-module';
 import { Provider } from 'react-redux';
 
-const ToplyApp = ({ Component, pageProps }: AppProps) => {
+type IToplyAppProps = AppProps & {
+  session: Session;
+};
+
+const ToplyApp: React.FC<IToplyAppProps> = (props) => {
+  const { Component, session, pageProps } = props;
   const router = useRouter();
   useEffect(() => {
     // initializeGTag();
@@ -34,7 +40,7 @@ const ToplyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <Provider store={store}>
-      <SessionProvider session={pageProps.session} refetchInterval={0}>
+      <SessionProvider session={session} refetchInterval={0}>
         <SelectedSongProvider>
           <GoogleAnalytics />
           <Component {...pageProps} />

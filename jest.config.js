@@ -1,28 +1,24 @@
+// jest.config.js
 const nextJest = require('next/jest');
+const { pathsToModuleNameMapper } = require('ts-jest');
+const { compilerOptions } = require('./tsconfig.json');
 
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
   dir: './',
 });
 
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+// Add any custom config to be passed to Jest
+/** @type {import('jest').Config} */
 const customJestConfig = {
-  // preset: 'ts-jest',
-  moduleNameMapper: {
-    '^@lib/(.*)$': '<rootDir>/src/lib/$1',
-    '^@typedefs/(.*)$': '<rootDir>/src/typedefs/$1',
-    '^@modules/(.*)$': '<rootDir>/src/modules/$1',
-    '^@pages/(.*)$': '<rootDir>/src/pages/$1',
-    '^@styles/(.*)$': '<rootDir>/src/styles/$1',
-    '^@views/(.*)$': '<rootDir>/src/views/$1',
-    '^@state/(.*)$': '<rootDir>/src/state/$1',
-    '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
-  },
-  moduleDirectories: ['node_modules', __dirname],
-  setupFilesAfterEnv: ['@testing-library/jest-dom'],
-  testPathIgnorePatterns: ['node_modules/', './.next/'],
-  transformIgnorePatterns: ['node_modules/', '^.+\\.module\\.(css|sass|scss)$'],
+  // Add more setup options before each test is run
+  // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  // if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
+  moduleDirectories: ['node_modules', '<rootDir>'],
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
   testEnvironment: 'jest-environment-jsdom',
+  cacheDirectory: 'cache',
 };
 
+// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
 module.exports = createJestConfig(customJestConfig);

@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
+    "jsx": "react",
+    "jsx": "react",
     "target": "es5",
     "lib": ["es5", "dom"],
     "types": ["cypress", "node"]
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "component/footer.cy.tsx"]
 }

@@ -47,6 +47,15 @@
       "@hooks/*": ["src/hooks/*"]
     }
   },
-  "include": ["process.d.ts", "next-env.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx", "jest.config.js", "jest.setup.js"],
+  "types": ["node", "jest", "@testing-library/jest-dom"],
+  "include": [
+    "process.d.ts",
+    "next-env.d.ts",
+    "next-auth.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "jest.config.js",
+    "jest.setup.js"
+  ],
   "exclude": ["node_modules"]
 }

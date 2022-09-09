@@ -1,17 +1,20 @@
 import Link from 'next/link';
 import React from 'react';
 
+import type { FooterLinkData } from '../types/footer.types';
+
 interface IFooterLinkProps {
-  href: string;
-  children?: React.ReactNode;
+  data: FooterLinkData;
 }
 
 const FooterLink: React.FC<IFooterLinkProps> = (props) => {
-  const { href, children } = props;
+  const { data } = props;
 
   return (
-    <Link href={href} passHref>
-      <a className="block cursor-pointer p-2 font-semibold text-gray-800">{children}</a>
+    <Link href={data.href} passHref>
+      <span role="navigation" className="block cursor-pointer p-2 font-semibold text-gray-800">
+        {data.label}
+      </span>
     </Link>
   );
 };

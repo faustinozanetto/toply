@@ -50,17 +50,19 @@ const ResultTrack: React.FC<IResultTrackProps> = (props) => {
         type: 'spring',
       }}
     >
-      <Image
-        src={track?.album?.images[0]?.url!}
-        alt={track.name}
-        placeholder="blur"
-        priority={index <= 6}
-        blurDataURL={track?.album?.images[2]?.url!}
-        layout="responsive"
-        width={300}
-        height={300}
-        onClick={handleImageSelection}
-      />
+      <picture className="cursor-pointer">
+        <Image
+          src={track?.album?.images[0]?.url!}
+          alt={track.name}
+          placeholder="blur"
+          priority={index <= 6}
+          blurDataURL={track?.album?.images[2]?.url!}
+          layout="responsive"
+          width={300}
+          height={300}
+          onClick={handleImageSelection}
+        />
+      </picture>
     </motion.div>
   );
 };

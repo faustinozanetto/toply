@@ -1,38 +1,36 @@
 import React from 'react';
 
+import type { FooterLinkData } from '../types/footer.types';
 import FooterLink from './footer-link';
 
-interface IFooterProps {}
+export const FOOTER_LINKS: FooterLinkData[] = [
+  {
+    href: '/',
+    label: 'Home',
+  },
+  {
+    href: '/privacy',
+    label: 'Privacy',
+  },
+  {
+    href: '/about',
+    label: 'About',
+  },
+  {
+    href: 'https://github.com/faustinozanetto/toply',
+    label: 'Source',
+  },
+];
 
-const Footer: React.FC<IFooterProps> = (props) => {
-  const {} = props;
-
+const Footer: React.FC = () => {
   return (
     <footer className="flex flex-col items-center justify-center p-4 text-center">
       {/* Top */}
       <div className="flex flex-row items-center justify-center">
-        <FooterLink href="/">Home</FooterLink>
-        <FooterLink href="/privacy">Privacy</FooterLink>
-        <FooterLink href="/about">About</FooterLink>
+        {FOOTER_LINKS.map((footerLink, index) => {
+          return <FooterLink key={index} data={footerLink} />;
+        })}
       </div>
-      {/* Bottom */}
-      {/* <div className='flex flex-col items-center justify-center'>
-        <p className='text-lg text-black font-semibold'>
-          Made with{' '}
-          <span role='img' aria-label='heart'>
-            ❤️
-          </span>{' '}
-          by{' '}
-          <a
-            href='
-          https://twitter.com/toply'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            @toply
-          </a>
-        </p>
-      </div> */}
     </footer>
   );
 };
