@@ -28,9 +28,9 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - run: npm ci
-      - run: npx playwright install --with-deps
+      - run: yarn install --frozen-lockfile
+      - run: yarn add playwright install --with-deps
       - name: Run tests
-        run: npm run test:e2e
+        run: yarn test:e2e
         env:
           PLAYWRIGHT_TEST_BASE_URL: ${{ needs.test_setup.outputs.preview_url }}
