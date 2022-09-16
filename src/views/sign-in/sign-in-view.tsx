@@ -10,7 +10,7 @@ const SignInView: React.FC<ISignInViewProps> = (props) => {
     <div className="flex w-full flex-col rounded-lg bg-white p-4 drop-shadow-2xl">
       {/* Heading */}
       <div className="flex flex-col items-center justify-center pb-4 text-center">
-        <h1 className="text-3xl font-semibold text-black">Sign In Now</h1>
+        <h2 className="text-3xl font-semibold text-black">Sign In Now</h2>
       </div>
       {/* Options */}
       <div className="flex flex-col items-center justify-center pb-4 text-center">
