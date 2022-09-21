@@ -46,6 +46,7 @@
     "@fontsource/poppins": "^4.5.9",
     "@headlessui/react": "^1.7.2",
     "@reduxjs/toolkit": "^1.8.5",
+    "clsx": "^1.2.1",
     "cssnano": "^5.1.13",
     "framer-motion": "^7.3.6",
     "html-to-image": "^1.10.8",

@@ -41,7 +41,7 @@ const CustomizationTimespanButton: React.FC<ICustomizationTimespanButtonProps> =
   };
 
   return (
-    <Button aria-label={`${timeSpan} Time Span`} onClick={handleTimeSpanSelect}>
+    <Button size="sm" aria-label={`${timeSpan} Time Span`} onClick={handleTimeSpanSelect}>
       {timeSpan}
     </Button>
   );

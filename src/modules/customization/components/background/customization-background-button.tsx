@@ -16,7 +16,7 @@ const CustomizationBackgroundButton: React.FC<ICustomizationBackgroundButtonProp
   }, [dispatch]);
 
   return (
-    <Button aria-label="Customize Background" onClick={handleClick}>
+    <Button size="sm" aria-label="Customize Background" onClick={handleClick}>
       <div className="flex items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
