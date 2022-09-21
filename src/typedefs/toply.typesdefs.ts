@@ -51,8 +51,8 @@ export enum ToplyDataTimeStapEnum {
 }
 
 export type ToplyStateType = {
-  topSongs: SpotifyTrackType[];
-  topSongsLoading: boolean;
+  songs: Map<ToplyDataTimeStapEnum, SpotifyTrackType[]>;
+  songsLoading: boolean;
   selectedSong: SpotifyTrackType;
   timeSpan: ToplyDataTimeStapEnum;
   backgroundColor: string;

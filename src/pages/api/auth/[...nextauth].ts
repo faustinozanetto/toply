@@ -44,14 +44,12 @@ export const authOptions: NextAuthOptions = {
           ...token,
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
-          // @ts-ignore
-          accessTokenExpires: account.expires_at * 1000,
+          accessTokenExpires: account.expires_at! * 1000,
         };
       }
 
       // Return previous token if the access token has not expired
-      // @ts-ignore
-      if (Date.now() < token.accessTokenExpires) {
+      if (Date.now() < token?.accessTokenExpires!) {
         return token;
       }
 
@@ -60,10 +58,8 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (session && session.user) {
-        // @ts-ignore
-        session.user.accessToken = token.accessToken;
-        // @ts-ignore
-        session.user.refreshToken = token.refreshToken;
+        session.user.accessToken = token?.accessToken!;
+        session.user.refreshToken = token?.refreshToken!;
       }
       return session;
     },

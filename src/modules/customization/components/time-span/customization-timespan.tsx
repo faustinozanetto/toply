@@ -13,9 +13,9 @@ const CustomizationTimespan: React.FC<ICustomizationTimespanProps> = (props) => 
       <h3 className="mb-1 text-base font-normal sm:text-lg">Select the time span of the data</h3>
 
       <div className="grid grid-cols-1 gap-2 md:gap-4 xs:grid-cols-3 ">
-        <CustomizationTimespanButton timeSpan={ToplyDataTimeStapEnum.MONTH} />
-        <CustomizationTimespanButton timeSpan={ToplyDataTimeStapEnum.SEMESTER} />
-        <CustomizationTimespanButton timeSpan={ToplyDataTimeStapEnum.ALLTIME} />
+        {Object.values(ToplyDataTimeStapEnum).map((timeSpan, index) => {
+          return <CustomizationTimespanButton key={index} timeSpan={timeSpan} />;
+        })}
       </div>
     </div>
   );

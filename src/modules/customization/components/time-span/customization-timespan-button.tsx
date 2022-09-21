@@ -1,40 +1,49 @@
 import useSpotify from '@hooks/use-spotify';
+import { MAX_TRACKS } from '@lib/constants';
 import { parseTimeSpan, parseTopSongs } from '@lib/spotify-helper';
-import { setTimeSpan, setTopSongs } from '@state/slices/toply.slice';
+import Button from '@modules/ui/components/button/button';
+import { selectSongs, setSongs, setSongsLoading, setTimeSpan } from '@state/slices/toply.slice';
 import type { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface ICustomizationTimespanButtonProps {
+  /* Timespan to pass to the button */
   timeSpan: ToplyDataTimeStapEnum;
 }
 
 const CustomizationTimespanButton: React.FC<ICustomizationTimespanButtonProps> = (props) => {
   const { timeSpan } = props;
   const dispatch = useDispatch();
+  const songs = useSelector(selectSongs);
   const spotifyAPI = useSpotify();
 
-  const fetchSongs = async () => {
+  const handleTimeSpanSelect = async () => {
     if (spotifyAPI.getAccessToken()) {
+      // Update timespan to redux state.
+      dispatch(setTimeSpan(timeSpan));
+      dispatch(setSongsLoading(true));
       const timeRange = parseTimeSpan(timeSpan);
-      await spotifyAPI.getMyTopTracks({ limit: 12, time_range: timeRange }).then((data) => {
-        const songs = data.body;
-        dispatch(setTopSongs(parseTopSongs(songs)));
-      });
+      // If we already have fetched the songs before we do nothing, otherwise we fetch.
+      if (!songs.get(timeSpan)?.length) {
+        await spotifyAPI
+          .getMyTopTracks({ limit: MAX_TRACKS, time_range: timeRange })
+          .then((data) => {
+            dispatch(setSongs({ timeSpan, songs: parseTopSongs(data.body) }));
+          })
+          .finally(() => {
+            dispatch(setSongsLoading(false));
+          });
+      } else {
+        dispatch(setSongsLoading(false));
+      }
     }
   };
 
   return (
-    <button
-      className="inline-flex items-center justify-center overflow-hidden rounded-lg bg-rose-700 p-1 text-sm font-semibold text-white transition-colors hover:bg-pink-600 sm:text-base"
-      aria-label={`${timeSpan} Time Span`}
-      onClick={async () => {
-        dispatch(setTimeSpan(timeSpan));
-        await fetchSongs();
-      }}
-    >
-      <span className="relative py-1.5 sm:py-2">{timeSpan}</span>
-    </button>
+    <Button aria-label={`${timeSpan} Time Span`} onClick={handleTimeSpanSelect}>
+      {timeSpan}
+    </Button>
   );
 };
 

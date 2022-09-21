@@ -1,6 +1,11 @@
 import type { SpotifyAlbumType, SpotifyArtistType, SpotifyTrackType } from '@typedefs/toply.typesdefs';
 import { SpotifyAlbumCategoryEnum, ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
 
+/**
+ *
+ * @param data Spotify api data.
+ * @returns the parsed songs into the typed ones.
+ */
 export const parseTopSongs = (data: SpotifyApi.UsersTopTracksResponse): SpotifyTrackType[] => {
   const tracks: SpotifyTrackType[] = data.items.map((track) => {
     const trackArtists: SpotifyArtistType[] = track.artists.map((artist) => {
@@ -43,6 +48,11 @@ export const parseTopSongs = (data: SpotifyApi.UsersTopTracksResponse): SpotifyT
   return tracks;
 };
 
+/**
+ *
+ * @param timeSpan Timespan as enum type.
+ * @returns the parsed string type used in the api call.
+ */
 export const parseTimeSpan = (timeSpan: ToplyDataTimeStapEnum): 'short_term' | 'medium_term' | 'long_term' => {
   switch (timeSpan) {
     case ToplyDataTimeStapEnum.MONTH:

@@ -2,6 +2,8 @@ export const { SPOTIFY_CLIENT_ID } = process.env;
 export const { SPOTIFY_CLIENT_SECRET } = process.env;
 export const { NEXTAUTH_SECRET } = process.env;
 export const BASIC = Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString('base64');
+/** Returns the max amount of tracks to be fetched. */
+export const MAX_TRACKS: number = 12;
 export const SPOTIFY_API: string = 'https://api.spotify.com/v1';
 export const SPOTIFY_USER_TOKEN: string = 'https://accounts.spotify.com/api/token';
 export const GOOGLE_CLIENT_ID: string = 'G-Z61YWCGW02';

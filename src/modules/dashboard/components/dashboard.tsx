@@ -2,7 +2,7 @@ import ResultExport from '@modules/image/components/result-export';
 import Results from '@modules/image/components/results';
 import SelectedSong from '@modules/selected-song/components/selected-song';
 import LogoutButton from '@modules/user/components/logout-button';
-import React, { useRef } from 'react';
+import React, { memo, useRef } from 'react';
 
 import Customization from '../../customization/components/customization';
 
@@ -40,4 +40,4 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
   );
 };
 
-export default Dashboard;
+export default memo(Dashboard);

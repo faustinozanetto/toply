@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import React from 'react';
 
@@ -7,7 +6,6 @@ interface IDashboardHeaderProps {}
 const DashboardHeader: React.FC<IDashboardHeaderProps> = (props) => {
   const {} = props;
   const { data: session, status } = useSession();
-  const router = useRouter();
 
   if (status === 'loading') {
     return (
@@ -15,10 +13,6 @@ const DashboardHeader: React.FC<IDashboardHeaderProps> = (props) => {
         <h1 className="text-3xl font-semibold text-black">Loading...</h1>
       </div>
     );
-  }
-
-  if (status === 'unauthenticated') {
-    router.push('/auth/signin');
   }
 
   return (

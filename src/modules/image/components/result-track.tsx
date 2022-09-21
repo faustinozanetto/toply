@@ -3,7 +3,7 @@ import { setSelectedSong } from '@state/slices/toply.slice';
 import type { SpotifyTrackType } from '@typedefs/toply.typesdefs';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import React, { useContext } from 'react';
+import React, { memo, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
 interface IResultTrackProps {
@@ -30,7 +30,7 @@ const ResultTrack: React.FC<IResultTrackProps> = (props) => {
 
   return (
     <motion.div
-      key={track.id}
+      key={`${track.id}#${index}`}
       variants={{
         visible: {
           opacity: 1,
@@ -58,8 +58,8 @@ const ResultTrack: React.FC<IResultTrackProps> = (props) => {
           priority={index <= 6}
           blurDataURL={track?.album?.images[2]?.url!}
           layout="responsive"
-          width={300}
-          height={300}
+          width={350}
+          height={350}
           onClick={handleImageSelection}
         />
       </picture>
@@ -67,4 +67,4 @@ const ResultTrack: React.FC<IResultTrackProps> = (props) => {
   );
 };
 
-export default ResultTrack;
+export default memo(ResultTrack);
