@@ -2,7 +2,7 @@ import useUserTops from '@hooks/use-user-tops';
 import { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
 import React from 'react';
 
-import CustomizationTimespanButton from './customization-timespan-button';
+import CustomizationTimespanButton from './customization-top-type-button';
 
 interface ICustomizationTimespanProps {}
 

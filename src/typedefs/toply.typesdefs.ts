@@ -28,6 +28,7 @@ export type SpotifyArtistType = {
   name: string;
   type: string;
   uri: string;
+  images: SpotifyImageType[];
   externalUrls: {
     spotify: string;
   };

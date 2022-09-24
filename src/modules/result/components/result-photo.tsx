@@ -1,4 +1,7 @@
+import { selectTopType } from '@state/slices/app.slice';
+import { selectArtists } from '@state/slices/top-artists.slice';
 import { selectSongs, selectSongsTimeSpan } from '@state/slices/top-songs.slice';
+import { ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -6,14 +9,49 @@ import ResultItem from './result-item';
 
 interface IResultPhotoProps {}
 
+/** Internal interface used to treat results as a generic item  result. */
+interface IResultType {
+  id: string;
+  name: string;
+  image: string;
+  blurImage: string;
+}
+
 const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
   const {} = props;
   const songs = useSelector(selectSongs);
+  const artists = useSelector(selectArtists);
   const timeSpan = useSelector(selectSongsTimeSpan);
+  const topType = useSelector(selectTopType);
 
+  /**
+   * Memoizes the results to display, wether they are artists or songs.
+   */
   const resultItems = useMemo(() => {
-
-  }, [songs, timeSpan]);
+    let results: IResultType[] = [];
+    if (topType === ToplyTopItemsEnum.SONGS) {
+      const mapSongs = songs?.get(timeSpan) ?? [];
+      results = mapSongs.map((song) => {
+        return {
+          id: song.id,
+          name: song.name,
+          image: song.album.images[0]?.url!,
+          blurImage: song.album.images[2]?.url!,
+        };
+      });
+    } else {
+      const mapArtists = artists?.get(timeSpan) ?? [];
+      results = mapArtists.map((artist) => {
+        return {
+          id: artist.id,
+          name: artist.name,
+          image: artist.images[0]?.url!,
+          blurImage: artist.images[2]?.url!,
+        };
+      });
+    }
+    return results;
+  }, [songs, artists, timeSpan]);
 
   return (
     <div
@@ -28,8 +66,16 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
       }}
     >
       <div className="grid grid-cols-3 gap-2">
-        {resultTracks.map((song, index) => (
-          <ResultItem key={song.id} track={song} index={index} />
+        {resultItems.map((item, index) => (
+          <ResultItem
+            key={item.id}
+            index={index}
+            id={item.id}
+            name={item.name}
+            image={item.image}
+            blurImage={item.blurImage}
+            onSelected={(_) => {}}
+          />
         ))}
       </div>
       <div className="mt-2 font-bold text-black opacity-60">https://toply.vercel.app/</div>

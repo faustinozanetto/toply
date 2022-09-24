@@ -26,7 +26,7 @@ const ResultItem: React.FC<IResultItemProps> = (props) => {
    * Shows the selected song modal and it sets the current selected song.
    * @returns void.
    */
-  const handleImageSelection = (): void => {
+  const handleItemSelection = (): void => {
     if (!id) return;
     setShowModal(true);
     onSelected(id);
@@ -60,10 +60,11 @@ const ResultItem: React.FC<IResultItemProps> = (props) => {
           alt={name}
           blurDataURL={blurImage}
           placeholder="blur"
+          layout="responsive"
           quality={25}
           width={300}
           height={300}
-          onClick={handleImageSelection}
+          onClick={handleItemSelection}
         />
       </picture>
     </motion.div>
