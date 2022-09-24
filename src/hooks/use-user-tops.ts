@@ -4,18 +4,22 @@ import { selectTopType, setTopType as setTopTypeRedux } from '@state/slices/app.
 import {
   selectArtists,
   selectArtistsTimeSpan,
+  selectSelectedArtist,
   setArtists,
   setArtistsLoading,
   setArtistsTimeSpan,
+  setSelectedArtist,
 } from '@state/slices/top-artists.slice';
 import {
+  selectSelectedSong,
   selectSongs,
   selectSongsTimeSpan,
+  setSelectedSong,
   setSongs,
   setSongsLoading,
   setSongsTimeSpan,
 } from '@state/slices/top-songs.slice';
-import type { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
+import type { SpotifyArtistType, SpotifyTrackType, ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
 import { ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -26,6 +30,8 @@ const useUserTops = () => {
   const songs = useSelector(selectSongs);
   const artists = useSelector(selectArtists);
   const topType = useSelector(selectTopType);
+  const selectedSong = useSelector(selectSelectedSong);
+  const selectedArtist = useSelector(selectSelectedArtist);
   const songsTimeSpan = useSelector(selectSongsTimeSpan);
   const artistsTimeSpan = useSelector(selectArtistsTimeSpan);
   const spotifyAPI = useSpotify();
@@ -92,7 +98,30 @@ const useUserTops = () => {
     }
   };
 
-  return { songs, artists, topType, setTopType, setTopTimeSpan, fetchTopSongs, fetchTopArtists, fetchTops };
+  const updateSelectedSong = (song: SpotifyTrackType): void => {
+    dispatch(setSelectedSong(song));
+  };
+
+  const updateSelectedArtist = (artist: SpotifyArtistType): void => {
+    dispatch(setSelectedArtist(artist));
+  };
+
+  return {
+    songs,
+    artists,
+    topType,
+    songsTimeSpan,
+    artistsTimeSpan,
+    selectedSong,
+    selectedArtist,
+    setTopType,
+    setTopTimeSpan,
+    fetchTopSongs,
+    fetchTopArtists,
+    fetchTops,
+    updateSelectedSong,
+    updateSelectedArtist,
+  };
 };
 
 export default useUserTops;

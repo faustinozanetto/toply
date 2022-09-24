@@ -1,31 +1,31 @@
 import useUserTops from '@hooks/use-user-tops';
-import { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
+import { ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
 import React from 'react';
 
-import CustomizationTimespanButton from './customization-top-type-button';
+import CustomizationTopTypeButton from './customization-top-type-button';
 
-interface ICustomizationTimespanProps {}
+interface ICustomizationTopTypeProps {}
 
-const CustomizationTimespan: React.FC<ICustomizationTimespanProps> = (props) => {
+const CustomizationTopType: React.FC<ICustomizationTopTypeProps> = (props) => {
   const {} = props;
   const userTops = useUserTops();
 
-  const handleTimeSpanSelect = (timeSpan: ToplyDataTimeStapEnum) => {
-    userTops.setTopTimeSpan(userTops.topType, timeSpan);
+  const handleTopTypeSelect = (topType: ToplyTopItemsEnum) => {
+    userTops.setTopType(topType);
     userTops.fetchTops();
   };
 
   return (
     <div className="flex flex-col justify-center pb-1">
-      <h3 className="mb-1 text-base font-normal sm:text-lg">Select the time span of the data</h3>
+      <h3 className="mb-1 text-base font-normal sm:text-lg">Select the type of top you want</h3>
 
-      <div className="grid grid-cols-1 gap-2 md:gap-4 xs:grid-cols-3 ">
-        {Object.values(ToplyDataTimeStapEnum).map((timeSpan, index) => {
+      <div className="grid grid-cols-1 gap-2 md:gap-4 xs:grid-cols-2">
+        {Object.values(ToplyTopItemsEnum).map((topType, index) => {
           return (
-            <CustomizationTimespanButton
+            <CustomizationTopTypeButton
               key={index}
-              timeSpan={timeSpan}
-              onTimeSpanSelected={() => handleTimeSpanSelect(timeSpan)}
+              topType={topType}
+              onTopTypeSelected={() => handleTopTypeSelect(topType)}
             />
           );
         })}
@@ -34,4 +34,4 @@ const CustomizationTimespan: React.FC<ICustomizationTimespanProps> = (props) => 
   );
 };
 
-export default CustomizationTimespan;
+export default CustomizationTopType;

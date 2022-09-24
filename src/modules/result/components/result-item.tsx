@@ -1,4 +1,4 @@
-import { SelectedSongContext } from '@modules/selected-song/context/selected-song-context';
+import { SelectedSongContext } from '@modules/selected-item/context/selected-song-context';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import React, { memo, useContext } from 'react';

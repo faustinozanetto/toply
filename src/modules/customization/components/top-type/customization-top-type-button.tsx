@@ -1,21 +1,22 @@
 import Button from '@modules/ui/components/button/button';
-import type { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
+import type { ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
 import React from 'react';
 
-interface ICustomizationTimespanButtonProps {
-  /* Timespan to pass to the button */
-  timeSpan: ToplyDataTimeStapEnum;
-  onTimeSpanSelected: () => void;
+interface ICustomizationTopTypeButtonProps {
+  /* Top type to pass to the button */
+  topType: ToplyTopItemsEnum;
+  /** Callback to call when selected */
+  onTopTypeSelected: () => void;
 }
 
-const CustomizationTimespanButton: React.FC<ICustomizationTimespanButtonProps> = (props) => {
-  const { timeSpan, onTimeSpanSelected } = props;
+const CustomizationTopTypeButton: React.FC<ICustomizationTopTypeButtonProps> = (props) => {
+  const { topType, onTopTypeSelected } = props;
 
   return (
-    <Button size="sm" aria-label={`${timeSpan} Time Span`} onClick={onTimeSpanSelected}>
-      {timeSpan}
+    <Button size="sm" aria-label={`${topType} Top Type`} onClick={onTopTypeSelected}>
+      {topType}
     </Button>
   );
 };
 
-export default CustomizationTimespanButton;
+export default CustomizationTopTypeButton;

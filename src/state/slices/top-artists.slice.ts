@@ -7,7 +7,7 @@ import { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
 const initialState: TopArtistsStateType = {
   artists: new Map<ToplyDataTimeStapEnum, SpotifyArtistType[]>(),
   artistsLoading: true,
-  selectedArtist: {},
+  selectedArtist: null,
   timeSpan: ToplyDataTimeStapEnum.MONTH,
 };
 
@@ -22,7 +22,7 @@ export const topArtistsSlice = createSlice({
     setArtistsLoading: (state, action: PayloadAction<boolean>) => {
       Object.assign(state, { artistsLoading: action.payload });
     },
-    setSelectedArtists: (state, action: PayloadAction<Partial<SpotifyArtistType>>) => {
+    setSelectedArtist: (state, action: PayloadAction<SpotifyArtistType>) => {
       state.selectedArtist = action.payload;
     },
     setArtistsTimeSpan: (state, action: PayloadAction<ToplyDataTimeStapEnum>) => {
@@ -31,7 +31,7 @@ export const topArtistsSlice = createSlice({
   },
 });
 
-export const { setArtists, setArtistsLoading, setArtistsTimeSpan, setSelectedArtists } = topArtistsSlice.actions;
+export const { setArtists, setArtistsLoading, setArtistsTimeSpan, setSelectedArtist } = topArtistsSlice.actions;
 
 export const selectArtists = (state: RootState) => state.topArtists.artists;
 export const selectTopArtistsLoading = (state: RootState) => state.topArtists.artistsLoading;

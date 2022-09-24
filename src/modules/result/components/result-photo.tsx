@@ -1,9 +1,6 @@
-import { selectTopType } from '@state/slices/app.slice';
-import { selectArtists } from '@state/slices/top-artists.slice';
-import { selectSongs, selectSongsTimeSpan } from '@state/slices/top-songs.slice';
+import useUserTops from '@hooks/use-user-tops';
 import { ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
 import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 
 import ResultItem from './result-item';
 
@@ -19,18 +16,15 @@ interface IResultType {
 
 const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
   const {} = props;
-  const songs = useSelector(selectSongs);
-  const artists = useSelector(selectArtists);
-  const timeSpan = useSelector(selectSongsTimeSpan);
-  const topType = useSelector(selectTopType);
+  const userTops = useUserTops();
 
   /**
    * Memoizes the results to display, wether they are artists or songs.
    */
   const resultItems = useMemo(() => {
     let results: IResultType[] = [];
-    if (topType === ToplyTopItemsEnum.SONGS) {
-      const mapSongs = songs?.get(timeSpan) ?? [];
+    if (userTops.topType === ToplyTopItemsEnum.SONGS) {
+      const mapSongs = userTops.songs?.get(userTops.songsTimeSpan) ?? [];
       results = mapSongs.map((song) => {
         return {
           id: song.id,
@@ -40,7 +34,7 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
         };
       });
     } else {
-      const mapArtists = artists?.get(timeSpan) ?? [];
+      const mapArtists = userTops.artists?.get(userTops.artistsTimeSpan) ?? [];
       results = mapArtists.map((artist) => {
         return {
           id: artist.id,
@@ -51,7 +45,23 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
       });
     }
     return results;
-  }, [songs, artists, timeSpan]);
+  }, [userTops]);
+
+  const handleItemSelected = (id: string): void => {
+    if (userTops.topType === ToplyTopItemsEnum.SONGS) {
+      const songs = userTops.songs.get(userTops.songsTimeSpan) ?? [];
+      const matchingSong = songs.find((song) => song.id === id);
+      if (matchingSong) {
+        userTops.updateSelectedSong(matchingSong);
+      }
+    } else {
+      const artists = userTops.artists.get(userTops.artistsTimeSpan) ?? [];
+      const matchingArtist = artists.find((artist) => artist.id === id);
+      if (matchingArtist) {
+        userTops.updateSelectedArtist(matchingArtist);
+      }
+    }
+  };
 
   return (
     <div
@@ -74,7 +84,7 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
             name={item.name}
             image={item.image}
             blurImage={item.blurImage}
-            onSelected={(_) => {}}
+            onSelected={handleItemSelected}
           />
         ))}
       </div>

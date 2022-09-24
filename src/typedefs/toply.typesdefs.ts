@@ -64,13 +64,13 @@ export type AppStateType = {
 export type TopSongsStateType = {
   songs: Map<ToplyDataTimeStapEnum, SpotifyTrackType[]>;
   songsLoading: boolean;
-  selectedSong: Partial<SpotifyTrackType>;
+  selectedSong: SpotifyTrackType | null;
   timeSpan: ToplyDataTimeStapEnum;
 };
 
 export type TopArtistsStateType = {
   artists: Map<ToplyDataTimeStapEnum, SpotifyArtistType[]>;
   artistsLoading: boolean;
-  selectedArtist: Partial<SpotifyArtistType>;
+  selectedArtist: SpotifyArtistType | null;
   timeSpan: ToplyDataTimeStapEnum;
 };

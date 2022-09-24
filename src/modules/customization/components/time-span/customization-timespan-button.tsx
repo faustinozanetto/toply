@@ -5,6 +5,7 @@ import React from 'react';
 interface ICustomizationTimespanButtonProps {
   /* Timespan to pass to the button */
   timeSpan: ToplyDataTimeStapEnum;
+  /** Callback to call when selected */
   onTimeSpanSelected: () => void;
 }
 

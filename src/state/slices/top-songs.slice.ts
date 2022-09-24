@@ -7,7 +7,7 @@ import { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
 const initialState: TopSongsStateType = {
   songs: new Map<ToplyDataTimeStapEnum, SpotifyTrackType[]>(),
   songsLoading: true,
-  selectedSong: {},
+  selectedSong: null,
   timeSpan: ToplyDataTimeStapEnum.MONTH,
 };
 
@@ -22,7 +22,7 @@ export const topSongsSlice = createSlice({
     setSongsLoading: (state, action: PayloadAction<boolean>) => {
       Object.assign(state, { songsLoading: action.payload });
     },
-    setSelectedSong: (state, action: PayloadAction<Partial<SpotifyTrackType>>) => {
+    setSelectedSong: (state, action: PayloadAction<SpotifyTrackType>) => {
       state.selectedSong = action.payload;
     },
     setSongsTimeSpan: (state, action: PayloadAction<ToplyDataTimeStapEnum>) => {

@@ -1,6 +1,6 @@
 import ResultExport from '@modules/result/components/result-export';
 import Results from '@modules/result/components/results';
-import SelectedSong from '@modules/selected-song/components/selected-song';
+import SelectedItem from '@modules/selected-item/components/selected-item';
 import LogoutButton from '@modules/user/components/logout-button';
 import React, { memo, useRef } from 'react';
 
@@ -33,8 +33,8 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
           <LogoutButton />
         </div>
 
-        {/* Selected Song */}
-        <SelectedSong />
+        {/* Selected Item Modal */}
+        <SelectedItem />
       </div>
     </React.Fragment>
   );

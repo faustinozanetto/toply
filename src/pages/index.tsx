@@ -1,15 +1,10 @@
-import useSpotify from '@hooks/use-spotify';
 import { MAX_TRACKS } from '@lib/constants';
 import { trackPageView } from '@lib/google';
 import spotifyApi from '@lib/spotify-api';
-import { parseTimeSpan, parseTopArtists, parseTopSongs } from '@lib/spotify-helper';
+import { parseTopSongs } from '@lib/spotify-helper';
 import Layout from '@modules/layout/components/layout';
-import Button from '@modules/ui/components/button/button';
-import { setTopType } from '@state/slices/app.slice';
-import { setArtists, setArtistsLoading, setArtistsTimeSpan } from '@state/slices/top-artists.slice';
 import { selectSongsTimeSpan, setSongs } from '@state/slices/top-songs.slice';
 import type { SpotifyTrackType } from '@typedefs/toply.typesdefs';
-import { ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
 import HomeView from '@views/home/home-view';
 import type { GetServerSideProps } from 'next';
 import { unstable_getServerSession } from 'next-auth/next';
@@ -25,7 +20,6 @@ interface IHomePageProps {
 const HomePage: React.FC<IHomePageProps> = (props) => {
   const { songs } = props;
   const dispatch = useDispatch();
-  const spotifyAPI = useSpotify();
   const timeSpan = useSelector(selectSongsTimeSpan);
 
   useEffect(() => {
@@ -38,25 +32,6 @@ const HomePage: React.FC<IHomePageProps> = (props) => {
     }
   }, []);
 
-  const handleTopArtists = async () => {
-    if (spotifyAPI.getAccessToken()) {
-      // Update timespan to redux state.
-      dispatch(setTopType(ToplyTopItemsEnum.ARTISTS));
-      dispatch(setArtistsTimeSpan(timeSpan));
-      dispatch(setArtistsLoading(true));
-      const timeRange = parseTimeSpan(timeSpan);
-      // If we already have fetched the songs before we do nothing, otherwise we fetch.
-      await spotifyAPI
-        .getMyTopArtists({ limit: MAX_TRACKS, time_range: timeRange })
-        .then((data) => {
-          dispatch(setArtists({ timeSpan, artists: parseTopArtists(data.body) }));
-        })
-        .finally(() => {
-          dispatch(setArtistsLoading(false));
-        });
-    }
-  };
-
   return (
     <Layout
       headProps={{
@@ -65,7 +40,6 @@ const HomePage: React.FC<IHomePageProps> = (props) => {
       }}
     >
       <HomeView />
-      <Button onClick={handleTopArtists}>Top Artist</Button>
     </Layout>
   );
 };

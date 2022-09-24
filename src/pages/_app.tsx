@@ -4,7 +4,7 @@ import '@fontsource/poppins';
 import { GOOGLE_TAG_ID } from '@lib/constants';
 import { trackGAEvent } from '@lib/google';
 import GoogleAnalytics from '@modules/google/components/google-analytics';
-import SelectedSongProvider from '@modules/selected-song/context/selected-song-context';
+import SelectedSongProvider from '@modules/selected-item/context/selected-song-context';
 import { store } from '@state/store';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
