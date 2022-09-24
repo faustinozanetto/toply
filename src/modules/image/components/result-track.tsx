@@ -54,12 +54,11 @@ const ResultTrack: React.FC<IResultTrackProps> = (props) => {
         <Image
           src={track?.album?.images[0]?.url!}
           alt={track.name}
-          placeholder="blur"
-          priority={index <= 6}
           blurDataURL={track?.album?.images[2]?.url!}
-          layout="responsive"
-          width={350}
-          height={350}
+          placeholder="blur"
+          quality={25}
+          width={300}
+          height={300}
           onClick={handleImageSelection}
         />
       </picture>

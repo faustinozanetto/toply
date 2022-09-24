@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { memo } from 'react';
 
 interface ILayoutHeadProps {
   title?: string;
@@ -51,4 +51,4 @@ const LayoutHead: React.FC<ILayoutHeadProps> = (props) => {
   );
 };
 
-export default LayoutHead;
+export default memo(LayoutHead);

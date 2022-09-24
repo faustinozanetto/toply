@@ -1,5 +1,5 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '@state/store';
 import type { SpotifyTrackType, ToplyStateType } from '@typedefs/toply.typesdefs';
 import { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
@@ -22,7 +22,6 @@ export const toplySlice = createSlice({
     },
     setSongsLoading: (state, action: PayloadAction<boolean>) => {
       Object.assign(state, { songsLoading: action.payload });
-      console.log(`Songs Loading: ${current(state).songsLoading}`);
     },
     setSelectedSong: (state, action: PayloadAction<SpotifyTrackType>) => {
       state.selectedSong = action.payload;

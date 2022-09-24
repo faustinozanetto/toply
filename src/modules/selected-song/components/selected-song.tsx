@@ -79,9 +79,10 @@ const SelectedSong: React.FC = () => {
                     <Image
                       src={selectedSong?.album?.images[0]?.url!}
                       alt={selectedSong.name}
-                      placeholder="blur"
                       blurDataURL={selectedSong?.album?.images[2]?.url!}
+                      placeholder="blur"
                       layout="responsive"
+                      quality={40}
                       width={300}
                       height={300}
                     />
