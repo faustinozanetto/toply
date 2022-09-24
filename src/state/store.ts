@@ -1,13 +1,19 @@
 import type { Action, ThunkAction } from '@reduxjs/toolkit';
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { enableMapSet } from 'immer';
 
-import { toplySlice } from './slices/toply.slice';
+import { appSlice } from './slices/app.slice';
+import { topSongsSlice } from './slices/top-songs.slice';
 
 enableMapSet();
 
+const reducers = combineReducers({
+  app: appSlice.reducer,
+  topSongs: topSongsSlice.reducer,
+});
+
 export const store = configureStore({
-  reducer: toplySlice.reducer,
+  reducer: reducers,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,

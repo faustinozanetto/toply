@@ -50,10 +50,20 @@ export enum ToplyDataTimeStapEnum {
   ALLTIME = 'All Time',
 }
 
-export type ToplyStateType = {
+export type AppStateType = {
+  backgroundColor: string;
+};
+
+export type TopSongsStateType = {
   songs: Map<ToplyDataTimeStapEnum, SpotifyTrackType[]>;
   songsLoading: boolean;
   selectedSong: SpotifyTrackType;
   timeSpan: ToplyDataTimeStapEnum;
-  backgroundColor: string;
+};
+
+export type TopArtistsStateType = {
+  artists: Map<ToplyDataTimeStapEnum, SpotifyArtistType[]>;
+  artistsLoading: boolean;
+  selectedArtist: SpotifyArtistType;
+  timeSpan: ToplyDataTimeStapEnum;
 };

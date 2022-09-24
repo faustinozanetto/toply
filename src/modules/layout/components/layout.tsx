@@ -1,5 +1,5 @@
 import Footer from '@modules/footer/components/footer';
-import { selectBackgroundColor } from '@state/slices/toply.slice';
+import { selectBackgroundColor } from '@state/slices/app.slice';
 import React from 'react';
 import { useSelector } from 'react-redux';
 

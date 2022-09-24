@@ -1,4 +1,4 @@
-import { selectSongs, selectTimeSpan } from '@state/slices/toply.slice';
+import { selectSongs, selectTimeSpan } from '@state/slices/app.slice';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 

@@ -50,6 +50,28 @@ export const parseTopSongs = (data: SpotifyApi.UsersTopTracksResponse): SpotifyT
 
 /**
  *
+ * @param data Spotify api data.
+ * @returns the parsed artists into the typed ones.
+ */
+export const parseTopArtists = (data: SpotifyApi.UsersTopArtistsResponse): SpotifyArtistType[] => {
+  const artists: SpotifyArtistType[] = data.items.map((artist) => {
+    const foundArtist: SpotifyArtistType = {
+      id: artist.id,
+      name: artist.name,
+      href: artist.href,
+      type: artist.type,
+      uri: artist.uri,
+      externalUrls: {
+        spotify: artist.external_urls.spotify,
+      },
+    };
+    return foundArtist;
+  });
+  return artists;
+};
+
+/**
+ *
  * @param timeSpan Timespan as enum type.
  * @returns the parsed string type used in the api call.
  */

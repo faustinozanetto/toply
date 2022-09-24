@@ -1,6 +1,6 @@
 import { trackEvent } from '@lib/google';
 import { handleImageGeneration, saveImageToFile } from '@lib/image-generation';
-import { selectBackgroundColor } from '@state/slices/toply.slice';
+import { selectBackgroundColor } from '@state/slices/app.slice';
 import React from 'react';
 import { useSelector } from 'react-redux';
 

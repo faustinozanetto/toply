@@ -1,20 +1,19 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '@state/store';
-import type { SpotifyTrackType, ToplyStateType } from '@typedefs/toply.typesdefs';
+import type { SpotifyTrackType, TopSongsStateType } from '@typedefs/toply.typesdefs';
 import { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
 
-const initialState: ToplyStateType = {
+const initialState: TopSongsStateType = {
   songs: new Map<ToplyDataTimeStapEnum, SpotifyTrackType[]>(),
   songsLoading: true,
   selectedSong: {},
   timeSpan: ToplyDataTimeStapEnum.MONTH,
-  backgroundColor: 'linear-gradient(to right, rgb(251, 113, 133), rgb(217, 70, 239), rgb(99, 102, 241))',
 };
 
-export const toplySlice = createSlice({
+export const topSongsSlice = createSlice({
   initialState,
-  name: 'toply',
+  name: 'topSongs',
   reducers: {
     setSongs: (state, action: PayloadAction<{ songs: SpotifyTrackType[]; timeSpan: ToplyDataTimeStapEnum }>) => {
       const updatedSongs = state.songs.set(action.payload.timeSpan, action.payload.songs);
@@ -29,16 +28,12 @@ export const toplySlice = createSlice({
     setTimeSpan: (state, action: PayloadAction<ToplyDataTimeStapEnum>) => {
       state.timeSpan = action.payload;
     },
-    setBackgroundColor: (state, action: PayloadAction<string>) => {
-      state.backgroundColor = action.payload;
-    },
   },
 });
 
-export const { setSongs, setSongsLoading, setTimeSpan, setBackgroundColor, setSelectedSong } = toplySlice.actions;
+export const { setSongs, setSongsLoading, setTimeSpan, setSelectedSong } = topSongsSlice.actions;
 
-export const selectSongs = (state: RootState) => state.songs;
-export const selectTopSongsLoading = (state: RootState) => state.songsLoading;
-export const selectTimeSpan = (state: RootState) => state.timeSpan;
-export const selectBackgroundColor = (state: RootState) => state.backgroundColor;
-export const selectSelectedSong = (state: RootState) => state.selectedSong;
+export const selectSongs = (state: RootState) => state.topSongs.songs;
+export const selectTopSongsLoading = (state: RootState) => state.topSongs.songsLoading;
+export const selectTimeSpan = (state: RootState) => state.topSongs.timeSpan;
+export const selectSelectedSong = (state: RootState) => state.topSongs.selectedSong;

@@ -1,6 +1,6 @@
 import { trackEvent } from '@lib/google';
 import { copyImageToClipboard, handleImageGeneration } from '@lib/image-generation';
-import { selectBackgroundColor } from '@state/slices/toply.slice';
+import { selectBackgroundColor } from '@state/slices/app.slice';
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 

@@ -1,5 +1,5 @@
 import { SelectedSongContext } from '@modules/selected-song/context/selected-song-context';
-import { setSelectedSong } from '@state/slices/toply.slice';
+import { setSelectedSong } from '@state/slices/app.slice';
 import type { SpotifyTrackType } from '@typedefs/toply.typesdefs';
 import { motion } from 'framer-motion';
 import Image from 'next/image';

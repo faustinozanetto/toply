@@ -1,6 +1,6 @@
 import { BACKGROUNDS } from '@lib/constants';
 import Button from '@modules/ui/components/button/button';
-import { setBackgroundColor } from '@state/slices/toply.slice';
+import { setBackgroundColor } from '@state/slices/app.slice';
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 

@@ -1,4 +1,4 @@
-import { selectSelectedSong } from '@state/slices/toply.slice';
+import { selectSelectedSong } from '@state/slices/app.slice';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
