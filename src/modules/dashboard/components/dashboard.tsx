@@ -1,5 +1,5 @@
-import ResultExport from '@modules/image/components/result-export';
-import Results from '@modules/image/components/results';
+import ResultExport from '@modules/result/components/result-export';
+import Results from '@modules/result/components/results';
 import SelectedSong from '@modules/selected-song/components/selected-song';
 import LogoutButton from '@modules/user/components/logout-button';
 import React, { memo, useRef } from 'react';

@@ -1,18 +1,18 @@
-import { selectSongs, selectTimeSpan } from '@state/slices/app.slice';
+import { selectSongs, selectSongsTimeSpan } from '@state/slices/top-songs.slice';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import ResultTrack from './result-track';
+import ResultItem from './result-item';
 
 interface IResultPhotoProps {}
 
 const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
   const {} = props;
   const songs = useSelector(selectSongs);
-  const timeSpan = useSelector(selectTimeSpan);
+  const timeSpan = useSelector(selectSongsTimeSpan);
 
-  const resultTracks = useMemo(() => {
-    return songs.get(timeSpan) ?? [];
+  const resultItems = useMemo(() => {
+
   }, [songs, timeSpan]);
 
   return (
@@ -29,7 +29,7 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
     >
       <div className="grid grid-cols-3 gap-2">
         {resultTracks.map((song, index) => (
-          <ResultTrack key={song.id} track={song} index={index} />
+          <ResultItem key={song.id} track={song} index={index} />
         ))}
       </div>
       <div className="mt-2 font-bold text-black opacity-60">https://toply.vercel.app/</div>

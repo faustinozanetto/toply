@@ -2,9 +2,11 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '@state/store';
 import type { AppStateType } from '@typedefs/toply.typesdefs';
+import { ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
 
 const initialState: AppStateType = {
   backgroundColor: 'linear-gradient(to right, rgb(251, 113, 133), rgb(217, 70, 239), rgb(99, 102, 241))',
+  topType: ToplyTopItemsEnum.SONGS,
 };
 
 export const appSlice = createSlice({
@@ -14,9 +16,13 @@ export const appSlice = createSlice({
     setBackgroundColor: (state, action: PayloadAction<string>) => {
       state.backgroundColor = action.payload;
     },
+    setTopType: (state, action: PayloadAction<ToplyTopItemsEnum>) => {
+      state.topType = action.payload;
+    },
   },
 });
 
-export const { setBackgroundColor } = appSlice.actions;
+export const { setBackgroundColor, setTopType } = appSlice.actions;
 
 export const selectBackgroundColor = (state: RootState) => state.app.backgroundColor;
+export const selectTopType = (state: RootState) => state.app.topType;

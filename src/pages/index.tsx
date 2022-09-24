@@ -5,7 +5,7 @@ import spotifyApi from '@lib/spotify-api';
 import { parseTimeSpan, parseTopSongs } from '@lib/spotify-helper';
 import Layout from '@modules/layout/components/layout';
 import Button from '@modules/ui/components/button/button';
-import { selectTimeSpan, setSongs } from '@state/slices/app.slice';
+import { selectSongsTimeSpan, setSongs } from '@state/slices/top-songs.slice';
 import type { SpotifyTrackType } from '@typedefs/toply.typesdefs';
 import HomeView from '@views/home/home-view';
 import type { GetServerSideProps } from 'next';
@@ -23,7 +23,7 @@ const HomePage: React.FC<IHomePageProps> = (props) => {
   const { songs } = props;
   const dispatch = useDispatch();
   const spotifyAPI = useSpotify();
-  const timeSpan = useSelector(selectTimeSpan);
+  const timeSpan = useSelector(selectSongsTimeSpan);
 
   useEffect(() => {
     trackPageView('home');

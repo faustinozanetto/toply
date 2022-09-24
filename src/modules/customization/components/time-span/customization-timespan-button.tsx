@@ -2,7 +2,7 @@ import useSpotify from '@hooks/use-spotify';
 import { MAX_TRACKS } from '@lib/constants';
 import { parseTimeSpan, parseTopSongs } from '@lib/spotify-helper';
 import Button from '@modules/ui/components/button/button';
-import { selectSongs, setSongs, setSongsLoading, setTimeSpan } from '@state/slices/app.slice';
+import { selectSongs, setSongs, setSongsLoading, setSongsTimeSpan } from '@state/slices/top-songs.slice';
 import type { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +21,7 @@ const CustomizationTimespanButton: React.FC<ICustomizationTimespanButtonProps> =
   const handleTimeSpanSelect = async () => {
     if (spotifyAPI.getAccessToken()) {
       // Update timespan to redux state.
-      dispatch(setTimeSpan(timeSpan));
+      dispatch(setSongsTimeSpan(timeSpan));
       dispatch(setSongsLoading(true));
       const timeRange = parseTimeSpan(timeSpan);
       // If we already have fetched the songs before we do nothing, otherwise we fetch.

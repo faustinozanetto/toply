@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { selectSelectedSong, setSelectedSong } from '@state/slices/app.slice';
+import { selectSelectedSong, setSelectedSong } from '@state/slices/top-songs.slice';
 import Image from 'next/image';
 import React, { Fragment, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

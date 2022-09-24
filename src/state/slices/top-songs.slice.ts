@@ -22,18 +22,18 @@ export const topSongsSlice = createSlice({
     setSongsLoading: (state, action: PayloadAction<boolean>) => {
       Object.assign(state, { songsLoading: action.payload });
     },
-    setSelectedSong: (state, action: PayloadAction<SpotifyTrackType>) => {
+    setSelectedSong: (state, action: PayloadAction<Partial<SpotifyTrackType>>) => {
       state.selectedSong = action.payload;
     },
-    setTimeSpan: (state, action: PayloadAction<ToplyDataTimeStapEnum>) => {
+    setSongsTimeSpan: (state, action: PayloadAction<ToplyDataTimeStapEnum>) => {
       state.timeSpan = action.payload;
     },
   },
 });
 
-export const { setSongs, setSongsLoading, setTimeSpan, setSelectedSong } = topSongsSlice.actions;
+export const { setSongs, setSongsLoading, setSongsTimeSpan, setSelectedSong } = topSongsSlice.actions;
 
 export const selectSongs = (state: RootState) => state.topSongs.songs;
 export const selectTopSongsLoading = (state: RootState) => state.topSongs.songsLoading;
-export const selectTimeSpan = (state: RootState) => state.topSongs.timeSpan;
+export const selectSongsTimeSpan = (state: RootState) => state.topSongs.timeSpan;
 export const selectSelectedSong = (state: RootState) => state.topSongs.selectedSong;

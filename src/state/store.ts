@@ -3,6 +3,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { enableMapSet } from 'immer';
 
 import { appSlice } from './slices/app.slice';
+import { topArtistsSlice } from './slices/top-artists.slice';
 import { topSongsSlice } from './slices/top-songs.slice';
 
 enableMapSet();
@@ -10,6 +11,7 @@ enableMapSet();
 const reducers = combineReducers({
   app: appSlice.reducer,
   topSongs: topSongsSlice.reducer,
+  topArtists: topArtistsSlice.reducer,
 });
 
 export const store = configureStore({
