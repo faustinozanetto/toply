@@ -24,7 +24,21 @@ const SelectedItemArtist: React.FC<ISelectedItemArtistProps> = (props) => {
         height={300}
       />
       <div className="mt-2 flex flex-col">
+        {/* Name */}
         <h3 className="text-xl font-bold leading-6 text-gray-900 sm:text-2xl">{selectedArtist.name}</h3>
+        {/* Genres */}
+        <h4 className="text-lg font-semibold leading-6 text-gray-900 sm:text-xl">
+          Genres
+          <ul className="font-normal text-black">
+            {selectedArtist.genres.map((genre) => {
+              return (
+                <li key={genre} className="font-normal">
+                  {genre.toUpperCase()}
+                </li>
+              );
+            })}
+          </ul>
+        </h4>
       </div>
     </>
   );

@@ -28,6 +28,7 @@ export type SpotifyArtistType = {
   name: string;
   type: string;
   uri: string;
+  genres: string[];
   images: SpotifyImageType[];
   externalUrls: {
     spotify: string;
@@ -59,18 +60,17 @@ export enum ToplyTopItemsEnum {
 export type AppStateType = {
   backgroundColor: string;
   topType: ToplyTopItemsEnum;
+  topTimeSpan: ToplyDataTimeStapEnum;
 };
 
 export type TopSongsStateType = {
   songs: Map<ToplyDataTimeStapEnum, SpotifyTrackType[]>;
   songsLoading: boolean;
   selectedSong: SpotifyTrackType | null;
-  timeSpan: ToplyDataTimeStapEnum;
 };
 
 export type TopArtistsStateType = {
   artists: Map<ToplyDataTimeStapEnum, SpotifyArtistType[]>;
   artistsLoading: boolean;
   selectedArtist: SpotifyArtistType | null;
-  timeSpan: ToplyDataTimeStapEnum;
 };

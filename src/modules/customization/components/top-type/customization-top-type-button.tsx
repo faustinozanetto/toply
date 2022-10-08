@@ -6,17 +6,21 @@ interface ICustomizationTopTypeButtonProps {
   /* Top type to pass to the button */
   topType: ToplyTopItemsEnum;
   /** Callback to call when selected */
-  onTopTypeSelected: () => void;
+  onTopTypeSelected: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const CustomizationTopTypeButton: React.FC<ICustomizationTopTypeButtonProps> = (props) => {
-  const { topType, onTopTypeSelected } = props;
+const CustomizationTopTypeButton = React.forwardRef<HTMLButtonElement, ICustomizationTopTypeButtonProps>(
+  (props, ref) => {
+    const { topType, onTopTypeSelected } = props;
 
-  return (
-    <Button size="sm" aria-label={`${topType} Top Type`} onClick={onTopTypeSelected}>
-      {topType}
-    </Button>
-  );
-};
+    return (
+      <Button ref={ref} size="sm" aria-label={`${topType} Top Type`} onClick={(e) => onTopTypeSelected(e)}>
+        {topType}
+      </Button>
+    );
+  }
+);
+
+CustomizationTopTypeButton.displayName = 'CustomizationTopTypeButton';
 
 export default CustomizationTopTypeButton;

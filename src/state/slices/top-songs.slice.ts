@@ -1,14 +1,12 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '@state/store';
-import type { SpotifyTrackType, TopSongsStateType } from '@typedefs/toply.typesdefs';
-import { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
+import type { SpotifyTrackType, ToplyDataTimeStapEnum, TopSongsStateType } from '@typedefs/toply.typesdefs';
 
 const initialState: TopSongsStateType = {
   songs: new Map<ToplyDataTimeStapEnum, SpotifyTrackType[]>(),
   songsLoading: true,
   selectedSong: null,
-  timeSpan: ToplyDataTimeStapEnum.MONTH,
 };
 
 export const topSongsSlice = createSlice({
@@ -25,15 +23,11 @@ export const topSongsSlice = createSlice({
     setSelectedSong: (state, action: PayloadAction<SpotifyTrackType>) => {
       state.selectedSong = action.payload;
     },
-    setSongsTimeSpan: (state, action: PayloadAction<ToplyDataTimeStapEnum>) => {
-      state.timeSpan = action.payload;
-    },
   },
 });
 
-export const { setSongs, setSongsLoading, setSongsTimeSpan, setSelectedSong } = topSongsSlice.actions;
+export const { setSongs, setSongsLoading, setSelectedSong } = topSongsSlice.actions;
 
 export const selectSongs = (state: RootState) => state.topSongs.songs;
 export const selectTopSongsLoading = (state: RootState) => state.topSongs.songsLoading;
-export const selectSongsTimeSpan = (state: RootState) => state.topSongs.timeSpan;
 export const selectSelectedSong = (state: RootState) => state.topSongs.selectedSong;

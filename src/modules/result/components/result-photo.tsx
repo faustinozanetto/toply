@@ -16,16 +16,15 @@ interface IResultType {
 
 const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
   const {} = props;
-  const userTops = useUserTops();
+  const { songs, artists, topType, updateSelectedSong, updateSelectedArtist } = useUserTops();
 
   /**
    * Memoizes the results to display, wether they are artists or songs.
    */
   const resultItems = useMemo(() => {
     let results: IResultType[] = [];
-    if (userTops.topType === ToplyTopItemsEnum.SONGS) {
-      const mapSongs = userTops.songs?.get(userTops.songsTimeSpan) ?? [];
-      results = mapSongs.map((song) => {
+    if (topType === ToplyTopItemsEnum.SONGS) {
+      results = songs.map((song) => {
         return {
           id: song.id,
           name: song.name,
@@ -34,8 +33,7 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
         };
       });
     } else {
-      const mapArtists = userTops.artists?.get(userTops.artistsTimeSpan) ?? [];
-      results = mapArtists.map((artist) => {
+      results = artists.map((artist) => {
         return {
           id: artist.id,
           name: artist.name,
@@ -44,21 +42,20 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
         };
       });
     }
+    console.log('called');
     return results;
-  }, [userTops]);
+  }, [songs, artists]);
 
   const handleItemSelected = (id: string): void => {
-    if (userTops.topType === ToplyTopItemsEnum.SONGS) {
-      const songs = userTops.songs.get(userTops.songsTimeSpan) ?? [];
+    if (topType === ToplyTopItemsEnum.SONGS) {
       const matchingSong = songs.find((song) => song.id === id);
       if (matchingSong) {
-        userTops.updateSelectedSong(matchingSong);
+        updateSelectedSong(matchingSong);
       }
     } else {
-      const artists = userTops.artists.get(userTops.artistsTimeSpan) ?? [];
       const matchingArtist = artists.find((artist) => artist.id === id);
       if (matchingArtist) {
-        userTops.updateSelectedArtist(matchingArtist);
+        updateSelectedArtist(matchingArtist);
       }
     }
   };

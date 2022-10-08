@@ -6,14 +6,14 @@ interface ICustomizationTimespanButtonProps {
   /* Timespan to pass to the button */
   timeSpan: ToplyDataTimeStapEnum;
   /** Callback to call when selected */
-  onTimeSpanSelected: () => void;
+  onTimeSpanSelected: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const CustomizationTimespanButton: React.FC<ICustomizationTimespanButtonProps> = (props) => {
   const { timeSpan, onTimeSpanSelected } = props;
 
   return (
-    <Button size="sm" aria-label={`${timeSpan} Time Span`} onClick={onTimeSpanSelected}>
+    <Button size="sm" aria-label={`${timeSpan} Time Span`} onClick={(e) => onTimeSpanSelected(e)}>
       {timeSpan}
     </Button>
   );

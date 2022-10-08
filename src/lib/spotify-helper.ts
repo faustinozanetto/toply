@@ -15,6 +15,7 @@ export const parseTopSongs = (data: SpotifyApi.UsersTopTracksResponse): SpotifyT
         href: artist.href,
         type: artist.type,
         uri: artist.uri,
+        genres: [],
         images: [],
         externalUrls: {
           spotify: artist.external_urls.spotify,
@@ -64,6 +65,7 @@ export const parseTopArtists = (data: SpotifyApi.UsersTopArtistsResponse): Spoti
       uri: artist.uri,
       // @ts-ignore
       images: artist.images,
+      genres: artist.genres,
       externalUrls: {
         spotify: artist.external_urls.spotify,
       },

@@ -8,11 +8,10 @@ interface ICustomizationTimespanProps {}
 
 const CustomizationTimespan: React.FC<ICustomizationTimespanProps> = (props) => {
   const {} = props;
-  const userTops = useUserTops();
+  const { setTimeSpan } = useUserTops();
 
   const handleTimeSpanSelect = (timeSpan: ToplyDataTimeStapEnum) => {
-    userTops.setTopTimeSpan(userTops.topType, timeSpan);
-    userTops.fetchTops();
+    setTimeSpan(timeSpan);
   };
 
   return (
@@ -23,9 +22,11 @@ const CustomizationTimespan: React.FC<ICustomizationTimespanProps> = (props) => 
         {Object.values(ToplyDataTimeStapEnum).map((timeSpan, index) => {
           return (
             <CustomizationTimespanButton
-              key={index}
+              key={index + timeSpan}
               timeSpan={timeSpan}
-              onTimeSpanSelected={() => handleTimeSpanSelect(timeSpan)}
+              onTimeSpanSelected={() => {
+                handleTimeSpanSelect(timeSpan);
+              }}
             />
           );
         })}

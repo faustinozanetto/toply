@@ -8,11 +8,10 @@ interface ICustomizationTopTypeProps {}
 
 const CustomizationTopType: React.FC<ICustomizationTopTypeProps> = (props) => {
   const {} = props;
-  const userTops = useUserTops();
+  const { setTopType } = useUserTops();
 
   const handleTopTypeSelect = (topType: ToplyTopItemsEnum) => {
-    userTops.setTopType(topType);
-    userTops.fetchTops();
+    setTopType(topType);
   };
 
   return (
@@ -23,9 +22,11 @@ const CustomizationTopType: React.FC<ICustomizationTopTypeProps> = (props) => {
         {Object.values(ToplyTopItemsEnum).map((topType, index) => {
           return (
             <CustomizationTopTypeButton
-              key={index}
+              key={index + topType}
               topType={topType}
-              onTopTypeSelected={() => handleTopTypeSelect(topType)}
+              onTopTypeSelected={() => {
+                handleTopTypeSelect(topType);
+              }}
             />
           );
         })}
