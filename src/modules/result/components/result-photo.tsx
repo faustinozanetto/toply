@@ -42,9 +42,8 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
         };
       });
     }
-    console.log('called');
     return results;
-  }, [songs, artists]);
+  }, [artists, songs]);
 
   const handleItemSelected = (id: string): void => {
     if (topType === ToplyTopItemsEnum.SONGS) {

@@ -87,6 +87,7 @@ const useUserTops = () => {
     }
   };
 
+  // Fetch snogs or artists.
   const fetchTops = () => {
     if (topType === ToplyTopItemsEnum.SONGS) {
       return fetchTopSongs();
@@ -102,6 +103,7 @@ const useUserTops = () => {
     dispatch(setSelectedArtist(artist));
   };
 
+  // Refetch tops when type or time span changes.
   useEffect(() => {
     fetchTops();
   }, [topType, topTimeSpan]);
