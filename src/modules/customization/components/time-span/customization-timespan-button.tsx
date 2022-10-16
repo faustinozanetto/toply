@@ -1,10 +1,10 @@
 import Button from '@modules/ui/components/button/button';
-import type { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
+import type { ToplyDataTimeSpanEnum } from '@typedefs/toply.typesdefs';
 import React from 'react';
 
 interface ICustomizationTimespanButtonProps {
   /* Timespan to pass to the button */
-  timeSpan: ToplyDataTimeStapEnum;
+  timeSpan: ToplyDataTimeSpanEnum;
   /** Callback to call when selected */
   onTimeSpanSelected: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }

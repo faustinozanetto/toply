@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import useUserTops from '@hooks/use-user-tops';
+import { useCustomizationContext } from '@modules/customization/context/customization-context';
 import { ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
 import React, { Fragment, useContext, useEffect, useMemo } from 'react';
 
@@ -9,6 +10,7 @@ import SelectedItemSong from './selected-item-song';
 
 const SelectedItem: React.FC = () => {
   const userTops = useUserTops();
+  const { state } = useCustomizationContext();
   const { showModal, setShowModal } = useContext(SelectedSongContext);
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const SelectedItem: React.FC = () => {
   };
 
   const renderItemContents = useMemo(() => {
-    if (userTops.topType === ToplyTopItemsEnum.SONGS) return <SelectedItemSong selectedSong={userTops.selectedSong!} />;
+    if (state.topType === ToplyTopItemsEnum.SONGS) return <SelectedItemSong selectedSong={userTops.selectedSong!} />;
     return <SelectedItemArtist selectedArtist={userTops.selectedArtist!} />;
   }, [userTops.selectedSong, userTops.selectedArtist]);
 

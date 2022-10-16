@@ -1,12 +1,33 @@
+/*= ================= Reducers ================== */
+export type ActionMap<M extends { [index: string]: any }> = {
+  [Key in keyof M]: M[Key] extends undefined
+    ? {
+        type: Key;
+      }
+    : {
+        type: Key;
+        payload: M[Key];
+      };
+};
+
 export enum SpotifyAlbumCategoryEnum {
   SINGLE = 'single',
   ALBUM = 'album',
 }
 
 export type SpotifyImageType = {
+  /**
+   * The image height in pixels. If unknown: `null` or not returned.
+   */
+  height?: number | undefined;
+  /**
+   * The source URL of the image.
+   */
   url: string;
-  width: number;
-  height: number;
+  /**
+   * The image width in pixels. If unknown: null or not returned.
+   */
+  width?: number | undefined;
 };
 
 export type SpotifyAlbumType = {
@@ -46,7 +67,7 @@ export type SpotifyTrackType = {
   artists: SpotifyArtistType[];
 };
 
-export enum ToplyDataTimeStapEnum {
+export enum ToplyDataTimeSpanEnum {
   MONTH = 'Month',
   SEMESTER = 'Semester',
   ALLTIME = 'All Time',
@@ -60,17 +81,17 @@ export enum ToplyTopItemsEnum {
 export type AppStateType = {
   backgroundColor: string;
   topType: ToplyTopItemsEnum;
-  topTimeSpan: ToplyDataTimeStapEnum;
+  topTimeSpan: ToplyDataTimeSpanEnum;
 };
 
 export type TopSongsStateType = {
-  songs: Map<ToplyDataTimeStapEnum, SpotifyTrackType[]>;
+  songs: Map<ToplyDataTimeSpanEnum, SpotifyTrackType[]>;
   songsLoading: boolean;
   selectedSong: SpotifyTrackType | null;
 };
 
 export type TopArtistsStateType = {
-  artists: Map<ToplyDataTimeStapEnum, SpotifyArtistType[]>;
+  artists: Map<ToplyDataTimeSpanEnum, SpotifyArtistType[]>;
   artistsLoading: boolean;
   selectedArtist: SpotifyArtistType | null;
 };

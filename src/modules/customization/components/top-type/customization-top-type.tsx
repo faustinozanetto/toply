@@ -1,4 +1,5 @@
-import useUserTops from '@hooks/use-user-tops';
+import { useCustomizationContext } from '@modules/customization/context/customization-context';
+import { CustomizationActionType } from '@modules/customization/context/types';
 import { ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
 import React from 'react';
 
@@ -8,10 +9,15 @@ interface ICustomizationTopTypeProps {}
 
 const CustomizationTopType: React.FC<ICustomizationTopTypeProps> = (props) => {
   const {} = props;
-  const { setTopType } = useUserTops();
+  const { dispatch } = useCustomizationContext();
 
   const handleTopTypeSelect = (topType: ToplyTopItemsEnum) => {
-    setTopType(topType);
+    dispatch({
+      type: CustomizationActionType.SET_TOP_TYPE,
+      payload: {
+        topType,
+      },
+    });
   };
 
   return (

@@ -1,52 +1,19 @@
 import useUserTops from '@hooks/use-user-tops';
+import { useCustomizationContext } from '@modules/customization/context/customization-context';
 import { ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import ResultItem from './result-item';
 
 interface IResultPhotoProps {}
 
-/** Internal interface used to treat results as a generic item  result. */
-interface IResultType {
-  id: string;
-  name: string;
-  image: string;
-  blurImage: string;
-}
-
 const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
   const {} = props;
-  const { songs, artists, topType, updateSelectedSong, updateSelectedArtist } = useUserTops();
-
-  /**
-   * Memoizes the results to display, wether they are artists or songs.
-   */
-  const resultItems = useMemo(() => {
-    let results: IResultType[] = [];
-    if (topType === ToplyTopItemsEnum.SONGS) {
-      results = songs.map((song) => {
-        return {
-          id: song.id,
-          name: song.name,
-          image: song.album.images[0]?.url!,
-          blurImage: song.album.images[2]?.url!,
-        };
-      });
-    } else {
-      results = artists.map((artist) => {
-        return {
-          id: artist.id,
-          name: artist.name,
-          image: artist.images[0]?.url!,
-          blurImage: artist.images[2]?.url!,
-        };
-      });
-    }
-    return results;
-  }, [artists, songs]);
+  const { state: customizationState } = useCustomizationContext();
+  const { songs, results, artists, updateSelectedSong, updateSelectedArtist } = useUserTops();
 
   const handleItemSelected = (id: string): void => {
-    if (topType === ToplyTopItemsEnum.SONGS) {
+    if (customizationState.topType === ToplyTopItemsEnum.SONGS) {
       const matchingSong = songs.find((song) => song.id === id);
       if (matchingSong) {
         updateSelectedSong(matchingSong);
@@ -72,7 +39,7 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
       }}
     >
       <div className="grid grid-cols-3 gap-2">
-        {resultItems.map((item, index) => (
+        {results()?.map((item, index) => (
           <ResultItem
             key={item.id}
             index={index}

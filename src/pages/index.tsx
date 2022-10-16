@@ -1,17 +1,18 @@
-import useUserTops from '@hooks/use-user-tops';
 import { MAX_TRACKS } from '@lib/constants';
 import { trackPageView } from '@lib/google';
 import spotifyApi from '@lib/spotify-api';
 import { parseTopSongs } from '@lib/spotify-helper';
+import { useCustomizationContext } from '@modules/customization/context/customization-context';
+import { CustomizationActionType } from '@modules/customization/context/types';
+import { useDashboardContext } from '@modules/dashboard/context/dashboard-context';
+import { DashboardActionType } from '@modules/dashboard/context/types';
 import Layout from '@modules/layout/components/layout';
-import { setSongs } from '@state/slices/top-songs.slice';
 import type { SpotifyTrackType } from '@typedefs/toply.typesdefs';
-import { ToplyDataTimeStapEnum, ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
+import { ToplyDataTimeSpanEnum, ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
 import HomeView from '@views/home/home-view';
 import type { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 interface IHomePageProps {
   songs: SpotifyTrackType[];
@@ -19,16 +20,34 @@ interface IHomePageProps {
 
 const HomePage: React.FC<IHomePageProps> = (props) => {
   const { songs } = props;
-  const dispatch = useDispatch();
-  const { topTimeSpan, setTopType, setTimeSpan } = useUserTops();
+  const { state: customizationState, dispatch: customizationDispatch } = useCustomizationContext();
+  const { dispatch: dashboardDispatch } = useDashboardContext();
 
   useEffect(() => {
     trackPageView('home');
 
     if (songs.length > 0) {
-      dispatch(setSongs({ songs, timeSpan: topTimeSpan }));
-      setTopType(ToplyTopItemsEnum.SONGS);
-      setTimeSpan(ToplyDataTimeStapEnum.MONTH);
+      dashboardDispatch({
+        type: DashboardActionType.SET_SONGS,
+        payload: {
+          songs: {
+            timeSpan: customizationState.topTimeSpan,
+            data: songs,
+          },
+        },
+      });
+      customizationDispatch({
+        type: CustomizationActionType.SET_TIME_SPAN,
+        payload: {
+          topTimeSpan: ToplyDataTimeSpanEnum.MONTH,
+        },
+      });
+      customizationDispatch({
+        type: CustomizationActionType.SET_TOP_TYPE,
+        payload: {
+          topType: ToplyTopItemsEnum.SONGS,
+        },
+      });
     }
   }, [songs]);
 

@@ -1,18 +1,23 @@
 import { BACKGROUNDS } from '@lib/constants';
+import { useCustomizationContext } from '@modules/customization/context/customization-context';
+import { CustomizationActionType } from '@modules/customization/context/types';
 import Button from '@modules/ui/components/button/button';
-import { setBackgroundColor } from '@state/slices/app.slice';
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 
 interface ICustomizationBackgroundButtonProps {}
 
 const CustomizationBackgroundButton: React.FC<ICustomizationBackgroundButtonProps> = (props) => {
   const {} = props;
-  const dispatch = useDispatch();
+  const { dispatch } = useCustomizationContext();
 
   const handleClick = useCallback(() => {
     const randomBackground: string = BACKGROUNDS[Math.floor(Math.random() * BACKGROUNDS.length)]!;
-    dispatch(setBackgroundColor(randomBackground));
+    dispatch({
+      type: CustomizationActionType.SET_BACKGROUND_COLOR,
+      payload: {
+        backgroundColor: randomBackground,
+      },
+    });
   }, [dispatch]);
 
   return (

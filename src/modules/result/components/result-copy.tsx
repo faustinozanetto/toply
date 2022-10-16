@@ -1,8 +1,7 @@
 import { trackEvent } from '@lib/google';
 import { copyImageToClipboard, handleImageGeneration } from '@lib/image-generation';
-import { selectBackgroundColor } from '@state/slices/app.slice';
+import { useCustomizationContext } from '@modules/customization/context/customization-context';
 import React, { useCallback } from 'react';
-import { useSelector } from 'react-redux';
 
 interface ResultCopyProps {
   resultRef: React.RefObject<HTMLDivElement>;
@@ -10,14 +9,14 @@ interface ResultCopyProps {
 
 const ResultCopy: React.FC<ResultCopyProps> = (props) => {
   const { resultRef } = props;
-  const backgroundColor = useSelector(selectBackgroundColor);
+  const { state } = useCustomizationContext();
 
   /**
    * Handle the export of the image
    */
   const handleCopy = useCallback(async () => {
     if (resultRef && resultRef.current) {
-      return handleImageGeneration(resultRef.current, backgroundColor, true).then(async (dataUrl) => {
+      return handleImageGeneration(resultRef.current, state.backgroundColor, true).then(async (dataUrl) => {
         try {
           if (dataUrl) {
             await copyImageToClipboard(dataUrl);
@@ -28,7 +27,7 @@ const ResultCopy: React.FC<ResultCopyProps> = (props) => {
         }
       });
     }
-  }, [backgroundColor, resultRef]);
+  }, [state.backgroundColor, resultRef]);
 
   return (
     <button

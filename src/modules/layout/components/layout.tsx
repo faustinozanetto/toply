@@ -1,7 +1,6 @@
+import { useCustomizationContext } from '@modules/customization/context/customization-context';
 import Footer from '@modules/footer/components/footer';
-import { selectBackgroundColor } from '@state/slices/app.slice';
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import LayoutHead from './layout-head';
 
@@ -12,12 +11,12 @@ interface ILayoutProps {
 
 const Layout: React.FC<ILayoutProps> = (props) => {
   const { children, headProps } = props;
-  const backgroundColor = useSelector(selectBackgroundColor);
+  const { state } = useCustomizationContext();
 
   return (
     <div
       className="flex min-h-screen flex-col overflow-hidden font-poppins subpixel-antialiased transition-all"
-      style={{ background: backgroundColor }}
+      style={{ background: state.backgroundColor }}
     >
       {/* Head */}
       <LayoutHead {...headProps} />
