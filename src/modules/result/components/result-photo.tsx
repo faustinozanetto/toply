@@ -1,5 +1,7 @@
 import useUserTops from '@hooks/use-user-tops';
 import { useCustomizationContext } from '@modules/customization/context/customization-context';
+import { useDashboardContext } from '@modules/dashboard/context/dashboard-context';
+import Skeleton from '@modules/ui/components/skeleton/skeleton';
 import { ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
 import React from 'react';
 
@@ -9,6 +11,7 @@ interface IResultPhotoProps {}
 
 const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
   const {} = props;
+  const { state: dashboardState } = useDashboardContext();
   const { state: customizationState } = useCustomizationContext();
   const { songs, results, artists, updateSelectedSong, updateSelectedArtist } = useUserTops();
 
@@ -40,15 +43,16 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
     >
       <div className="grid grid-cols-3 gap-2">
         {results()?.map((item, index) => (
-          <ResultItem
-            key={item.id}
-            index={index}
-            id={item.id}
-            name={item.name}
-            image={item.image}
-            blurImage={item.blurImage}
-            onSelected={handleItemSelected}
-          />
+          <Skeleton key={item.id} isLoaded={!dashboardState.contentLoading}>
+            <ResultItem
+              index={index}
+              id={item.id}
+              name={item.name}
+              image={item.image}
+              blurImage={item.blurImage}
+              onSelected={handleItemSelected}
+            />
+          </Skeleton>
         ))}
       </div>
       <div className="mt-2 font-bold text-black opacity-60">https://toply.vercel.app/</div>

@@ -27,6 +27,19 @@ module.exports = {
         '6xl': '4rem',
         '7xl': '5rem',
       },
+      keyframes: {
+        blink: {
+          '0%, 100%': {
+            opacity: 1,
+          },
+          '50%': {
+            opacity: 0.35,
+          },
+        },
+      },
+      animation: {
+        blink: 'blink 1.4s linear infinite',
+      },
     },
   },
   plugins: [],
