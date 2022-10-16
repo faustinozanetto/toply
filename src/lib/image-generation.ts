@@ -21,7 +21,7 @@ export const handleImageGeneration = async (
       margin: '0',
       border: '0',
     },
-    pixelRatio: 2,
+    pixelRatio: 1.5,
   };
 
   // Generate the image.
