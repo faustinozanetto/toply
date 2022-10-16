@@ -1,4 +1,3 @@
-import { trackEvent } from '@lib/google';
 import { handleImageGeneration, saveImageToFile } from '@lib/image-generation';
 import { useCustomizationContext } from '@modules/customization/context/customization-context';
 import React from 'react';
@@ -20,7 +19,6 @@ const ResultExport: React.FC<ResultExportProps> = (props) => {
       try {
         if (dataUrl) {
           await saveImageToFile(dataUrl);
-          trackEvent('Home', 'exportPhoto');
         }
       } catch (error) {
         console.error(error);

@@ -14,12 +14,12 @@ const ResultPhoto: React.FC<IResultPhotoProps> = (props) => {
 
   const handleItemSelected = (id: string): void => {
     if (customizationState.topType === ToplyTopItemsEnum.SONGS) {
-      const matchingSong = songs.find((song) => song.id === id);
+      const matchingSong = songs().find((song) => song.id === id);
       if (matchingSong) {
         updateSelectedSong(matchingSong);
-      }
+      } else console.log('no  matchin song');
     } else {
-      const matchingArtist = artists.find((artist) => artist.id === id);
+      const matchingArtist = artists().find((artist) => artist.id === id);
       if (matchingArtist) {
         updateSelectedArtist(matchingArtist);
       }

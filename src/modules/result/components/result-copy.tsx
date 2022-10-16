@@ -1,4 +1,3 @@
-import { trackEvent } from '@lib/google';
 import { copyImageToClipboard, handleImageGeneration } from '@lib/image-generation';
 import { useCustomizationContext } from '@modules/customization/context/customization-context';
 import React, { useCallback } from 'react';
@@ -20,7 +19,6 @@ const ResultCopy: React.FC<ResultCopyProps> = (props) => {
         try {
           if (dataUrl) {
             await copyImageToClipboard(dataUrl);
-            trackEvent('Home', 'Save Photo');
           }
         } catch (error) {
           console.error(error);

@@ -1,5 +1,4 @@
 import { MAX_TRACKS } from '@lib/constants';
-import { trackPageView } from '@lib/google';
 import spotifyApi from '@lib/spotify-api';
 import { parseTopSongs } from '@lib/spotify-helper';
 import { useCustomizationContext } from '@modules/customization/context/customization-context';
@@ -24,8 +23,6 @@ const HomePage: React.FC<IHomePageProps> = (props) => {
   const { dispatch: dashboardDispatch } = useDashboardContext();
 
   useEffect(() => {
-    trackPageView('home');
-
     if (songs.length > 0) {
       dashboardDispatch({
         type: DashboardActionType.SET_SONGS,

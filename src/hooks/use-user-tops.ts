@@ -5,7 +5,7 @@ import { useDashboardContext } from '@modules/dashboard/context/dashboard-contex
 import { DashboardActionType } from '@modules/dashboard/context/types';
 import type { SpotifyArtistType, SpotifyTrackType } from '@typedefs/toply.typesdefs';
 import { ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 
 import useSpotify from './use-spotify';
 
@@ -119,13 +119,13 @@ const useUserTops = () => {
     });
   };
 
-  const songs = useMemo(() => {
+  const songs = () => {
     return state.songs.get(customizationState.topTimeSpan) ?? [];
-  }, [state.songs, customizationState.topTimeSpan]);
+  };
 
-  const artists = useMemo(() => {
+  const artists = () => {
     return state.artists.get(customizationState.topTimeSpan) ?? [];
-  }, [state.artists, customizationState.topTimeSpan]);
+  };
 
   const results = () => {
     let res: IResultType[] = [];
