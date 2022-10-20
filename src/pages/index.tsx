@@ -1,17 +1,17 @@
 import { MAX_TRACKS } from '@lib/constants';
-import { trackPageView } from '@lib/google';
 import spotifyApi from '@lib/spotify-api';
 import { parseTopSongs } from '@lib/spotify-helper';
+import { useCustomizationContext } from '@modules/customization/context/customization-context';
+import { CustomizationActionType } from '@modules/customization/context/types';
+import { useDashboardContext } from '@modules/dashboard/context/dashboard-context';
+import { DashboardActionType } from '@modules/dashboard/context/types';
 import Layout from '@modules/layout/components/layout';
-import { selectTimeSpan, setSongs } from '@state/slices/toply.slice';
 import type { SpotifyTrackType } from '@typedefs/toply.typesdefs';
+import { ToplyDataTimeSpanEnum, ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
 import HomeView from '@views/home/home-view';
 import type { GetServerSideProps } from 'next';
-import { unstable_getServerSession } from 'next-auth/next';
+import { getSession } from 'next-auth/react';
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { authOptions } from './api/auth/[...nextauth]';
 
 interface IHomePageProps {
   songs: SpotifyTrackType[];
@@ -19,18 +19,34 @@ interface IHomePageProps {
 
 const HomePage: React.FC<IHomePageProps> = (props) => {
   const { songs } = props;
-  const dispatch = useDispatch();
-  const timeSpan = useSelector(selectTimeSpan);
-
-  useEffect(() => {
-    trackPageView('home');
-  }, []);
+  const { state: customizationState, dispatch: customizationDispatch } = useCustomizationContext();
+  const { dispatch: dashboardDispatch } = useDashboardContext();
 
   useEffect(() => {
     if (songs.length > 0) {
-      dispatch(setSongs({ songs, timeSpan }));
+      dashboardDispatch({
+        type: DashboardActionType.SET_SONGS,
+        payload: {
+          songs: {
+            timeSpan: customizationState.topTimeSpan,
+            data: songs,
+          },
+        },
+      });
+      customizationDispatch({
+        type: CustomizationActionType.SET_TIME_SPAN,
+        payload: {
+          topTimeSpan: ToplyDataTimeSpanEnum.MONTH,
+        },
+      });
+      customizationDispatch({
+        type: CustomizationActionType.SET_TOP_TYPE,
+        payload: {
+          topType: ToplyTopItemsEnum.SONGS,
+        },
+      });
     }
-  }, []);
+  }, [songs]);
 
   return (
     <Layout
@@ -45,13 +61,13 @@ const HomePage: React.FC<IHomePageProps> = (props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await unstable_getServerSession(context.req, context.res, authOptions);
+  const session = await getSession(context);
 
   // If not logged in, redirect to login page
   if (!session) {
     return {
       redirect: {
-        destination: '/signin',
+        destination: '/api/auth/signin',
         permanent: false,
       },
     };

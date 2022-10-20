@@ -2,12 +2,15 @@ import { NEXTAUTH_SECRET, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from '@lib/
 import spotifyApi, { LOGIN_URL } from '@lib/spotify-api';
 import type { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth';
+import type { JWT } from 'next-auth/jwt';
 import SpotifyProvider from 'next-auth/providers/spotify';
 
-async function refreshAccessToken(token: any) {
+async function refreshAccessToken(token: JWT) {
   try {
-    spotifyApi.setAccessToken(token.accessToken);
-    spotifyApi.setRefreshToken(token.refreshToken);
+    if (token.accessToken && token.refreshToken) {
+      spotifyApi.setAccessToken(token.accessToken);
+      spotifyApi.setRefreshToken(token.refreshToken);
+    }
 
     const { body: refreshedToken } = await spotifyApi.refreshAccessToken();
 

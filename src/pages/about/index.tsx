@@ -1,16 +1,11 @@
-import { trackPageView } from '@lib/google';
 import Layout from '@modules/layout/components/layout';
 import AboutView from '@views/about/about-view';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 interface IAboutPageProps {}
 
 const AboutPage: React.FC<IAboutPageProps> = (props) => {
   const {} = props;
-
-  useEffect(() => {
-    trackPageView('about');
-  }, []);
 
   return (
     <Layout

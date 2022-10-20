@@ -49,7 +49,7 @@ Snappy is being developed with a broad variety of technologies such as:
 
 - NextJS - The React Framework for Production.
 - Typescript - JavaScript with syntax for types.
-- TailwindCSS
+- TailwindCSS - A beautiful css library
 
 ---
 

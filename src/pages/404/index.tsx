@@ -1,16 +1,11 @@
-import { trackPageView } from '@lib/google';
 import Layout from '@modules/layout/components/layout';
 import NotFoundView from '@views/not-found/not-found-view';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 interface INotFoundPageProps {}
 
 const NotFoundPage: React.FC<INotFoundPageProps> = (props) => {
   const {} = props;
-
-  useEffect(() => {
-    trackPageView('notfound');
-  }, []);
 
   return (
     <Layout

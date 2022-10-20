@@ -1,5 +1,5 @@
 import type { SpotifyAlbumType, SpotifyArtistType, SpotifyTrackType } from '@typedefs/toply.typesdefs';
-import { SpotifyAlbumCategoryEnum, ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
+import { SpotifyAlbumCategoryEnum, ToplyDataTimeSpanEnum } from '@typedefs/toply.typesdefs';
 
 /**
  *
@@ -15,6 +15,8 @@ export const parseTopSongs = (data: SpotifyApi.UsersTopTracksResponse): SpotifyT
         href: artist.href,
         type: artist.type,
         uri: artist.uri,
+        genres: [],
+        images: [],
         externalUrls: {
           spotify: artist.external_urls.spotify,
         },
@@ -27,8 +29,9 @@ export const parseTopSongs = (data: SpotifyApi.UsersTopTracksResponse): SpotifyT
       name: track.album.name,
       uri: track.album.uri,
       href: track.album.href,
-      // @ts-ignore
       images: track.album.images,
+      artists: [],
+      external_urls: track.external_urls,
       type: track.album.type === 'album' ? SpotifyAlbumCategoryEnum.ALBUM : SpotifyAlbumCategoryEnum.SINGLE,
     };
     // Populate basic track data.
@@ -50,16 +53,40 @@ export const parseTopSongs = (data: SpotifyApi.UsersTopTracksResponse): SpotifyT
 
 /**
  *
+ * @param data Spotify api data.
+ * @returns the parsed artists into the typed ones.
+ */
+export const parseTopArtists = (data: SpotifyApi.UsersTopArtistsResponse): SpotifyArtistType[] => {
+  const artists: SpotifyArtistType[] = data.items.map((artist) => {
+    const foundArtist: SpotifyArtistType = {
+      id: artist.id,
+      name: artist.name,
+      href: artist.href,
+      type: artist.type,
+      uri: artist.uri,
+      images: artist.images,
+      genres: artist.genres,
+      externalUrls: {
+        spotify: artist.external_urls.spotify,
+      },
+    };
+    return foundArtist;
+  });
+  return artists;
+};
+
+/**
+ *
  * @param timeSpan Timespan as enum type.
  * @returns the parsed string type used in the api call.
  */
-export const parseTimeSpan = (timeSpan: ToplyDataTimeStapEnum): 'short_term' | 'medium_term' | 'long_term' => {
+export const parseTimeSpan = (timeSpan: ToplyDataTimeSpanEnum): 'short_term' | 'medium_term' | 'long_term' => {
   switch (timeSpan) {
-    case ToplyDataTimeStapEnum.MONTH:
+    case ToplyDataTimeSpanEnum.MONTH:
       return 'short_term';
-    case ToplyDataTimeStapEnum.SEMESTER:
+    case ToplyDataTimeSpanEnum.SEMESTER:
       return 'medium_term';
-    case ToplyDataTimeStapEnum.ALLTIME:
+    case ToplyDataTimeSpanEnum.ALLTIME:
       return 'long_term';
     default:
       return 'short_term';

@@ -1,47 +1,19 @@
-import useSpotify from '@hooks/use-spotify';
-import { MAX_TRACKS } from '@lib/constants';
-import { parseTimeSpan, parseTopSongs } from '@lib/spotify-helper';
 import Button from '@modules/ui/components/button/button';
-import { selectSongs, setSongs, setSongsLoading, setTimeSpan } from '@state/slices/toply.slice';
-import type { ToplyDataTimeStapEnum } from '@typedefs/toply.typesdefs';
+import type { ToplyDataTimeSpanEnum } from '@typedefs/toply.typesdefs';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 interface ICustomizationTimespanButtonProps {
   /* Timespan to pass to the button */
-  timeSpan: ToplyDataTimeStapEnum;
+  timeSpan: ToplyDataTimeSpanEnum;
+  /** Callback to call when selected */
+  onTimeSpanSelected: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const CustomizationTimespanButton: React.FC<ICustomizationTimespanButtonProps> = (props) => {
-  const { timeSpan } = props;
-  const dispatch = useDispatch();
-  const songs = useSelector(selectSongs);
-  const spotifyAPI = useSpotify();
-
-  const handleTimeSpanSelect = async () => {
-    if (spotifyAPI.getAccessToken()) {
-      // Update timespan to redux state.
-      dispatch(setTimeSpan(timeSpan));
-      dispatch(setSongsLoading(true));
-      const timeRange = parseTimeSpan(timeSpan);
-      // If we already have fetched the songs before we do nothing, otherwise we fetch.
-      if (!songs.get(timeSpan)?.length) {
-        await spotifyAPI
-          .getMyTopTracks({ limit: MAX_TRACKS, time_range: timeRange })
-          .then((data) => {
-            dispatch(setSongs({ timeSpan, songs: parseTopSongs(data.body) }));
-          })
-          .finally(() => {
-            dispatch(setSongsLoading(false));
-          });
-      } else {
-        dispatch(setSongsLoading(false));
-      }
-    }
-  };
+  const { timeSpan, onTimeSpanSelected } = props;
 
   return (
-    <Button size="sm" aria-label={`${timeSpan} Time Span`} onClick={handleTimeSpanSelect}>
+    <Button size="sm" aria-label={`${timeSpan} Time Span`} onClick={(e) => onTimeSpanSelected(e)}>
       {timeSpan}
     </Button>
   );

@@ -1,16 +1,11 @@
-import { trackPageView } from '@lib/google';
 import Layout from '@modules/layout/components/layout';
 import PrivacyView from '@views/privacy/privacy-view';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 interface IPrivacyPageProps {}
 
 const PrivacyPage: React.FC<IPrivacyPageProps> = (props) => {
   const {} = props;
-
-  useEffect(() => {
-    trackPageView('privacy');
-  }, []);
 
   return (
     <Layout

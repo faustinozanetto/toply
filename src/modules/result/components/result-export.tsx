@@ -1,8 +1,6 @@
-import { trackEvent } from '@lib/google';
 import { handleImageGeneration, saveImageToFile } from '@lib/image-generation';
-import { selectBackgroundColor } from '@state/slices/toply.slice';
+import { useCustomizationContext } from '@modules/customization/context/customization-context';
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 interface ResultExportProps {
   resultRef: React.RefObject<HTMLDivElement>;
@@ -10,18 +8,17 @@ interface ResultExportProps {
 
 const ResultExport: React.FC<ResultExportProps> = (props) => {
   const { resultRef } = props;
-  const backgroundColor = useSelector(selectBackgroundColor);
+  const { state } = useCustomizationContext();
 
   /**
    * Handle the export of the image
    */
   const handleExport = () => {
     if (!resultRef.current) return;
-    return handleImageGeneration(resultRef.current, backgroundColor).then(async (dataUrl) => {
+    return handleImageGeneration(resultRef.current, state.backgroundColor).then(async (dataUrl) => {
       try {
         if (dataUrl) {
           await saveImageToFile(dataUrl);
-          trackEvent('Home', 'exportPhoto');
         }
       } catch (error) {
         console.error(error);

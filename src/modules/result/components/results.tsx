@@ -1,4 +1,5 @@
 import SpotifyLogo from '@modules/branding/components/spotify-logo';
+import Skeleton from '@modules/ui/components/skeleton/skeleton';
 import { useSession } from 'next-auth/react';
 import React from 'react';
 
@@ -24,12 +25,12 @@ const Results: React.FC<IResultsProps> = (props) => {
             'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset',
         }}
       >
-        <div className="flex w-full flex-row items-center justify-start pl-2">
+        <Skeleton className="flex w-full flex-row items-center justify-start pl-2" isLoaded={status !== 'loading'}>
           <SpotifyLogo color="#1ed760" size={36} />
           <h2 className="ml-2 w-full text-xl font-bold leading-loose text-black sm:text-3xl">
-            {status === 'loading' ? 'Loading' : `${session?.user?.name}'s Toply`}
+            {`${session?.user?.name}'s Toply`}
           </h2>
-        </div>
+        </Skeleton>
       </div>
       {/* Content */}
       <ResultPhoto />

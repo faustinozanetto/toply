@@ -28,7 +28,7 @@ const Button = React.forwardRef<HTMLButtonElement, IButtonProps>((props, ref) =>
   );
 
   return (
-    <button className={buttonStyles} ref={ref} {...rest}>
+    <button type="button" className={buttonStyles} ref={ref} {...rest}>
       {children}
     </button>
   );

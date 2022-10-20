@@ -1,9 +1,12 @@
-import { selectSelectedSong } from '@state/slices/toply.slice';
+import type { SpotifyTrackType } from '@typedefs/toply.typesdefs';
 import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 
-const SelectedSongEmbed = () => {
-  const selectedSong = useSelector(selectSelectedSong);
+interface ISelectedSongEmbedProps {
+  selectedSong: SpotifyTrackType;
+}
+
+const SelectedSongEmbed: React.FC<ISelectedSongEmbedProps> = (props) => {
+  const { selectedSong } = props;
 
   /**
    * Generates the emebbed track linkg for the song.

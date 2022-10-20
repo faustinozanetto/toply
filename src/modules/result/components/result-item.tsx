@@ -1,36 +1,40 @@
-import { SelectedSongContext } from '@modules/selected-song/context/selected-song-context';
-import { setSelectedSong } from '@state/slices/toply.slice';
-import type { SpotifyTrackType } from '@typedefs/toply.typesdefs';
+import { SelectedSongContext } from '@modules/selected-item/context/selected-song-context';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import React, { memo, useContext } from 'react';
-import { useDispatch } from 'react-redux';
 
-interface IResultTrackProps {
-  /** Track data */
-  track: SpotifyTrackType;
+interface IResultItemProps {
+  /** Item id */
+  id: string;
+  /** Item descriptor name */
+  name: string;
+  /** Item image */
+  image: string;
+  /** Placeholder blur image while loading. */
+  blurImage: string;
   /** Index, used for cascading animation */
   index: number;
+  /** Callback function called when item is selected */
+  onSelected: (id: string) => void;
 }
 
-const ResultTrack: React.FC<IResultTrackProps> = (props) => {
-  const { track, index } = props;
-  const dispatch = useDispatch();
+const ResultItem: React.FC<IResultItemProps> = (props) => {
+  const { id, name, image, blurImage, index, onSelected } = props;
   const { setShowModal } = useContext(SelectedSongContext);
 
   /**
    * Shows the selected song modal and it sets the current selected song.
    * @returns void.
    */
-  const handleImageSelection = (): void => {
-    if (!track.id) return;
+  const handleItemSelection = (): void => {
+    if (!id) return;
     setShowModal(true);
-    dispatch(setSelectedSong(track));
+    onSelected(id);
   };
 
   return (
     <motion.div
-      key={`${track.id}#${index}`}
+      key={`${id}#${index}`}
       variants={{
         visible: {
           opacity: 1,
@@ -52,18 +56,19 @@ const ResultTrack: React.FC<IResultTrackProps> = (props) => {
     >
       <picture className="cursor-pointer">
         <Image
-          src={track?.album?.images[0]?.url!}
-          alt={track.name}
-          blurDataURL={track?.album?.images[2]?.url!}
+          src={image}
+          alt={name}
+          blurDataURL={blurImage}
           placeholder="blur"
+          layout="responsive"
           quality={25}
           width={300}
           height={300}
-          onClick={handleImageSelection}
+          onClick={handleItemSelection}
         />
       </picture>
     </motion.div>
   );
 };
 
-export default memo(ResultTrack);
+export default memo(ResultItem);
