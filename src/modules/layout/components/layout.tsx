@@ -1,3 +1,4 @@
+import Footer from '@modules/footer/components/footer';
 import type { ReactNode } from 'react';
 import React from 'react';
 
@@ -17,8 +18,9 @@ const Layout: React.FC<LayoutProps> = (props) => {
       {/* Header */}
       <LayoutHead {...headProps} />
       {/* Content */}
-      <div className="flex max-w-2xl flex-col items-center">{children}</div>
+      <div className="flex max-w-2xl flex-1 flex-col items-center">{children}</div>
       {/* Footer */}
+      <Footer />
     </main>
   );
 };

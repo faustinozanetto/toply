@@ -1,69 +1,39 @@
 import { NEXTAUTH_SECRET, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from '@lib/constants';
-import spotifyApi, { LOGIN_URL } from '@lib/spotify-api';
+import { requestSpotifyRefreshToken } from '@modules/auth/lib/auth.lib';
+import { constructSpotifyAuthUrl } from '@modules/user-tops/lib/user-tops.lib';
 import type { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth';
-import type { JWT } from 'next-auth/jwt';
 import SpotifyProvider from 'next-auth/providers/spotify';
-
-async function refreshAccessToken(token: JWT) {
-  try {
-    if (token.accessToken && token.refreshToken) {
-      spotifyApi.setAccessToken(token.accessToken);
-      spotifyApi.setRefreshToken(token.refreshToken);
-    }
-
-    const { body: refreshedToken } = await spotifyApi.refreshAccessToken();
-
-    return {
-      ...token,
-      accessToken: refreshedToken.access_token,
-      accessTokenExpires: Date.now() + refreshedToken.expires_in * 1000,
-      refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
-    };
-  } catch (error) {
-    console.log(error);
-
-    return {
-      ...token,
-      error: 'RefreshAccessTokenError',
-    };
-  }
-}
 
 export const authOptions: NextAuthOptions = {
   providers: [
     SpotifyProvider({
       clientId: SPOTIFY_CLIENT_ID,
       clientSecret: SPOTIFY_CLIENT_SECRET,
-      authorization: LOGIN_URL,
+      authorization: constructSpotifyAuthUrl(),
     }),
   ],
-  // Callbacks Configuration
+
   callbacks: {
     async jwt({ token, account, user }) {
-      // initial Signin
       if (account && user) {
         return {
-          ...token,
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
-          accessTokenExpires: account.expires_at! * 1000,
+          accessTokenExpires: account.expires_at * 1000,
+          user,
         };
       }
-
-      // Return previous token if the access token has not expired
-      if (Date.now() < token?.accessTokenExpires!) {
+      if (token.accessTokenExpires && Date.now() < token.accessTokenExpires) {
         return token;
       }
-
-      // Access token expired, time to refresh it
-      return refreshAccessToken(token);
+      const newToken = await requestSpotifyRefreshToken(token);
+      return newToken;
     },
     async session({ session, token }) {
-      if (session && session.user) {
-        session.user.accessToken = token?.accessToken!;
-        session.user.refreshToken = token?.refreshToken!;
-      }
+      session.accessToken = token.accessToken;
+      session.error = token.error;
+      session.user = token.user;
       return session;
     },
   },
@@ -77,10 +47,6 @@ export const authOptions: NextAuthOptions = {
 
   jwt: {
     maxAge: 60 * 60 * 24 * 30,
-  },
-
-  pages: {
-    signIn: '/signin',
   },
 
   // Secret Configuration
