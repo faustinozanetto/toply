@@ -1,5 +1,5 @@
 import type { SpotifyArtistType } from '@typedefs/toply.typesdefs';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import React from 'react';
 
 interface ISelectedItemArtistProps {
@@ -18,7 +18,6 @@ const SelectedItemArtist: React.FC<ISelectedItemArtistProps> = (props) => {
         alt={selectedArtist.name}
         blurDataURL={selectedArtist.images[2]?.url!}
         placeholder="blur"
-        layout="responsive"
         quality={40}
         width={300}
         height={300}

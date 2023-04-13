@@ -1,5 +1,5 @@
 import type { SpotifyTrackType } from '@typedefs/toply.typesdefs';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import React from 'react';
 
 import SelectedSongEmbed from './selected-song-embed';
@@ -20,7 +20,6 @@ const SelectedItemSong: React.FC<ISelectedItemSongProps> = (props) => {
         alt={selectedSong.name}
         blurDataURL={selectedSong?.album?.images[2]?.url!}
         placeholder="blur"
-        layout="responsive"
         quality={40}
         width={300}
         height={300}
