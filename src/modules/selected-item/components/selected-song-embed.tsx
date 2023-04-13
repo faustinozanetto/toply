@@ -12,14 +12,9 @@ const SelectedSongEmbed: React.FC<ISelectedSongEmbedProps> = (props) => {
    * Generates the emebbed track linkg for the song.
    */
   const generateEmbedLink = useMemo(() => {
-    let url: string = '';
-    try {
-      const trackId: string = selectedSong?.uri?.split(':')[2]!;
-      const path: string = `https://open.spotify.com/embed/track/${trackId}`;
-      url = new URL(path).href;
-      // eslint-disable-next-line no-empty
-    } catch (error) {}
-    return url;
+    const trackId: string = selectedSong.uri.split(':')[2]!;
+    const path: string = `https://open.spotify.com/embed/track/${trackId}`;
+    return new URL(path).href;
   }, [selectedSong]);
 
   return (
