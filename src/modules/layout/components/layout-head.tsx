@@ -1,17 +1,21 @@
 import Head from 'next/head';
-import React, { memo } from 'react';
+import React from 'react';
 
-interface ILayoutHeadProps {
+type LayoutHeadProps = {
+  /** Optional: Seo title. */
   title?: string;
+  /** Optional: Seo description. */
   description?: string;
-  image?: string;
+  /** Optional: Seo url. */
   url?: string;
+  /** Optional: Seo canonical url. */
   canonicalUrl?: string;
-}
+  /** Optional: Seo image used in twitter cards, etc. */
+  image?: string;
+};
 
-const LayoutHead: React.FC<ILayoutHeadProps> = (props) => {
-  const { title, description, image, url, canonicalUrl } = props;
-
+const LayoutHead: React.FC<LayoutHeadProps> = (props) => {
+  const { title, description, url, canonicalUrl, image = '/assets/images/logo-banner.png' } = props;
   return (
     <Head>
       <title>{title}</title>
@@ -22,17 +26,17 @@ const LayoutHead: React.FC<ILayoutHeadProps> = (props) => {
       <meta name="robots" content="index" />
       <meta name="description" content={description} />
 
-      <meta content="Toply, Spotify, Artists, Top Songs, Top Artists" name="keywords" />
+      <meta name="keywords" content="Toply, Spotify, Aartists" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
 
       <link rel="canonical" href={canonicalUrl} />
-      <meta content="#4f46e5" name="theme-color" />
+      <meta content="#50A060" name="theme-color" />
 
       {/* Open graph */}
       <meta property="og:url" content={url} />
       <meta property="og:image" content={image} />
-      <meta property="og:image:width" content="452" />
-      <meta property="og:image:height" content="175" />
+      <meta property="og:image:width" content="2000" />
+      <meta property="og:image:height" content="1000" />
       <meta property="og:image:alt" content={title} />
       <meta property="og:locale" content="en" />
       <meta property="og:type" content="website" />
@@ -51,4 +55,4 @@ const LayoutHead: React.FC<ILayoutHeadProps> = (props) => {
   );
 };
 
-export default memo(LayoutHead);
+export default LayoutHead;

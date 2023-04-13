@@ -10,8 +10,9 @@ import type { SpotifyTrackType } from '@typedefs/toply.typesdefs';
 import { ToplyDataTimeSpanEnum, ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
 import HomeView from '@views/home/home-view';
 import type { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
 import React, { useEffect } from 'react';
+import { authOptions } from './api/auth/[...nextauth]';
 
 interface IHomePageProps {
   songs: SpotifyTrackType[];
@@ -61,24 +62,14 @@ const HomePage: React.FC<IHomePageProps> = (props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+  const { req, res } = context;
+  const session = await getServerSession(req, res, authOptions);
 
   // If not logged in, redirect to login page
   if (!session) {
     return {
       redirect: {
         destination: '/api/auth/signin',
-        permanent: false,
-      },
-    };
-  }
-
-  // If we are logged in, we fetch the top songs.
-  // Redirect if session error.
-  if (session?.error === 'RefreshAccessTokenError') {
-    return {
-      redirect: {
-        destination: '/signin',
         permanent: false,
       },
     };

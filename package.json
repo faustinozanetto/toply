@@ -50,7 +50,7 @@
     "framer-motion": "^10.0.0",
     "html-to-image": "^1.10.9",
     "next": "^13.0.5",
-    "next-auth": "latest",
+    "next-auth": "4.22.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "spotify-web-api-node": "^5.0.2"
