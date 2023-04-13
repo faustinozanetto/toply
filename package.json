@@ -47,7 +47,7 @@
     "@headlessui/react": "^1.7.4",
     "clsx": "^1.2.1",
     "cssnano": "^5.1.14",
-    "framer-motion": "^7.6.17",
+    "framer-motion": "^10.0.0",
     "html-to-image": "^1.10.9",
     "next": "^13.0.5",
     "next-auth": "latest",
