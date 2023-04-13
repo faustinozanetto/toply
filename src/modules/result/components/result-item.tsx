@@ -1,6 +1,6 @@
 import { SelectedSongContext } from '@modules/selected-item/context/selected-song-context';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import React, { memo, useContext } from 'react';
 
 interface IResultItemProps {
@@ -60,8 +60,6 @@ const ResultItem: React.FC<IResultItemProps> = (props) => {
           alt={name}
           blurDataURL={blurImage}
           placeholder="blur"
-          layout="responsive"
-          quality={25}
           width={300}
           height={300}
           onClick={handleItemSelection}
