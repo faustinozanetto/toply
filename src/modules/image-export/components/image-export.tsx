@@ -1,7 +1,7 @@
 import { IconButton } from '@modules/ui/components/icon-button/icon-button';
 import { useToast } from '@modules/ui/components/toasts/context/toast-context';
 import { USER_TOPS_MAX_RESULTS } from '@modules/user-tops/lib/user-tops.lib';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 
 import useSaveImage from '../hooks/use-save-image';
@@ -16,7 +16,7 @@ const ImageExport: React.FC<ImageExportProps> = (props) => {
 
   const [showButton, setShowButton] = useState<boolean>(false);
 
-  const { saveImageToDevice } = useSaveImage(resultImageRef.current);
+  const { saveImageToDevice } = useSaveImage(resultImageRef);
 
   const handleImageExport = async () => {
     try {
@@ -40,7 +40,7 @@ const ImageExport: React.FC<ImageExportProps> = (props) => {
   return (
     <AnimatePresence>
       {showButton ? (
-        <motion.div
+        <m.div
           animate={{ opacity: 1.0, translateY: 0 }}
           initial={{ opacity: 0, translateY: -10 }}
           className="fixed bottom-0 right-0 p-4"
@@ -66,7 +66,7 @@ const ImageExport: React.FC<ImageExportProps> = (props) => {
             }
             onClick={handleImageExport}
           />
-        </motion.div>
+        </m.div>
       ) : null}
     </AnimatePresence>
   );

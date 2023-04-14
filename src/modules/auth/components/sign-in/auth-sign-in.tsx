@@ -18,7 +18,7 @@ const AuthSignIn: React.FC = () => {
     <div className="space-y-4">
       {/* Heading */}
       <div className="flex flex-col items-center rounded-lg bg-neutral-100 p-4 shadow-xl">
-        <h2 className="text-3xl font-bold text-neutral-900">Sign In Now</h2>
+        <h2 className="text-3xl font-bold text-neutral-900">Sign In</h2>
       </div>
       {/* Options */}
       <div className="flex flex-col items-center rounded-lg bg-neutral-100 p-4 shadow-xl">
@@ -28,6 +28,9 @@ const AuthSignIn: React.FC = () => {
         <Button size="lg" colorScheme="secondary" className="w-full" onClick={handleSignIn}>
           Sign In Now
         </Button>
+        <p className="mt-2 text-sm text-neutral-600">
+          You will be redirected to Spotify to sign in using your account.
+        </p>
       </div>
     </div>
   );

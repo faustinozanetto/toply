@@ -1,12 +1,16 @@
 import Skeleton from '@modules/ui/components/skeleton/skeleton';
 import { useUserTopsContext } from '@modules/user-tops/context/user-tops-context';
 import { USER_TOPS_MAX_RESULTS } from '@modules/user-tops/lib/user-tops.lib';
+import clsx from 'clsx';
 import React from 'react';
 
 import UserTopsResultEntry from './user-tops-result-entry';
 
 const UserTopsResults: React.FC = () => {
   const { state: userTopsState } = useUserTopsContext();
+
+  const fallbackImageUrl = '/assets/images/image-fallback.webp';
+  const isFeaturedTrack = (index: number) => index === 0;
 
   return (
     <div
@@ -24,17 +28,33 @@ const UserTopsResults: React.FC = () => {
       <div className="grid grid-cols-3 gap-2">
         {userTopsState.topTracks.length === 0 || userTopsState.contentLoading
           ? Array.from<number>({ length: USER_TOPS_MAX_RESULTS }).map((_placeholder, index) => {
-              return <div key={index} className="h-[150px] w-[150px] rounded-lg bg-neutral-400/60 drop-shadow-xl" />;
+              return (
+                <div
+                  key={index}
+                  className={clsx(
+                    'rounded-lg bg-neutral-400/60 drop-shadow-xl',
+                    isFeaturedTrack(index)
+                      ? 'col-span-2 row-span-2 h-[215px] w-[215px] md:h-[315px] md:w-[315px]'
+                      : 'h-[105px] w-[105px] md:h-[150px] md:w-[150px]'
+                  )}
+                />
+              );
             })
           : userTopsState.topTracks.map((track, index) => {
+              const highQualityImage = track.album.images[0]?.url ?? fallbackImageUrl;
+              const lowQualityImage = track.album.images[2]?.url ?? fallbackImageUrl;
               return (
-                <Skeleton key={track.id} isLoaded={!userTopsState.contentLoading}>
+                <Skeleton
+                  key={track.id}
+                  isLoaded={!userTopsState.contentLoading}
+                  className={clsx(isFeaturedTrack(index) ? 'col-span-2 row-span-2 ' : '')}
+                >
                   <UserTopsResultEntry
                     index={index}
                     id={track.id}
                     name={track.name}
-                    image={track.album.images[0]?.url!}
-                    blurImage={track.album.images[2]?.url!}
+                    image={highQualityImage}
+                    blurImage={lowQualityImage}
                   />
                 </Skeleton>
               );

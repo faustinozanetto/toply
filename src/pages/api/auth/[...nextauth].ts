@@ -40,68 +40,68 @@ export const authOptions: NextAuthOptions = {
   },
 
   // Session Configuration
-  session: {
-    strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60,
-    updateAge: 24 * 60 * 60,
-  },
+  // session: {
+  //   strategy: 'jwt',
+  //   maxAge: 30 * 24 * 60 * 60,
+  //   updateAge: 24 * 60 * 60,
+  // },
 
-  jwt: {
-    maxAge: 60 * 60 * 24 * 30,
-  },
+  // jwt: {
+  //   maxAge: 60 * 60 * 24 * 30,
+  // },
 
   // Secret Configuration
   secret: NEXTAUTH_SECRET,
 
   pages: { signIn: '/auth/signin' },
 
-  // Cookie Configuration
-  cookies: {
-    sessionToken: {
-      name: `toply.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        secure: true,
-      },
-    },
-    callbackUrl: {
-      name: `toply.callback-url`,
-      options: {
-        sameSite: 'lax',
-        path: '/',
-        secure: true,
-      },
-    },
-    csrfToken: {
-      name: `toply.csrf-token`,
-      options: {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        secure: true,
-      },
-    },
-    pkceCodeVerifier: {
-      name: `toply.pkce.code_verifier`,
-      options: {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        secure: true,
-      },
-    },
-    state: {
-      name: `toply.state`,
-      options: {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        secure: true,
-      },
-    },
-  },
+  // // Cookie Configuration
+  // cookies: {
+  //   sessionToken: {
+  //     name: `toply.session-token`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: 'lax',
+  //       path: '/',
+  //       secure: true,
+  //     },
+  //   },
+  //   callbackUrl: {
+  //     name: `toply.callback-url`,
+  //     options: {
+  //       sameSite: 'lax',
+  //       path: '/',
+  //       secure: true,
+  //     },
+  //   },
+  //   csrfToken: {
+  //     name: `toply.csrf-token`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: 'lax',
+  //       path: '/',
+  //       secure: true,
+  //     },
+  //   },
+  //   pkceCodeVerifier: {
+  //     name: `toply.pkce.code_verifier`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: 'lax',
+  //       path: '/',
+  //       secure: true,
+  //     },
+  //   },
+  //   state: {
+  //     name: `toply.state`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: 'lax',
+  //       path: '/',
+  //       secure: true,
+  //     },
+  //   },
+  // },
 };
 
 export default NextAuth(authOptions);

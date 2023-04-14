@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import type { HTMLMotionProps } from 'framer-motion';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import React from 'react';
 
 interface ISkeletonProps extends HTMLMotionProps<'div'> {
@@ -11,7 +11,7 @@ const Skeleton = React.forwardRef<HTMLDivElement, ISkeletonProps>((props, ref) =
   const { isLoaded, className, children, ...rest } = props;
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={{
         opacity: 1,
@@ -29,7 +29,7 @@ const Skeleton = React.forwardRef<HTMLDivElement, ISkeletonProps>((props, ref) =
       {...rest}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 });
 

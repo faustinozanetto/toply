@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Image from 'next/image';
 import React from 'react';
 
@@ -18,8 +18,10 @@ type UserTopsResultEntryProps = {
 const UserTopsResultEntry: React.FC<UserTopsResultEntryProps> = (props) => {
   const { id, name, image, blurImage, index } = props;
 
+  const imageDimensions = index === 1 ? 175 : 150;
+
   return (
-    <motion.div
+    <m.div
       key={`${id}#${index}`}
       variants={{
         visible: {
@@ -44,23 +46,22 @@ const UserTopsResultEntry: React.FC<UserTopsResultEntryProps> = (props) => {
       initial="hidden"
       animate="visible"
       whileHover="hover"
+      className="relative h-full w-full"
     >
-      <div className="relative">
-        <Image
-          src={image}
-          alt={name}
-          blurDataURL={blurImage}
-          priority={index <= 3}
-          placeholder="blur"
-          className="rounded-lg drop-shadow-xl"
-          width={150}
-          height={150}
-        />
-        <div className="absolute inset-x-0 bottom-0 flex h-6 items-center justify-center rounded-b-lg bg-neutral-50 text-center">
-          <span className="clamp-text text-xs font-semibold">{name}</span>
-        </div>
+      <Image
+        src={image}
+        alt={name}
+        blurDataURL={blurImage}
+        priority={index <= 3}
+        placeholder="blur"
+        className="h-full w-full rounded-lg drop-shadow-xl"
+        width={imageDimensions}
+        height={imageDimensions}
+      />
+      <div className="absolute inset-x-0 bottom-0 flex h-6 items-center justify-center rounded-b-lg bg-neutral-50 text-center">
+        <span className="clamp-text text-xs font-semibold md:text-sm">{name}</span>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

@@ -9,15 +9,15 @@ type UseSaveImageAPI = {
   saveImageToDevice: () => Promise<void>;
 };
 
-const useSaveImage = (elementRef: HTMLDivElement | null): UseSaveImageAPI => {
+const useSaveImage = (elementRef: React.RefObject<HTMLDivElement> | null): UseSaveImageAPI => {
   const { state: customizationState } = useUserCustomizationContext();
 
   const generateImageFromElement = useCallback(async () => {
-    if (!elementRef) throw new Error('An error ocurred!');
+    if (!elementRef || !elementRef.current) throw new Error('An error ocurred while generating image!');
 
     const options: Options = {
-      width: elementRef.clientWidth + IMAGE_EXPORT_OFFSETS[0],
-      height: elementRef.clientHeight + IMAGE_EXPORT_OFFSETS[1],
+      width: elementRef.current.clientWidth + IMAGE_EXPORT_OFFSETS[0],
+      height: elementRef.current.clientHeight + IMAGE_EXPORT_OFFSETS[1],
       style: {
         background: customizationState.background,
         padding: '1rem',
@@ -28,7 +28,7 @@ const useSaveImage = (elementRef: HTMLDivElement | null): UseSaveImageAPI => {
       pixelRatio: IMAGE_EXPORT_QUALITY,
     };
 
-    const converted = await toPng(elementRef, options);
+    const converted = await toPng(elementRef.current, options);
     return converted;
   }, [elementRef, customizationState]);
 

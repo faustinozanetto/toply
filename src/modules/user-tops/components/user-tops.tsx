@@ -27,7 +27,7 @@ const UserTops: React.FC = () => {
         console.log({ err });
       }
     };
-    fetch();
+    if (data && data.accessToken) fetch();
   }, [data]);
 
   return (
