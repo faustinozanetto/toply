@@ -12,7 +12,7 @@ type UseSaveImageAPI = {
 const useSaveImage = (elementRef: HTMLDivElement | null): UseSaveImageAPI => {
   const { state: customizationState } = useUserCustomizationContext();
 
-  const generateImageFromElement = async () => {
+  const generateImageFromElement = useCallback(async () => {
     if (!elementRef) throw new Error('An error ocurred!');
 
     const options: Options = {
@@ -23,12 +23,14 @@ const useSaveImage = (elementRef: HTMLDivElement | null): UseSaveImageAPI => {
         padding: '1rem',
         margin: '0',
       },
+      cacheBust: true,
+      includeQueryParams: true,
       pixelRatio: IMAGE_EXPORT_QUALITY,
     };
 
     const converted = await toPng(elementRef, options);
     return converted;
-  };
+  }, [elementRef, customizationState]);
 
   const saveImageToDevice = useCallback(async () => {
     const imageData = await generateImageFromElement();
@@ -39,7 +41,7 @@ const useSaveImage = (elementRef: HTMLDivElement | null): UseSaveImageAPI => {
     document.body.appendChild(anchorElement);
     anchorElement.click();
     document.body.removeChild(anchorElement);
-  }, [elementRef]);
+  }, [elementRef, customizationState]);
 
   return {
     saveImageToDevice,

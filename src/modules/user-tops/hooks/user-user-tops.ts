@@ -1,10 +1,10 @@
 import { useSession } from 'next-auth/react';
 
-import type { Track } from '../types/user-tops.types';
+import type { Artist, Track } from '../types/user-tops.types';
 
 type UseUserTopsAPI = {
   getTopTracks: (timeRange: SpotifyTopTimeRange, limit: number) => Promise<Track[]>;
-  getTopArtists: (timeRange: SpotifyTopTimeRange, limit: number) => Promise<string | undefined>;
+  getTopArtists: (timeRange: SpotifyTopTimeRange, limit: number) => Promise<Artist[]>;
 };
 
 type SpotifyTopTimeRange = 'short_term' | 'medium_term' | 'long_term';
@@ -45,8 +45,11 @@ const useUserTops = (): UseUserTopsAPI => {
     const topTracksParams = new URLSearchParams();
     topTracksParams.append('time_range', timeRange);
     topTracksParams.append('limit', String(limit));
-    const response = await fetchSpotifyEndpoint<string>('https://api.spotify.com/v1/me/top/artists', topTracksParams);
-    return spotifyData;
+    const response = await fetchSpotifyEndpoint<{ items: Artist[] }>(
+      'https://api.spotify.com/v1/me/top/artists',
+      topTracksParams
+    );
+    return response.items;
   };
 
   return {

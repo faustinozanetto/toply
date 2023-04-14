@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */

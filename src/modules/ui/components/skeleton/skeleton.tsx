@@ -24,7 +24,7 @@ const Skeleton = React.forwardRef<HTMLDivElement, ISkeletonProps>((props, ref) =
       }}
       className={clsx(
         className || '',
-        !isLoaded && 'skeleton animate-blink cursor-default bg-gray-300 bg-clip-padding'
+        !isLoaded && 'skeleton animate-blink cursor-default bg-gray-400 bg-clip-padding'
       )}
       {...rest}
     >

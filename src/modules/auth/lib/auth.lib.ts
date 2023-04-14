@@ -11,7 +11,7 @@ export const requestSpotifyRefreshToken = async (token: JWT): Promise<JWT> => {
 
     const requestBody = new URLSearchParams();
     requestBody.append('grant_type', 'refresh_token');
-    requestBody.append('refresh_token', token.refreshToken);
+    if (token.refreshToken) requestBody.append('refresh_token', token.refreshToken);
 
     const response = await fetch(SPOTIFY_REFRESH_TOKEN_URL, {
       method: 'POST',

@@ -19,7 +19,7 @@ const UserTopsHeader: React.FC = () => {
       }}
     >
       <SpotifyLogo color="#1ed760" size={44} />
-      <Skeleton isLoaded={status === 'authenticated'}>
+      <Skeleton isLoaded={status === 'authenticated'} className="w-full">
         <h2 className="text-xl font-bold md:text-2xl lg:text-3xl">{session?.user?.name}&apos;s Toply</h2>
       </Skeleton>
     </div>

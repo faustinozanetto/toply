@@ -53,7 +53,7 @@ export const authOptions: NextAuthOptions = {
   // Secret Configuration
   secret: NEXTAUTH_SECRET,
 
-  // pages: { signIn: '/auth/signin' },
+  pages: { signIn: '/auth/signin' },
 
   // Cookie Configuration
   cookies: {
