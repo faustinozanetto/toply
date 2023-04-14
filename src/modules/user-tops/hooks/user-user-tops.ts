@@ -1,33 +1,20 @@
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+
+import type { Track } from '../types/user-tops.types';
 
 type UseUserTopsAPI = {
-  setAccessToken: (accessToken: string) => void;
-  getTopTracks: (timeRange: SpotifyTopTimeRange, limit: number) => Promise<string | undefined>;
+  getTopTracks: (timeRange: SpotifyTopTimeRange, limit: number) => Promise<Track[]>;
   getTopArtists: (timeRange: SpotifyTopTimeRange, limit: number) => Promise<string | undefined>;
-};
-
-type SpotifyEndpointFetchResult<T> = {
-  data?: T;
 };
 
 type SpotifyTopTimeRange = 'short_term' | 'medium_term' | 'long_term';
 
 const useUserTops = (): UseUserTopsAPI => {
-  const { data: session } = useSession();
-  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const { data } = useSession();
 
-  useEffect(() => {
-    if (session && session.accessToken) {
-      setAccessToken(session.accessToken);
-    }
-  }, [session]);
-
-  const fetchSpotifyEndpoint = async <T>(
-    endpoint: string,
-    params?: URLSearchParams
-  ): Promise<SpotifyEndpointFetchResult<T>> => {
-    if (!accessToken) throw new Error('No acceess token found!');
+  const fetchSpotifyEndpoint = async <T>(endpoint: string, params?: URLSearchParams): Promise<T> => {
+    const accessToken = data?.accessToken;
+    if (typeof data === 'undefined' || accessToken === undefined) throw new Error('Access token is invalid!');
 
     let finalUrl = endpoint;
     if (params) finalUrl = `${endpoint}?${params.toString()}`;
@@ -38,34 +25,31 @@ const useUserTops = (): UseUserTopsAPI => {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
-    const { data: responseData, errors } = await response.json();
 
-    if (errors) throw new Error(errors.message ?? 'An error ocurred!');
-
-    return { data: responseData };
+    const parsed: Promise<T> = await response.json();
+    return parsed;
   };
 
   const getTopTracks = async (timeRange: SpotifyTopTimeRange, limit: number) => {
     const topTracksParams = new URLSearchParams();
     topTracksParams.append('time_range', timeRange);
     topTracksParams.append('limit', String(limit));
-    const spotifyData = await fetchSpotifyEndpoint<string>('https://api.spotify.com/v1/me/top/tracks', topTracksParams);
-    return spotifyData.data;
+    const response = await fetchSpotifyEndpoint<{ items: Track[] }>(
+      'https://api.spotify.com/v1/me/top/tracks',
+      topTracksParams
+    );
+    return response.items;
   };
 
   const getTopArtists = async (timeRange: SpotifyTopTimeRange, limit: number) => {
     const topTracksParams = new URLSearchParams();
     topTracksParams.append('time_range', timeRange);
     topTracksParams.append('limit', String(limit));
-    const spotifyData = await fetchSpotifyEndpoint<string>(
-      'https://api.spotify.com/v1/me/top/artists',
-      topTracksParams
-    );
-    return spotifyData.data;
+    const response = await fetchSpotifyEndpoint<string>('https://api.spotify.com/v1/me/top/artists', topTracksParams);
+    return spotifyData;
   };
 
   return {
-    setAccessToken,
     getTopTracks,
     getTopArtists,
   };

@@ -1,14 +1,13 @@
 import type { JWT } from 'next-auth/jwt';
 
 const SPOTIFY_REFRESH_TOKEN_URL = 'https://accounts.spotify.com/api/token';
-const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
-const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
+export const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } = process.env;
 
 export const requestSpotifyRefreshToken = async (token: JWT): Promise<JWT> => {
   try {
     console.log('requeested reefresh token');
 
-    const basicAuth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64');
+    const basicAuth = Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString('base64');
 
     const requestBody = new URLSearchParams();
     requestBody.append('grant_type', 'refresh_token');

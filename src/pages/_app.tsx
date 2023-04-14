@@ -1,9 +1,18 @@
 import '../styles/globals.css';
 
+import { UserCustomizationProvider } from '@modules/customization/context/user-customization-context';
 import GoogleAnalytics from '@modules/google/components/google-analytics';
 import type { AppProps } from 'next/app';
+import { Poppins } from 'next/font/google';
 import type { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
+
+const PoppinsFont = Poppins({
+  variable: '--font-sans',
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400', '500', '600', '700', '800', '900'],
+});
 
 type IToplyAppProps = AppProps & {
   session: Session;
@@ -13,10 +22,14 @@ const ToplyApp: React.FC<IToplyAppProps> = (props) => {
   const { Component, session, pageProps } = props;
 
   return (
-    <SessionProvider session={session} refetchInterval={0}>
-      <GoogleAnalytics />
-      <Component {...pageProps} />
-    </SessionProvider>
+    <div className={`${PoppinsFont.variable} scroll-smooth font-sans`}>
+      <UserCustomizationProvider>
+        <SessionProvider session={session} refetchInterval={0}>
+          <GoogleAnalytics />
+          <Component {...pageProps} />
+        </SessionProvider>
+      </UserCustomizationProvider>
+    </div>
   );
 };
 

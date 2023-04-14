@@ -1,9 +1,10 @@
-import { NEXTAUTH_SECRET, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from '@lib/constants';
-import { requestSpotifyRefreshToken } from '@modules/auth/lib/auth.lib';
+import { requestSpotifyRefreshToken, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from '@modules/auth/lib/auth.lib';
 import { constructSpotifyAuthUrl } from '@modules/user-tops/lib/user-tops.lib';
 import type { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth';
 import SpotifyProvider from 'next-auth/providers/spotify';
+
+const { NEXTAUTH_SECRET } = process.env;
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -51,6 +52,8 @@ export const authOptions: NextAuthOptions = {
 
   // Secret Configuration
   secret: NEXTAUTH_SECRET,
+
+  // pages: { signIn: '/auth/signin' },
 
   // Cookie Configuration
   cookies: {

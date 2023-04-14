@@ -1,8 +1,18 @@
+const colors = require('tailwindcss/colors');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/modules/**/*.{js,jsx,ts,tsx}', './src/pages/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      colors: {
+        primary: colors.indigo,
+        secondary: colors.purple,
+        danger: colors.red,
+      },
+      fontFamily: {
+        sans: ['var(--font-sans)'],
+      },
       screens: {
         xs: '320px',
         sm: '640px',
