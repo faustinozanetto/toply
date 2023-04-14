@@ -20,7 +20,6 @@ const UserTops: React.FC = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        dispatch({ type: UserTopsActionType.SET_CONTENT_LOADING, payload: { contentLoading: true } });
         const tracks = await getTopTracks('short_term', USER_TOPS_MAX_RESULTS);
         dispatch({ type: UserTopsActionType.SET_TOP_TRACKS, payload: { topTracks: tracks } });
         dispatch({ type: UserTopsActionType.SET_CONTENT_LOADING, payload: { contentLoading: false } });

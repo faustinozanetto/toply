@@ -1,5 +1,6 @@
 import Skeleton from '@modules/ui/components/skeleton/skeleton';
 import { useUserTopsContext } from '@modules/user-tops/context/user-tops-context';
+import { USER_TOPS_MAX_RESULTS } from '@modules/user-tops/lib/user-tops.lib';
 import React from 'react';
 
 import UserTopsResultEntry from './user-tops-result-entry';
@@ -21,19 +22,23 @@ const UserTopsResults: React.FC = () => {
     >
       {/* Result Grid */}
       <div className="grid grid-cols-3 gap-2">
-        {userTopsState.topTracks.map((track, index) => {
-          return (
-            <Skeleton key={track.id} isLoaded={!userTopsState.contentLoading}>
-              <UserTopsResultEntry
-                index={index}
-                id={track.id}
-                name={track.name}
-                image={track.album.images[0]?.url!}
-                blurImage={track.album.images[2]?.url!}
-              />
-            </Skeleton>
-          );
-        })}
+        {userTopsState.topTracks.length === 0 || userTopsState.contentLoading
+          ? Array.from<number>({ length: USER_TOPS_MAX_RESULTS }).map((_placeholder, index) => {
+              return <div key={index} className="h-[150px] w-[150px] rounded-lg bg-neutral-400/60 drop-shadow-xl" />;
+            })
+          : userTopsState.topTracks.map((track, index) => {
+              return (
+                <Skeleton key={track.id} isLoaded={!userTopsState.contentLoading}>
+                  <UserTopsResultEntry
+                    index={index}
+                    id={track.id}
+                    name={track.name}
+                    image={track.album.images[0]?.url!}
+                    blurImage={track.album.images[2]?.url!}
+                  />
+                </Skeleton>
+              );
+            })}
       </div>
       {/* Watermark */}
       <div className="mt-4 font-bold text-black opacity-60">https://toply.vercel.app/</div>

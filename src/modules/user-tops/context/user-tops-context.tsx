@@ -4,7 +4,7 @@ import { reducer } from './reducer';
 import type { UserTopsContextState } from './reducer/types';
 
 const initialState: UserTopsContextState = {
-  state: { topTracks: [], topArtists: [], contentLoading: false },
+  state: { topTracks: [], topArtists: [], contentLoading: true },
   dispatch: () => {},
 };
 
