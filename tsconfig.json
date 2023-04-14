@@ -19,7 +19,7 @@
     "allowUnreachableCode": false,
     "noFallthroughCasesInSwitch": true,
 
-    "target": "es5",
+    "target": "ESNext",
     "outDir": "out",
     "declaration": true,
     "sourceMap": true,
@@ -35,16 +35,20 @@
     "isolatedModules": true,
     "incremental": true,
 
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "@lib/*": ["src/lib/*"],
-      "@typedefs/*": ["src/typedefs/*"],
-      "@modules/*": ["src/modules/*"],
+      "@components/*": ["components/*"],
+      "@contexts/*": ["contexts/*"],
+      "@hooks/*": ["hooks/*"],
+      "@lib/*": ["lib/*"],
       "@pages/*": ["src/pages/*"],
-      "@styles/*": ["src/styles/*"],
-      "@views/*": ["src/views/*"],
-      "@state/*": ["src/state/*"],
-      "@hooks/*": ["src/hooks/*"]
+      "@styles/*": ["styles/*"],
+      "@utils/*": ["utils/*"],
+      "@typedefs/*": ["typedefs/*"],
+      "@state/*": ["state/*"],
+      "@public/*": ["..public/*"],
+      "@typings/*": ["typings/*"],
+      "@modules/*": ["modules/*"]
     }
   },
   "types": ["node", "jest", "@testing-library/jest-dom"],

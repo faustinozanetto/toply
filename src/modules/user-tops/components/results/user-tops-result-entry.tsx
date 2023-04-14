@@ -45,16 +45,21 @@ const UserTopsResultEntry: React.FC<UserTopsResultEntryProps> = (props) => {
       animate="visible"
       whileHover="hover"
     >
-      <Image
-        src={image}
-        alt={name}
-        blurDataURL={blurImage}
-        priority={index <= 3}
-        placeholder="blur"
-        className="rounded-lg drop-shadow-xl"
-        width={150}
-        height={150}
-      />
+      <div className="relative">
+        <Image
+          src={image}
+          alt={name}
+          blurDataURL={blurImage}
+          priority={index <= 3}
+          placeholder="blur"
+          className="rounded-lg drop-shadow-xl"
+          width={150}
+          height={150}
+        />
+        <div className="absolute inset-x-0 bottom-0 flex h-6 items-center justify-center rounded-b-lg bg-neutral-50 text-center">
+          <span className="clamp-text text-xs font-semibold">{name}</span>
+        </div>
+      </div>
     </motion.div>
   );
 };
