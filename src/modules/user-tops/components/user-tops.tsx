@@ -6,6 +6,7 @@ import React, { useEffect, useRef } from 'react';
 import { UserTopsActionType } from '../context/reducer/types';
 import { useUserTopsContext } from '../context/user-tops-context';
 import useUserTops from '../hooks/user-user-tops';
+import { USER_TOPS_MAX_RESULTS } from '../lib/user-tops.lib';
 import UserTopsHeader from './header/user-tops-header';
 import UserTopsResults from './results/user-tops-results';
 
@@ -20,7 +21,7 @@ const UserTops: React.FC = () => {
     const fetch = async () => {
       try {
         dispatch({ type: UserTopsActionType.SET_CONTENT_LOADING, payload: { contentLoading: true } });
-        const tracks = await getTopTracks('short_term', 12);
+        const tracks = await getTopTracks('short_term', USER_TOPS_MAX_RESULTS);
         dispatch({ type: UserTopsActionType.SET_TOP_TRACKS, payload: { topTracks: tracks } });
         dispatch({ type: UserTopsActionType.SET_CONTENT_LOADING, payload: { contentLoading: false } });
       } catch (err) {

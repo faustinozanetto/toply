@@ -32,7 +32,7 @@ export type IconButtonProps = ButtonStyle & {
 };
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps & HTMLButtonProps>((props, ref) => {
-  const { children, className = '', disabled, size, variant, colorScheme, icon, ...rest } = props;
+  const { className = '', disabled, size, variant, colorScheme, ...rest } = props;
 
   return (
     <button

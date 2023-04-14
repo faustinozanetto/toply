@@ -1,3 +1,4 @@
+export const USER_TOPS_MAX_RESULTS = 15;
 export const SPOTIFY_SCOPES = ['user-top-read'];
 
 export const constructSpotifyQueryParams = (apiScopes: string[]) => {
