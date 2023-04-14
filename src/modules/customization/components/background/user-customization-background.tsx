@@ -1,4 +1,4 @@
-import { Button } from '@modules/ui/components/button/button';
+import { IconButton } from '@modules/ui/components/icon-button/icon-button';
 import React from 'react';
 
 type UserCustomizationBackgroundProps = {
@@ -9,13 +9,12 @@ const UserCustomizationBackground: React.FC<UserCustomizationBackgroundProps> = 
   const { onClick } = props;
 
   return (
-    <Button
+    <IconButton
       aria-label="Customize"
-      size="lg"
       icon={
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="stroke-neutral-50"
+          className="h-5 w-5 stroke-black dark:stroke-white"
           viewBox="0 0 24 24"
           strokeWidth="2"
           fill="none"
@@ -30,7 +29,7 @@ const UserCustomizationBackground: React.FC<UserCustomizationBackgroundProps> = 
         </svg>
       }
       onClick={onClick}
-    ></Button>
+    />
   );
 };
 

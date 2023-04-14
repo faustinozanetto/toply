@@ -1,5 +1,7 @@
+import UserCustomization from '@modules/customization/components/user-customization';
+import ImageExport from '@modules/image-export/components/image-export';
 import { useSession } from 'next-auth/react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { UserTopsActionType } from '../context/reducer/types';
 import { useUserTopsContext } from '../context/user-tops-context';
@@ -11,6 +13,8 @@ const UserTops: React.FC = () => {
   const { data } = useSession();
   const { getTopTracks } = useUserTops();
   const { dispatch } = useUserTopsContext();
+
+  const resultImageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetch = async () => {
@@ -28,10 +32,16 @@ const UserTops: React.FC = () => {
 
   return (
     <div className="flex flex-col space-y-4">
-      {/* Header */}
-      <UserTopsHeader />
-      {/* Results */}
-      <UserTopsResults />
+      <div ref={resultImageRef} className="space-y-4">
+        {/* Header */}
+        <UserTopsHeader />
+        {/* Results */}
+        <UserTopsResults />
+      </div>
+      {/* Customization */}
+      <UserCustomization />
+      {/* Image Export */}
+      <ImageExport resultImageRef={resultImageRef} />
     </div>
   );
 };
