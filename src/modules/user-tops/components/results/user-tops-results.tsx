@@ -47,7 +47,11 @@ const UserTopsResults: React.FC = () => {
                 <Skeleton
                   key={track.id}
                   isLoaded={!userTopsState.contentLoading}
-                  className={clsx(isFeaturedTrack(index) ? 'col-span-2 row-span-2 ' : '')}
+                  className={clsx(
+                    isFeaturedTrack(index)
+                      ? 'col-span-2 row-span-2 h-[215px] w-[215px] md:h-[315px] md:w-[315px]'
+                      : 'h-[105px] w-[105px] md:h-[150px] md:w-[150px]'
+                  )}
                 >
                   <UserTopsResultEntry
                     index={index}
