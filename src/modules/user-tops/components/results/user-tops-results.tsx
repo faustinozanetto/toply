@@ -14,7 +14,7 @@ const UserTopsResults: React.FC = () => {
 
   return (
     <div
-      className="flex flex-col items-center rounded-lg bg-neutral-50 p-4 shadow-xl"
+      className="flex flex-col items-center rounded-lg bg-neutral-50 p-3.5 shadow-xl"
       style={{
         filter: 'sepia(0.35)',
         backgroundImage: `url(/assets/images/rough-paper.webp)`,
@@ -55,7 +55,6 @@ const UserTopsResults: React.FC = () => {
                 >
                   <UserTopsResultEntry
                     index={index}
-                    id={track.id}
                     name={track.name}
                     image={highQualityImage}
                     blurImage={lowQualityImage}

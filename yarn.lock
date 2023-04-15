@@ -477,22 +477,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/is-prop-valid@npm:^0.8.2":
-  version: 0.8.8
-  resolution: "@emotion/is-prop-valid@npm:0.8.8"
-  dependencies:
-    "@emotion/memoize": 0.7.4
-  checksum: bb7ec6d48c572c540e24e47cc94fc2f8dec2d6a342ae97bc9c8b6388d9b8d283862672172a1bb62d335c02662afe6291e10c71e9b8642664a8b43416cdceffac
-  languageName: node
-  linkType: hard
-
-"@emotion/memoize@npm:0.7.4":
-  version: 0.7.4
-  resolution: "@emotion/memoize@npm:0.7.4"
-  checksum: 4e3920d4ec95995657a37beb43d3f4b7d89fed6caa2b173a4c04d10482d089d5c3ea50bbc96618d918b020f26ed6e9c4026bbd45433566576c1f7b056c3271dc
-  languageName: node
-  linkType: hard
-
 "@eslint/eslintrc@npm:^1.3.3":
   version: 1.3.3
   resolution: "@eslint/eslintrc@npm:1.3.3"
@@ -3735,27 +3719,6 @@ __metadata:
   version: 4.2.0
   resolution: "fraction.js@npm:4.2.0"
   checksum: 8c76a6e21dedea87109d6171a0ac77afa14205794a565d71cb10d2925f629a3922da61bf45ea52dbc30bce4d8636dc0a27213a88cbd600eab047d82f9a3a94c5
-  languageName: node
-  linkType: hard
-
-"framer-motion@npm:^10.0.0":
-  version: 10.11.6
-  resolution: "framer-motion@npm:10.11.6"
-  dependencies:
-    "@emotion/is-prop-valid": ^0.8.2
-    tslib: ^2.4.0
-  peerDependencies:
-    react: ^18.0.0
-    react-dom: ^18.0.0
-  dependenciesMeta:
-    "@emotion/is-prop-valid":
-      optional: true
-  peerDependenciesMeta:
-    react:
-      optional: true
-    react-dom:
-      optional: true
-  checksum: 5f6ebb5b3b8aed29b336a5a3fbe608ae9827820514093dc447a7c33de40e61fd832e249f89ea443d8c130865652b60ccfb12be08749b4676c3badc16f3387970
   languageName: node
   linkType: hard
 
@@ -7479,7 +7442,6 @@ __metadata:
     eslint-plugin-tailwindcss: ^3.7.1
     eslint-plugin-testing-library: ^5.9.1
     eslint-plugin-unused-imports: ^2.0.0
-    framer-motion: ^10.0.0
     html-to-image: ^1.10.9
     husky: ^8.0.2
     jest: 29.3.1

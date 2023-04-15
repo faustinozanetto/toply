@@ -1,38 +1,26 @@
 import clsx from 'clsx';
-import type { HTMLMotionProps } from 'framer-motion';
-import { m } from 'framer-motion';
 import React from 'react';
 
-interface ISkeletonProps extends HTMLMotionProps<'div'> {
+type SkeletonProps = {
   isLoaded: boolean;
-}
+  className?: string;
+  children: React.ReactNode;
+};
 
-const Skeleton = React.forwardRef<HTMLDivElement, ISkeletonProps>((props, ref) => {
-  const { isLoaded, className, children, ...rest } = props;
+const Skeleton: React.FC<SkeletonProps> = (props) => {
+  const { isLoaded, className = '', children, ...rest } = props;
 
   return (
-    <m.div
-      ref={ref}
-      initial={{
-        opacity: 1,
-      }}
-      animate={{
-        opacity: isLoaded ? 1 : 0,
-      }}
-      transition={{
-        duration: 0.25,
-      }}
+    <div
       className={clsx(
-        className || '',
-        !isLoaded && 'skeleton animate-blink cursor-default bg-gray-400 bg-clip-padding'
+        !isLoaded && 'skeleton fade-in-animate animate-blink cursor-default bg-gray-400 bg-clip-padding',
+        className
       )}
       {...rest}
     >
       {children}
-    </m.div>
+    </div>
   );
-});
-
-Skeleton.displayName = 'Skeleton';
+};
 
 export default Skeleton;

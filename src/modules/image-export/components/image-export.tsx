@@ -1,7 +1,6 @@
 import { IconButton } from '@modules/ui/components/icon-button/icon-button';
 import { useToast } from '@modules/ui/components/toasts/context/toast-context';
 import { USER_TOPS_MAX_RESULTS } from '@modules/user-tops/lib/user-tops.lib';
-import { AnimatePresence, m } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 
 import useSaveImage from '../hooks/use-save-image';
@@ -38,13 +37,9 @@ const ImageExport: React.FC<ImageExportProps> = (props) => {
   }, []);
 
   return (
-    <AnimatePresence>
+    <>
       {showButton ? (
-        <m.div
-          animate={{ opacity: 1.0, translateY: 0 }}
-          initial={{ opacity: 0, translateY: -10 }}
-          className="fixed bottom-0 right-0 p-4"
-        >
+        <div className="fade-in-animate fixed bottom-0 right-0 p-4">
           <IconButton
             aria-label="Export Image"
             colorScheme="secondary"
@@ -66,9 +61,9 @@ const ImageExport: React.FC<ImageExportProps> = (props) => {
             }
             onClick={handleImageExport}
           />
-        </m.div>
+        </div>
       ) : null}
-    </AnimatePresence>
+    </>
   );
 };
 

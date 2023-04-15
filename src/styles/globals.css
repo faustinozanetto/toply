@@ -18,4 +18,31 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
   }
+
+  .fade-in-animate {
+    animation: fadeIn 0.75s forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes toast-anim {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .toast-animation {
+    animation: toast-anim 0.5s;
+  }
 }

@@ -1,5 +1,6 @@
 import UserCustomization from '@modules/customization/components/user-customization';
 import ImageExport from '@modules/image-export/components/image-export';
+import { useToast } from '@modules/ui/components/toasts/context/toast-context';
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useRef } from 'react';
 
@@ -11,6 +12,7 @@ import UserTopsHeader from './header/user-tops-header';
 import UserTopsResults from './results/user-tops-results';
 
 const UserTops: React.FC = () => {
+  const { toast } = useToast();
   const { data } = useSession();
   const { getTopTracks } = useUserTops();
   const { dispatch } = useUserTopsContext();
@@ -24,10 +26,10 @@ const UserTops: React.FC = () => {
         dispatch({ type: UserTopsActionType.SET_TOP_TRACKS, payload: { topTracks: tracks } });
         dispatch({ type: UserTopsActionType.SET_CONTENT_LOADING, payload: { contentLoading: false } });
       } catch (err) {
-        console.log({ err });
+        if (err instanceof Error) toast({ variant: 'error', content: err.message });
       }
     };
-    if (data && data.accessToken) fetch();
+    if (data && data.accessToken !== undefined) fetch();
   }, [data]);
 
   return (
