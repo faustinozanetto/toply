@@ -1,44 +1,28 @@
 import UserCustomization from '@modules/customization/components/user-customization';
 import ImageExport from '@modules/image-export/components/image-export';
-import { useToast } from '@modules/ui/components/toasts/context/toast-context';
-import { useSession } from 'next-auth/react';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 
-import { UserTopsActionType } from '../context/reducer/types';
-import { useUserTopsContext } from '../context/user-tops-context';
-import useUserTops from '../hooks/user-user-tops';
-import { USER_TOPS_MAX_RESULTS } from '../lib/user-tops.lib';
+import type { Track } from '../types/user-tops.types';
 import UserTopsHeader from './header/user-tops-header';
 import UserTopsResults from './results/user-tops-results';
 
-const UserTops: React.FC = () => {
-  const { toast } = useToast();
-  const { data } = useSession();
-  const { getTopTracks } = useUserTops();
-  const { dispatch } = useUserTopsContext();
+type UserTopsProps = {
+  username: string;
+  topTracks: Track[];
+};
+
+const UserTops: React.FC<UserTopsProps> = (props) => {
+  const { username, topTracks } = props;
 
   const resultImageRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const tracks = await getTopTracks('short_term', USER_TOPS_MAX_RESULTS);
-        dispatch({ type: UserTopsActionType.SET_TOP_TRACKS, payload: { topTracks: tracks } });
-        dispatch({ type: UserTopsActionType.SET_CONTENT_LOADING, payload: { contentLoading: false } });
-      } catch (err) {
-        if (err instanceof Error) toast({ variant: 'error', content: err.message });
-      }
-    };
-    if (data && data.accessToken !== undefined) fetch();
-  }, [data]);
 
   return (
     <div className="flex flex-col space-y-4">
       <div ref={resultImageRef} className="space-y-4">
         {/* Header */}
-        <UserTopsHeader />
+        <UserTopsHeader username={username} />
         {/* Results */}
-        <UserTopsResults />
+        <UserTopsResults topTracks={topTracks} />
       </div>
       {/* Customization */}
       <UserCustomization />

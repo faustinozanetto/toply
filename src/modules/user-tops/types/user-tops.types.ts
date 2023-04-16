@@ -56,3 +56,5 @@ export type Image = {
   url: string;
   width: number;
 };
+
+export type SpotifyTopTimeRange = 'short_term' | 'medium_term' | 'long_term';

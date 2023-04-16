@@ -1,5 +1,3 @@
-import { useSession } from 'next-auth/react';
-
 import type { Artist, Track } from '../types/user-tops.types';
 
 type UseUserTopsAPI = {
@@ -9,12 +7,9 @@ type UseUserTopsAPI = {
 
 type SpotifyTopTimeRange = 'short_term' | 'medium_term' | 'long_term';
 
-const useUserTops = (): UseUserTopsAPI => {
-  const { data } = useSession();
-
+const useUserTops = (accessToken: string | null): UseUserTopsAPI => {
   const fetchSpotifyEndpoint = async <T>(endpoint: string, params?: URLSearchParams): Promise<T> => {
-    const accessToken = data?.accessToken;
-    if (typeof data === 'undefined' || accessToken === undefined) throw new Error('Access token is invalid!');
+    if (!accessToken) throw new Error('Access token is invalid!');
 
     let finalUrl = endpoint;
     if (params) finalUrl = `${endpoint}?${params.toString()}`;
@@ -22,11 +17,11 @@ const useUserTops = (): UseUserTopsAPI => {
     const response = await fetch(finalUrl, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
 
-    const parsed: Promise<T> = await response.json();
+    const parsed: T = await response.json();
     return parsed;
   };
 

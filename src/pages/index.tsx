@@ -1,15 +1,18 @@
+import { getSpotifyUserDetails } from '@modules/auth/lib/auth.lib';
 import Layout from '@modules/layout/components/layout';
 import UserTops from '@modules/user-tops/components/user-tops';
-import { UserTopsProvider } from '@modules/user-tops/context/user-tops-context';
-import { signIn, useSession } from 'next-auth/react';
-import React, { useEffect } from 'react';
+import { getTopTracks, USER_TOPS_MAX_RESULTS } from '@modules/user-tops/lib/user-tops.lib';
+import type { Track } from '@modules/user-tops/types/user-tops.types';
+import type { GetServerSideProps } from 'next';
+import React from 'react';
 
-const HomePage: React.FC = () => {
-  const { data, status } = useSession();
+type HomePageProps = {
+  username: string;
+  topTracks: Track[];
+};
 
-  useEffect(() => {
-    if (status === 'unauthenticated') signIn();
-  }, [data, status]);
+const HomePage: React.FC<HomePageProps> = (props) => {
+  const { topTracks, username } = props;
 
   return (
     <Layout
@@ -18,11 +21,34 @@ const HomePage: React.FC = () => {
         description: 'Toply is web app for generating a cool showcase of your top songs and artists from Spotify.',
       }}
     >
-      <UserTopsProvider>
-        <UserTops />
-      </UserTopsProvider>
+      {/* <UserTopsProvider> */}
+      <UserTops username={username} topTracks={topTracks} />
+      {/* </UserTopsProvider> */}
     </Layout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { accessToken } = context.req.cookies;
+
+  if (accessToken === undefined) {
+    return {
+      redirect: {
+        destination: '/auth/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  const userData = await getSpotifyUserDetails(accessToken);
+  const topTracks = await getTopTracks(accessToken, 'short_term', USER_TOPS_MAX_RESULTS);
+
+  return {
+    props: {
+      username: userData.username,
+      topTracks,
+    },
+  };
 };
 
 export default HomePage;
