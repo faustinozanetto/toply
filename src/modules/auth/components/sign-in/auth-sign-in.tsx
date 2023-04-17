@@ -1,10 +1,21 @@
 import { getSpotifyAuthorizationUrl } from '@modules/auth/lib/auth.lib';
 import { Button } from '@modules/ui/components/button/button';
-import Link from 'next/link';
+import { useToast } from '@modules/ui/components/toasts/context/toast-context';
+import { setCookie } from 'nookies';
 import React from 'react';
 
 const AuthSignIn: React.FC = () => {
-  const spotifyAuthUrl = getSpotifyAuthorizationUrl();
+  const { toast } = useToast();
+
+  const handleLogin = async () => {
+    try {
+      const { url, verifier } = await getSpotifyAuthorizationUrl();
+      setCookie(null, 'codeVerifier', verifier, { path: '/', secure: true });
+      window.location.href = url;
+    } catch (err) {
+      toast({ variant: 'error', content: 'An error ocurred while signin in!' });
+    }
+  };
 
   return (
     <div className="space-y-4">
@@ -17,11 +28,11 @@ const AuthSignIn: React.FC = () => {
         <p className="mb-4 text-lg text-neutral-900">
           Sign in to Toply to generate a cool showcase of your top songs and artists from Spotify.
         </p>
-        <Link href={spotifyAuthUrl} className="w-full">
-          <Button size="lg" colorScheme="secondary" className="w-full">
-            Sign In Now
-          </Button>
-        </Link>
+
+        <Button size="lg" colorScheme="secondary" className="w-full" onClick={handleLogin}>
+          Sign In Now
+        </Button>
+
         <p className="mt-2 text-sm text-neutral-600">
           You will be redirected to Spotify to sign in using your account.
         </p>

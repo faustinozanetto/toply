@@ -20,6 +20,9 @@ const UserTopsResults: React.FC<UserTopsResultsProps> = (props) => {
         src="/assets/images/rough-paper.webp"
         alt="Background"
         fill
+        sizes="(max-width: 768px) 100vw,
+              (max-width: 1200px) 50vw,
+              33vw"
         quality={10}
         priority
         className="absolute -z-10 rounded-lg bg-cover object-cover sepia-[30%]"

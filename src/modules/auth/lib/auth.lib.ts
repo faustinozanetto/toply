@@ -1,10 +1,5 @@
-const SPOTIFY_REFRESH_TOKEN_URL = 'https://accounts.spotify.com/api/token';
-export const {
-  NEXT_PUBLIC_SPOTIFY_CLIENT_ID,
-  NEXT_PUBLIC_SPOTIFY_REDIRECT_URI,
-  SPOTIFY_CLIENT_SECRET,
-  SPOTIFY_REFRESH_TOKEN,
-} = process.env;
+const SPOTIFY_ACCESS_TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
+const SPOTIFY_AUTHORIZE_ENDPOINT = 'https://accounts.spotify.com/authorize';
 
 export type SpotifyAccessTokenResponse = {
   access_token: string;
@@ -21,36 +16,77 @@ type SpotifyUserDetailsResponse = {
   username: string;
 };
 
-export const getSpotifyAuthorizationUrl = () => {
-  const scope = 'user-top-read'; // specify the desired scopes
-  const state = Math.random().toString(36).substring(2, 15); // generate a random string for state parameter
-  const url = `https://accounts.spotify.com/authorize?response_type=code&client_id=${NEXT_PUBLIC_SPOTIFY_CLIENT_ID}&scope=${encodeURIComponent(
-    scope
-  )}&redirect_uri=${encodeURIComponent(NEXT_PUBLIC_SPOTIFY_REDIRECT_URI)}&state=${state}`;
-  return url;
+const generateRandomString = (length: number) => {
+  let text = '';
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for (let i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
 };
 
-export const getSpotifyTokens = async (code: string): Promise<SpotifyTokensResponse> => {
-  const encodedCredentials = Buffer.from(`${NEXT_PUBLIC_SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString(
-    'base64'
-  );
+const base64Encode = (toEncode: ArrayBuffer) => {
+  // @ts-ignore
+  return btoa(String.fromCharCode.apply(null, new Uint8Array(toEncode)))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+};
 
-  const requestBody = new URLSearchParams();
-  requestBody.append('grant_type', 'authorization_code');
-  requestBody.append('code', code);
-  requestBody.append('redirect_uri', NEXT_PUBLIC_SPOTIFY_REDIRECT_URI);
+const generateCodeChallenge = async (codeVerifier: string) => {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(codeVerifier);
+  const digest = await window.crypto.subtle.digest('SHA-256', data);
 
-  const response = await fetch(SPOTIFY_REFRESH_TOKEN_URL, {
+  return base64Encode(digest);
+};
+
+const codeVerifier = generateRandomString(128);
+
+export const getSpotifyAuthorizationUrl = async (): Promise<{ url: string; verifier: string }> => {
+  if (process.env.SPOTIFY_CLIENT_ID === undefined || process.env.SPOTIFY_REDIRECT_URI === undefined)
+    throw new Error('An error ocurred!');
+
+  const codeChallenge = await generateCodeChallenge(codeVerifier);
+  const state = generateRandomString(16);
+
+  const params = new URLSearchParams({
+    response_type: 'code',
+    client_id: process.env.SPOTIFY_CLIENT_ID,
+    scope: 'user-top-read',
+    redirect_uri: process.env.SPOTIFY_REDIRECT_URI,
+    state,
+    code_challenge_method: 'S256',
+    code_challenge: codeChallenge,
+  });
+
+  const url = `${SPOTIFY_AUTHORIZE_ENDPOINT}?${params}`;
+  return { url, verifier: codeVerifier };
+};
+
+export const getSpotifyTokens = async (code: string, codeVerifierReq: string): Promise<SpotifyTokensResponse> => {
+  if (process.env.SPOTIFY_CLIENT_ID === undefined || process.env.SPOTIFY_REDIRECT_URI === undefined)
+    throw new Error('An error ocurred!');
+
+  const requestBody = new URLSearchParams({
+    grant_type: 'authorization_code',
+    code,
+    redirect_uri: process.env.SPOTIFY_REDIRECT_URI,
+    client_id: process.env.SPOTIFY_CLIENT_ID,
+    code_verifier: codeVerifierReq,
+  });
+
+  const response = await fetch(SPOTIFY_ACCESS_TOKEN_ENDPOINT, {
     method: 'POST',
     headers: {
-      Authorization: `Basic ${encodedCredentials}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: requestBody,
   });
 
   if (!response.ok) {
-    throw new Error('Failed to requeste refresh token');
+    throw new Error('Failed to request accesss token');
   }
 
   const data = await response.json();

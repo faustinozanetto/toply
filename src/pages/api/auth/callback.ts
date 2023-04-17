@@ -6,7 +6,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'GET') {
     const { code } = req.query;
     try {
-      const { accessToken } = await getSpotifyTokens(code as string);
+      const { codeVerifier } = req.cookies;
+      if (codeVerifier === undefined) return res.status(500).send('Could not get code verifier!');
+
+      const { accessToken } = await getSpotifyTokens(code as string, codeVerifier);
       const accessTokenCookie = serialize('accessToken', accessToken, {
         httpOnly: true,
         secure: true,
