@@ -10,7 +10,7 @@ const AuthSignIn: React.FC = () => {
   const handleLogin = async () => {
     try {
       const { url, verifier } = await getSpotifyAuthorizationUrl();
-      setCookie(null, 'codeVerifier', verifier, { path: '/', secure: true });
+      setCookie(null, 'codeVerifier', verifier, { path: '/', secure: true, maxAge: 3600 });
       window.location.href = url;
     } catch (err) {
       toast({ variant: 'error', content: 'An error ocurred while signin in!' });

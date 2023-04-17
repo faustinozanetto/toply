@@ -14,6 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         httpOnly: true,
         secure: true,
         path: '/',
+        maxAge: 3600,
       });
 
       res.setHeader('Set-Cookie', accessTokenCookie);

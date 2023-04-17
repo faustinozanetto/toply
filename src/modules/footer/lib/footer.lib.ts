@@ -13,8 +13,4 @@ export const FOOTER_LINKS: React.ComponentPropsWithoutRef<typeof FooterLink>[] =
     href: '/about',
     label: 'About',
   },
-  {
-    href: 'https://github.com/faustinozanetto/toply',
-    label: 'Source',
-  },
 ];
