@@ -1,17 +1,21 @@
+import { useAuthContext } from '@modules/auth/context/auth-context';
+import { AuthActionType } from '@modules/auth/context/reducer/types';
 import { getSpotifyAuthorizationUrl } from '@modules/auth/lib/auth.lib';
 import { Button } from '@modules/ui/components/button/button';
 import { useToast } from '@modules/ui/components/toasts/context/toast-context';
-import { setCookie } from 'nookies';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 const AuthSignIn: React.FC = () => {
+  const router = useRouter();
   const { toast } = useToast();
+  const { dispatch } = useAuthContext();
 
   const handleLogin = async () => {
     try {
       const { url, verifier } = await getSpotifyAuthorizationUrl();
-      setCookie(null, 'codeVerifier', verifier, { path: '/', secure: true, maxAge: 3600 });
-      window.location.href = url;
+      dispatch({ type: AuthActionType.SET_CODE_VERIFIER, payload: { codeVerifier: verifier } });
+      router.push(url);
     } catch (err) {
       toast({ variant: 'error', content: 'An error ocurred while signin in!' });
     }

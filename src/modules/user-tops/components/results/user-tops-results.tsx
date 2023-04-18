@@ -23,7 +23,7 @@ const UserTopsResults: React.FC<UserTopsResultsProps> = (props) => {
         sizes="(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,
               33vw"
-        quality={10}
+        quality={25}
         priority
         className="absolute -z-10 rounded-lg bg-cover object-cover sepia-[30%]"
       />

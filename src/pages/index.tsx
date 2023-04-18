@@ -1,10 +1,12 @@
+import { useAuthContext } from '@modules/auth/context/auth-context';
+import { AuthActionType } from '@modules/auth/context/reducer/types';
 import { getSpotifyUserDetails } from '@modules/auth/lib/auth.lib';
 import Layout from '@modules/layout/components/layout';
 import UserTops from '@modules/user-tops/components/user-tops';
 import { getTopTracks, USER_TOPS_MAX_RESULTS } from '@modules/user-tops/lib/user-tops.lib';
 import type { Track } from '@modules/user-tops/types/user-tops.types';
 import type { GetServerSideProps } from 'next';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 type HomePageProps = {
   username: string;
@@ -13,6 +15,11 @@ type HomePageProps = {
 
 const HomePage: React.FC<HomePageProps> = (props) => {
   const { topTracks, username } = props;
+  const { dispatch } = useAuthContext();
+
+  useEffect(() => {
+    dispatch({ type: AuthActionType.SET_USERNAME, payload: { username } });
+  }, []);
 
   return (
     <Layout
@@ -22,7 +29,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
       }}
     >
       {/* <UserTopsProvider> */}
-      <UserTops username={username} topTracks={topTracks} />
+      <UserTops topTracks={topTracks} />
       {/* </UserTopsProvider> */}
     </Layout>
   );

@@ -1,5 +1,6 @@
 import '../styles/globals.css';
 
+import { AuthProvider } from '@modules/auth/context/auth-context';
 import { UserCustomizationProvider } from '@modules/customization/context/user-customization-context';
 import GoogleAnalytics from '@modules/google/components/google-analytics';
 import { ToastsContainer } from '@modules/ui/components/toasts/components/toasts-container';
@@ -20,13 +21,15 @@ const ToplyApp: React.FC<ToplyAppProps> = (props) => {
 
   return (
     <UserCustomizationProvider>
-      <ToastProvider>
-        <GoogleAnalytics />
-        <div className={`${InterFont.className} font-sans`}>
-          <Component {...pageProps} />
-        </div>
-        <ToastsContainer />
-      </ToastProvider>
+      <AuthProvider>
+        <ToastProvider>
+          <GoogleAnalytics />
+          <div className={`${InterFont.className} font-sans`}>
+            <Component {...pageProps} />
+          </div>
+          <ToastsContainer />
+        </ToastProvider>
+      </AuthProvider>
     </UserCustomizationProvider>
   );
 };

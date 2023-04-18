@@ -1,11 +1,8 @@
+export const ACCESS_TOKEN_COOKIE = 'accessToken';
+export const CODE_VERIFIER_COOKIE = 'codeVerifier';
+
 const SPOTIFY_ACCESS_TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 const SPOTIFY_AUTHORIZE_ENDPOINT = 'https://accounts.spotify.com/authorize';
-
-export type SpotifyAccessTokenResponse = {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-};
 
 type SpotifyTokensResponse = {
   accessToken: string;
@@ -86,7 +83,7 @@ export const getSpotifyTokens = async (code: string, codeVerifierReq: string): P
   });
 
   if (!response.ok) {
-    throw new Error('Failed to request accesss token');
+    throw new Error('Failed to request access token!');
   }
 
   const data = await response.json();

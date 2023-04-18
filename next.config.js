@@ -11,8 +11,6 @@ module.exports = (phase) => {
 
   const isStaging = phase === PHASE_PRODUCTION_BUILD && process.env.STAGING === '1';
 
-  console.log(`isDev:${isDev}  isProd:${isProd}   isStaging:${isStaging}`);
-
   const env = {
     SPOTIFY_CLIENT_ID: (() => {
       if (isDev || isProd || isStaging) return '2a3ee0ecc27f482d987d315f66e89c24';

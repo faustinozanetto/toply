@@ -7,12 +7,11 @@ import UserTopsHeader from './header/user-tops-header';
 import UserTopsResults from './results/user-tops-results';
 
 type UserTopsProps = {
-  username: string;
   topTracks: Track[];
 };
 
 const UserTops: React.FC<UserTopsProps> = (props) => {
-  const { username, topTracks } = props;
+  const { topTracks } = props;
 
   const resultImageRef = useRef<HTMLDivElement>(null);
 
@@ -20,7 +19,7 @@ const UserTops: React.FC<UserTopsProps> = (props) => {
     <div className="flex flex-col space-y-4">
       <div ref={resultImageRef} className="space-y-4">
         {/* Header */}
-        <UserTopsHeader username={username} />
+        <UserTopsHeader />
         {/* Results */}
         <UserTopsResults topTracks={topTracks} />
       </div>

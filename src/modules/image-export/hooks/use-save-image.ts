@@ -41,6 +41,7 @@ const useSaveImage = (elementRef: React.RefObject<HTMLDivElement> | null): UseSa
     document.body.appendChild(anchorElement);
     anchorElement.click();
     document.body.removeChild(anchorElement);
+    anchorElement.remove();
   }, [elementRef, customizationState]);
 
   return {
