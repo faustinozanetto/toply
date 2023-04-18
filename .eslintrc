@@ -41,6 +41,7 @@
             "endOfLine": "auto"
           }
         ],
+        "no-plusplus": "off",
         "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
         "import/no-extraneous-dependencies": "off",
         "no-param-reassign": "off",

@@ -1,52 +1,25 @@
-import { MAX_TRACKS } from '@lib/constants';
-import spotifyApi from '@lib/spotify-api';
-import { parseTopSongs } from '@lib/spotify-helper';
-import { useCustomizationContext } from '@modules/customization/context/customization-context';
-import { CustomizationActionType } from '@modules/customization/context/types';
-import { useDashboardContext } from '@modules/dashboard/context/dashboard-context';
-import { DashboardActionType } from '@modules/dashboard/context/types';
+import { useAuthContext } from '@modules/auth/context/auth-context';
+import { AuthActionType } from '@modules/auth/context/reducer/types';
+import { getSpotifyUserDetails } from '@modules/auth/lib/auth.lib';
 import Layout from '@modules/layout/components/layout';
-import type { SpotifyTrackType } from '@typedefs/toply.typesdefs';
-import { ToplyDataTimeSpanEnum, ToplyTopItemsEnum } from '@typedefs/toply.typesdefs';
-import HomeView from '@views/home/home-view';
+import UserTops from '@modules/user-tops/components/user-tops';
+import { getTopTracks, USER_TOPS_MAX_RESULTS } from '@modules/user-tops/lib/user-tops.lib';
+import type { Track } from '@modules/user-tops/types/user-tops.types';
 import type { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
 import React, { useEffect } from 'react';
 
-interface IHomePageProps {
-  songs: SpotifyTrackType[];
-}
+type HomePageProps = {
+  username: string;
+  topTracks: Track[];
+};
 
-const HomePage: React.FC<IHomePageProps> = (props) => {
-  const { songs } = props;
-  const { state: customizationState, dispatch: customizationDispatch } = useCustomizationContext();
-  const { dispatch: dashboardDispatch } = useDashboardContext();
+const HomePage: React.FC<HomePageProps> = (props) => {
+  const { topTracks, username } = props;
+  const { dispatch } = useAuthContext();
 
   useEffect(() => {
-    if (songs.length > 0) {
-      dashboardDispatch({
-        type: DashboardActionType.SET_SONGS,
-        payload: {
-          songs: {
-            timeSpan: customizationState.topTimeSpan,
-            data: songs,
-          },
-        },
-      });
-      customizationDispatch({
-        type: CustomizationActionType.SET_TIME_SPAN,
-        payload: {
-          topTimeSpan: ToplyDataTimeSpanEnum.MONTH,
-        },
-      });
-      customizationDispatch({
-        type: CustomizationActionType.SET_TOP_TYPE,
-        payload: {
-          topType: ToplyTopItemsEnum.SONGS,
-        },
-      });
-    }
-  }, [songs]);
+    dispatch({ type: AuthActionType.SET_USERNAME, payload: { username } });
+  }, []);
 
   return (
     <Layout
@@ -55,47 +28,33 @@ const HomePage: React.FC<IHomePageProps> = (props) => {
         description: 'Toply is web app for generating a cool showcase of your top songs and artists from Spotify.',
       }}
     >
-      <HomeView />
+      {/* <UserTopsProvider> */}
+      <UserTops topTracks={topTracks} />
+      {/* </UserTopsProvider> */}
     </Layout>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+  const { accessToken } = context.req.cookies;
 
-  // If not logged in, redirect to login page
-  if (!session) {
+  if (accessToken === undefined) {
     return {
       redirect: {
-        destination: '/api/auth/signin',
+        destination: '/auth/signin',
         permanent: false,
       },
     };
   }
 
-  // If we are logged in, we fetch the top songs.
-  // Redirect if session error.
-  if (session?.error === 'RefreshAccessTokenError') {
-    return {
-      redirect: {
-        destination: '/signin',
-        permanent: false,
-      },
-    };
-  }
-
-  spotifyApi.setAccessToken(session?.user?.accessToken!);
-
-  // Fetch the top songs
-  let songs: SpotifyTrackType[] = [];
-  if (spotifyApi.getAccessToken()) {
-    await spotifyApi.getMyTopTracks({ limit: MAX_TRACKS, time_range: 'short_term' }).then((data) => {
-      songs = parseTopSongs(data.body);
-    });
-  }
+  const userData = await getSpotifyUserDetails(accessToken);
+  const topTracks = await getTopTracks(accessToken, 'short_term', USER_TOPS_MAX_RESULTS);
 
   return {
-    props: { songs },
+    props: {
+      username: userData.username,
+      topTracks,
+    },
   };
 };
 

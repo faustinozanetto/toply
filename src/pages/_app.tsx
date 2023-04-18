@@ -1,32 +1,36 @@
 import '../styles/globals.css';
-import '@fontsource/poppins';
 
-import CustomizationProvider from '@modules/customization/context/customization-context';
-import DashboardProvider from '@modules/dashboard/context/dashboard-context';
+import { AuthProvider } from '@modules/auth/context/auth-context';
+import { UserCustomizationProvider } from '@modules/customization/context/user-customization-context';
 import GoogleAnalytics from '@modules/google/components/google-analytics';
-import SelectedSongProvider from '@modules/selected-item/context/selected-song-context';
+import { ToastsContainer } from '@modules/ui/components/toasts/components/toasts-container';
+import { ToastProvider } from '@modules/ui/components/toasts/context/toast-context';
 import type { AppProps } from 'next/app';
-import type { Session } from 'next-auth';
-import { SessionProvider } from 'next-auth/react';
+import { Inter } from 'next/font/google';
 
-type IToplyAppProps = AppProps & {
-  session: Session;
-};
+const InterFont = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
 
-const ToplyApp: React.FC<IToplyAppProps> = (props) => {
-  const { Component, session, pageProps } = props;
+type ToplyAppProps = AppProps & {};
+
+const ToplyApp: React.FC<ToplyAppProps> = (props) => {
+  const { Component, pageProps } = props;
 
   return (
-    <CustomizationProvider>
-      <DashboardProvider>
-        <SessionProvider session={session} refetchInterval={0}>
-          <SelectedSongProvider>
-            <GoogleAnalytics />
+    <UserCustomizationProvider>
+      <AuthProvider>
+        <ToastProvider>
+          <GoogleAnalytics />
+          <div className={`${InterFont.className} font-sans`}>
             <Component {...pageProps} />
-          </SelectedSongProvider>
-        </SessionProvider>
-      </DashboardProvider>
-    </CustomizationProvider>
+          </div>
+          <ToastsContainer />
+        </ToastProvider>
+      </AuthProvider>
+    </UserCustomizationProvider>
   );
 };
 

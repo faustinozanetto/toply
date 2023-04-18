@@ -43,17 +43,12 @@
     }
   },
   "dependencies": {
-    "@fontsource/poppins": "^4.5.10",
-    "@headlessui/react": "^1.7.4",
     "clsx": "^1.2.1",
-    "cssnano": "^5.1.14",
-    "framer-motion": "^10.0.0",
     "html-to-image": "^1.10.9",
-    "next": "^13.0.5",
-    "next-auth": "latest",
+    "next": "13.2.0",
+    "nookies": "^2.5.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "spotify-web-api-node": "^5.0.2"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.28.1",
