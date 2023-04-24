@@ -5,6 +5,7 @@ import { UserCustomizationProvider } from '@modules/customization/context/user-c
 import GoogleAnalytics from '@modules/google/components/google-analytics';
 import { ToastsContainer } from '@modules/ui/components/toasts/components/toasts-container';
 import { ToastProvider } from '@modules/ui/components/toasts/context/toast-context';
+import { Analytics } from '@vercel/analytics/react';
 import type { AppProps } from 'next/app';
 
 type ToplyAppProps = AppProps & {};
@@ -17,6 +18,7 @@ const ToplyApp: React.FC<ToplyAppProps> = (props) => {
       <AuthProvider>
         <ToastProvider>
           <Component {...pageProps} />
+          <Analytics />
           <GoogleAnalytics />
           <ToastsContainer />
         </ToastProvider>
