@@ -58,7 +58,7 @@ const ButtonContent: React.FC<ButtonContentProps> = (props) => {
 
   return (
     <React.Fragment>
-      {loading && <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">Loading</span>}
+      {loading && <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">Loading</span>}
       {icon && iconPosition === 'start' && (
         <span className={clsx({ invisible: loading }, ICON_SIZE_CLASSES[size], ICON_START_CLASSES[size])}>{icon}</span>
       )}

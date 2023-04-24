@@ -5,7 +5,7 @@ import Layout from '@modules/layout/components/layout';
 import UserTops from '@modules/user-tops/components/user-tops';
 import { getTopTracks, USER_TOPS_MAX_RESULTS } from '@modules/user-tops/lib/user-tops.lib';
 import type { Track } from '@modules/user-tops/types/user-tops.types';
-import type { GetServerSideProps } from 'next';
+import type { GetServerSideProps, Redirect } from 'next';
 import React, { useEffect } from 'react';
 
 type HomePageProps = {
@@ -18,7 +18,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
   const { dispatch } = useAuthContext();
 
   useEffect(() => {
-    dispatch({ type: AuthActionType.SET_USERNAME, payload: { username } });
+    dispatch({ type: AuthActionType.SIGNIN, payload: { username } });
   }, []);
 
   return (
@@ -28,9 +28,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
         description: 'Toply is web app for generating a cool showcase of your top songs and artists from Spotify.',
       }}
     >
-      {/* <UserTopsProvider> */}
       <UserTops topTracks={topTracks} />
-      {/* </UserTopsProvider> */}
     </Layout>
   );
 };
@@ -38,23 +36,35 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { accessToken } = context.req.cookies;
 
+  const notFoundResult: { redirect: Redirect } = {
+    redirect: {
+      destination: '/auth/signin',
+      permanent: false,
+    },
+  };
+
   if (accessToken === undefined) {
-    return {
-      redirect: {
-        destination: '/auth/signin',
-        permanent: false,
-      },
-    };
+    return notFoundResult;
   }
 
-  const userData = await getSpotifyUserDetails(accessToken);
-  const topTracks = await getTopTracks(accessToken, 'short_term', USER_TOPS_MAX_RESULTS);
+  try {
+    const userData = await getSpotifyUserDetails(accessToken);
+    const topTracks = await getTopTracks(accessToken, 'short_term', USER_TOPS_MAX_RESULTS);
+
+    return {
+      props: {
+        username: userData.username,
+        topTracks,
+      },
+    };
+  } catch (error) {
+    if (error instanceof Error) {
+      return notFoundResult;
+    }
+  }
 
   return {
-    props: {
-      username: userData.username,
-      topTracks,
-    },
+    props: {},
   };
 };
 

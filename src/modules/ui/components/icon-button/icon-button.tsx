@@ -20,7 +20,7 @@ const IconButtonContent: React.FC<IconButtonContentProps> = (props) => {
 
   return (
     <React.Fragment>
-      {loading && <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">Loading</span>}
+      {loading && <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">Loading</span>}
       <span className={clsx({ invisible: loading })}>{icon}</span>
     </React.Fragment>
   );

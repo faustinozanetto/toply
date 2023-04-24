@@ -4,7 +4,7 @@ import { reducer } from './reducer';
 import type { AuthContextState } from './reducer/types';
 
 const initialState: AuthContextState = {
-  state: { username: null },
+  state: { isLoggedIn: false, username: null },
   dispatch: () => {},
 };
 

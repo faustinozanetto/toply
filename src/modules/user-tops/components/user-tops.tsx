@@ -1,3 +1,4 @@
+import AuthSignOut from '@modules/auth/components/auth-logout';
 import UserCustomization from '@modules/customization/components/user-customization';
 import ImageExport from '@modules/image-export/components/image-export';
 import React, { useRef } from 'react';
@@ -25,8 +26,12 @@ const UserTops: React.FC<UserTopsProps> = (props) => {
       </div>
       {/* Customization */}
       <UserCustomization />
-      {/* Image Export */}
-      <ImageExport resultImageRef={resultImageRef} />
+      <div className="fixed bottom-0 right-0 flex gap-2 p-4">
+        {/* Image Export */}
+        <ImageExport resultImageRef={resultImageRef} />
+        {/* User Logout */}
+        <AuthSignOut />
+      </div>
     </div>
   );
 };

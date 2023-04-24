@@ -1,8 +1,9 @@
 import type { Track } from '@modules/user-tops/types/user-tops.types';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React from 'react';
 
-import UserTopsResultEntry from './user-tops-result-entry';
+const UserTopsResultEntry = dynamic(() => import('./user-tops-result-entry'));
 
 type UserTopsResultsProps = {
   topTracks: Track[];

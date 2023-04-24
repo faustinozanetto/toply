@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN_COOKIE, getSpotifyTokens } from '@modules/auth/lib/auth.lib';
+import { ACCESS_TOKEN_COOKIE, getSpotifyTokens, TOKEN_DURATION } from '@modules/auth/lib/auth.lib';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { setCookie } from 'nookies';
 
@@ -15,9 +15,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         httpOnly: true,
         secure: true,
         path: '/',
-        maxAge: 3600,
+        maxAge: TOKEN_DURATION,
       });
-
       res.redirect('/');
     } catch (error) {
       // Handle errors

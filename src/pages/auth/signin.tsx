@@ -1,4 +1,4 @@
-import AuthSignIn from '@modules/auth/components/sign-in/auth-sign-in';
+import AuthSignIn from '@modules/auth/components/auth-sign-in';
 import Layout from '@modules/layout/components/layout';
 import React from 'react';
 

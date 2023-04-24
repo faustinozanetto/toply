@@ -10,6 +10,7 @@ export type ActionMap<M extends { [index: string]: unknown }> = {
 };
 
 export type AuthState = {
+  isLoggedIn: boolean;
   username: string | null;
 };
 
@@ -19,17 +20,13 @@ export type AuthContextState = {
 };
 
 export enum AuthActionType {
-  SET_USERNAME,
-  SET_CODE_VERIFIER,
+  SIGNIN,
   LOGOUT,
 }
 
 type AuthPayload = {
-  [AuthActionType.SET_USERNAME]: {
+  [AuthActionType.SIGNIN]: {
     username: string;
-  };
-  [AuthActionType.SET_CODE_VERIFIER]: {
-    codeVerifier: string;
   };
   [AuthActionType.LOGOUT]: {};
 };

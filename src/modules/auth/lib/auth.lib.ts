@@ -1,5 +1,7 @@
 export const ACCESS_TOKEN_COOKIE = 'accessToken';
 export const CODE_VERIFIER_COOKIE = 'codeVerifier';
+// 1 Hour
+export const TOKEN_DURATION = 3600;
 
 const SPOTIFY_ACCESS_TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 const SPOTIFY_AUTHORIZE_ENDPOINT = 'https://accounts.spotify.com/authorize';
