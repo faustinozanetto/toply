@@ -16,7 +16,7 @@ export const Toast: React.FC<ToastProps> = (props) => {
       case 'info': {
         return (
           <svg
-            className="h-5 w-5 stroke-neutral-800 dark:stroke-neutral-50"
+            className="size-5 stroke-neutral-800 dark:stroke-neutral-50"
             fill="none"
             strokeLinejoin="round"
             strokeLinecap="round"
@@ -36,7 +36,7 @@ export const Toast: React.FC<ToastProps> = (props) => {
       case 'success': {
         return (
           <svg
-            className="h-5 w-5 stroke-neutral-800 dark:stroke-neutral-50"
+            className="size-5 stroke-neutral-800 dark:stroke-neutral-50"
             xmlns="http://www.w3.org/2000/svg"
             strokeLinejoin="round"
             strokeLinecap="round"
@@ -53,7 +53,7 @@ export const Toast: React.FC<ToastProps> = (props) => {
       case 'error': {
         return (
           <svg
-            className="h-5 w-5 stroke-neutral-800 dark:stroke-neutral-50"
+            className="size-5 stroke-neutral-800 dark:stroke-neutral-50"
             xmlns="http://www.w3.org/2000/svg"
             strokeLinejoin="round"
             strokeLinecap="round"

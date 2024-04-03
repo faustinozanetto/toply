@@ -1,3 +1,5 @@
+'use client';
+
 import AuthSignOut from '@modules/auth/components/auth-logout';
 import UserCustomization from '@modules/customization/components/user-customization';
 import ImageExport from '@modules/image-export/components/image-export';
@@ -9,27 +11,23 @@ import UserTopsResults from './results/user-tops-results';
 
 type UserTopsProps = {
   topTracks: Track[];
+  username: string;
 };
 
 const UserTops: React.FC<UserTopsProps> = (props) => {
-  const { topTracks } = props;
+  const { topTracks, username } = props;
 
   const resultImageRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="flex flex-col space-y-4">
       <div ref={resultImageRef} className="space-y-4">
-        {/* Header */}
-        <UserTopsHeader />
-        {/* Results */}
+        <UserTopsHeader username={username} />
         <UserTopsResults topTracks={topTracks} />
       </div>
-      {/* Customization */}
       <UserCustomization />
       <div className="fixed bottom-0 right-0 flex gap-2 p-4">
-        {/* Image Export */}
         <ImageExport resultImageRef={resultImageRef} />
-        {/* User Logout */}
         <AuthSignOut />
       </div>
     </div>

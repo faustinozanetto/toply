@@ -11,7 +11,7 @@ const FooterLink: React.FC<FooterLinkProps> = (props) => {
 
   return (
     <Link href={href} passHref>
-      <span role="navigation" className="block cursor-pointer font-bold text-neutral-900">
+      <span role="navigation" className="block cursor-pointer font-medium">
         {label}
       </span>
     </Link>

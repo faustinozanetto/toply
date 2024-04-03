@@ -1,24 +1,6 @@
 import type { SpotifyTopTimeRange, Track } from '../types/user-tops.types';
 
 export const USER_TOPS_MAX_RESULTS = 12;
-export const SPOTIFY_SCOPES = ['user-top-read'];
-
-export const constructSpotifyQueryParams = (apiScopes: string[]) => {
-  const urlParams = {
-    scope: apiScopes.join(','),
-  };
-
-  return new URLSearchParams(urlParams);
-};
-
-export const constructSpotifyAuthUrl = () => {
-  const baseUrl = 'https://accounts.spotify.com';
-  const params = {
-    scope: SPOTIFY_SCOPES.join(','),
-  };
-  const queryParamString = new URLSearchParams(params);
-  return `${baseUrl}/authorize?${queryParamString.toString()}`;
-};
 
 const fetchSpotifyEndpoint = async <T>(accessToken: string, endpoint: string, params?: URLSearchParams): Promise<T> => {
   if (!accessToken) throw new Error('Access token is invalid!');
@@ -32,6 +14,9 @@ const fetchSpotifyEndpoint = async <T>(accessToken: string, endpoint: string, pa
       'Content-Type': 'application/x-www-form-urlencoded',
     },
   });
+  if (!response.ok) {
+    throw new Error('Could not fetch spotify API!');
+  }
 
   const parsed: T = await response.json();
   return parsed;
@@ -46,5 +31,6 @@ export const getTopTracks = async (accessToken: string, timeRange: SpotifyTopTim
     'https://api.spotify.com/v1/me/top/tracks',
     topTracksParams
   );
+
   return response.items;
 };

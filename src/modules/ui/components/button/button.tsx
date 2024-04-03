@@ -1,90 +1,47 @@
-import clsx from 'clsx';
-import React from 'react';
+import { cn } from '@modules/ui/lib/ui.lib';
+import { Slot } from '@radix-ui/react-slot';
+import { type VariantProps, cva } from 'class-variance-authority';
+import * as React from 'react';
 
-import {
-  BUTTON_BASE_STYLES,
-  BUTTON_COLOR_SCHEMES,
-  BUTTON_SIZES,
-  ICON_END_CLASSES,
-  ICON_SIZE_CLASSES,
-  ICON_START_CLASSES,
-} from './button-styles';
+const buttonVariants = cva(
+  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  {
+    variants: {
+      variant: {
+        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+        'destructive-ghost': 'hover:bg-destructive/90 hover:text-primary-foreground',
+        outline: 'border bg-background hover:bg-accent hover:text-accent-foreground',
+        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        link: 'text-primary underline-offset-4 hover:underline',
+      },
+      size: {
+        default: 'h-10 px-4 py-2',
+        sm: 'h-9 rounded-md px-3',
+        lg: 'h-11 rounded-md px-8',
+        icon: 'size-10',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+    },
+  }
+);
 
-export type HTMLButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+}
 
-export type ButtonVariants = 'outline' | 'solid' | 'ghost';
-export type ButtonSizes = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl';
-export type ButtonColorSchemes = 'primary' | 'secondary' | 'danger';
-
-export type AvailableColorSchemes = {
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  [key in ButtonColorSchemes]: { [key in ButtonVariants]: string };
-};
-
-export type AvaiableSizeVariants = {
-  [key in ButtonSizes]: string;
-};
-
-export type ButtonStyle = {
-  /** Optional: Size of the button, defaults to md. */
-  size?: ButtonSizes;
-  /** Optional: Variant of the button, defaults to solid. */
-  variant?: ButtonVariants;
-  /** Optional: Color scheme of the button, defaults to primary. */
-  colorScheme?: ButtonColorSchemes;
-};
-
-type ButtonIconPosition = 'start' | 'end';
-
-export type ButtonProps = ButtonStyle &
-  HTMLButtonProps & {
-    disabled?: boolean;
-    icon?: React.ReactElement;
-    iconPosition?: ButtonIconPosition;
-  };
-
-type ButtonContentProps = ButtonProps & {
-  loading?: boolean;
-  children?: React.ReactNode;
-};
-
-const getButtonStyles = (style: ButtonStyle, ...rest: string[]): string => {
-  const { size = 'base', colorScheme = 'primary', variant = 'solid' } = style;
-  return clsx(BUTTON_BASE_STYLES, BUTTON_SIZES[size], BUTTON_COLOR_SCHEMES[colorScheme][variant], ...rest);
-};
-
-const ButtonContent: React.FC<ButtonContentProps> = (props) => {
-  const { loading, icon, iconPosition = 'start', size = 'base', children } = props;
-
-  return (
-    <React.Fragment>
-      {loading && <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">Loading</span>}
-      {icon && iconPosition === 'start' && (
-        <span className={clsx({ invisible: loading }, ICON_SIZE_CLASSES[size], ICON_START_CLASSES[size])}>{icon}</span>
-      )}
-      <span className={clsx({ invisible: loading })}>{children}</span>
-      {icon && iconPosition === 'end' && (
-        <span className={clsx({ invisible: loading }, ICON_SIZE_CLASSES[size], ICON_END_CLASSES[size])}>{icon}</span>
-      )}
-    </React.Fragment>
-  );
-};
-
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  const { className = '', disabled, size, variant, colorScheme, ...rest } = props;
-
-  return (
-    <button
-      ref={ref}
-      className={getButtonStyles({ size, variant, colorScheme }, className)}
-      type="button"
-      aria-disabled={disabled}
-      disabled={disabled}
-      {...rest}
-    >
-      <ButtonContent {...props} />
-    </button>
-  );
-});
-
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : 'button';
+    return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
+  }
+);
 Button.displayName = 'Button';
+
+export { Button, buttonVariants };

@@ -1,6 +1,6 @@
 <div align="center">
   <a target="_blank" target="https://github.com/faustinozanetto/toply">
-    <img alt="Toply Showcase" title="Toply" src="public/assets/images/toply-showcase.jpg" />
+    <img alt="Toply Showcase" title="Toply" src="public/images/toply-showcase.jpg" />
   </a>
 </div>
 

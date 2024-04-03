@@ -12,13 +12,12 @@ type UserTopsResultsProps = {
 const UserTopsResults: React.FC<UserTopsResultsProps> = (props) => {
   const { topTracks } = props;
 
-  const fallbackImageUrl = '/assets/images/image-fallback.webp';
+  const fallbackImageUrl = '/images/image-fallback.webp';
 
   return (
     <div className="relative z-0 flex flex-col items-center rounded-lg bg-neutral-50 p-3.5 shadow-xl">
-      {/* Background Image */}
       <Image
-        src="/assets/images/rough-paper.webp"
+        src="/images/rough-paper.webp"
         alt="Background"
         fill
         sizes="(max-width: 768px) 100vw,
@@ -28,7 +27,6 @@ const UserTopsResults: React.FC<UserTopsResultsProps> = (props) => {
         priority
         className="absolute -z-10 rounded-lg bg-cover object-cover sepia-[30%]"
       />
-      {/* Result Grid */}
       <div className="z-10 grid grid-cols-3 gap-2">
         {topTracks.map((track, index) => {
           const highQualityImage = track.album.images[1]?.url ?? fallbackImageUrl;
@@ -44,8 +42,7 @@ const UserTopsResults: React.FC<UserTopsResultsProps> = (props) => {
           );
         })}
       </div>
-      {/* Watermark */}
-      <div className="mt-4 font-bold text-black opacity-60">https://toply.vercel.app/</div>
+      <div className="mt-4 text-sm font-bold text-black opacity-60">https://toply.vercel.app/</div>
     </div>
   );
 };

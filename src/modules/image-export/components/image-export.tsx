@@ -1,4 +1,5 @@
-import { IconButton } from '@modules/ui/components/icon-button/icon-button';
+import { Button } from '@modules/ui/components/button/button';
+import { LoadingIcon } from '@modules/ui/components/icons/loading-icon';
 import { useToast } from '@modules/ui/components/toasts/context/toast-context';
 import { USER_TOPS_MAX_RESULTS } from '@modules/user-tops/lib/user-tops.lib';
 import React, { useEffect, useState } from 'react';
@@ -15,7 +16,7 @@ const ImageExport: React.FC<ImageExportProps> = (props) => {
 
   const [showButton, setShowButton] = useState<boolean>(false);
 
-  const { saveImageToDevice } = useSaveImage(resultImageRef);
+  const { saveImageToDevice, isSaving } = useSaveImage(resultImageRef);
 
   const handleImageExport = async () => {
     try {
@@ -39,14 +40,13 @@ const ImageExport: React.FC<ImageExportProps> = (props) => {
   return (
     <>
       {showButton ? (
-        <IconButton
-          aria-label="Export Image"
-          colorScheme="secondary"
-          className="fade-in-animate"
-          icon={
+        <Button aria-label="Export Image" onClick={handleImageExport} className="fade-in-animate" size="icon">
+          {isSaving ? (
+            <LoadingIcon />
+          ) : (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 stroke-black dark:stroke-white"
+              className="size-5 stroke-black dark:stroke-white"
               viewBox="0 0 24 24"
               strokeWidth="2"
               fill="none"
@@ -58,9 +58,8 @@ const ImageExport: React.FC<ImageExportProps> = (props) => {
               <polyline points="7 11 12 16 17 11" />
               <line x1="12" y1="4" x2="12" y2="16" />
             </svg>
-          }
-          onClick={handleImageExport}
-        />
+          )}
+        </Button>
       ) : null}
     </>
   );

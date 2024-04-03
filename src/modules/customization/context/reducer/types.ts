@@ -1,13 +1,4 @@
-export type ActionMap<M extends { [index: string]: unknown }> = {
-  [Key in keyof M]: M[Key] extends undefined
-    ? {
-        type: Key;
-      }
-    : {
-        type: Key;
-        payload: M[Key];
-      };
-};
+import type { ActionMap } from '@modules/common/types/common.types';
 
 export type UserCustomizationState = {
   background: string;

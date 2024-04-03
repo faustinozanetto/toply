@@ -43,13 +43,17 @@
     }
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2",
     "@vercel/analytics": "^1.0.0",
+    "class-variance-authority": "^0.7.0",
     "clsx": "^1.2.1",
     "html-to-image": "^1.10.9",
-    "next": "13.2.0",
+    "next": "14.1.4",
+    "next-auth": "^4.24.7",
     "nookies": "^2.5.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^2.2.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.28.1",
