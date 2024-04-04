@@ -54,14 +54,14 @@
     "tailwind-merge": "^2.2.2"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.2",
     "@types/jest": "29.5.12",
     "@types/node": "^18.11.10",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.2.24",
     "@types/spotify-web-api-node": "^5.0.7",
-    "@types/testing-library__jest-dom": "^5.14.5",
+    "@types/testing-library__jest-dom": "^6.0.0",
     "@types/testing-library__react": "^10.2.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "autoprefixer": "^10.4.13",
