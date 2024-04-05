@@ -29,23 +29,19 @@ export const metadata: Metadata = {
 };
 
 const fetchTopTracks = async (): Promise<TopTracksGetResponse> => {
-  try {
-    const url = new URL('/api/top-tracks', siteConfig.url);
-    const response = await fetch(url, { method: 'GET', headers: headers() });
+  const url = new URL('/api/top-tracks', siteConfig.url);
+  const response = await fetch(url, { method: 'GET', headers: headers() });
 
-    if (!response.ok) {
-      const errorResponse = await response.json();
-      let errorMessage = 'Failed to get top tracks!';
-      if (errorResponse.error && errorResponse.error.message) {
-        errorMessage = errorResponse.error.message;
-      }
-      throw new Error(errorMessage);
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    let errorMessage = 'Failed to get top tracks!';
+    if (errorResponse.error && errorResponse.error.message) {
+      errorMessage = errorResponse.error.message;
     }
-
-    return await response.json();
-  } catch (error) {
-    throw new Error('Failed to calculate top tracks');
+    throw new Error(errorMessage);
   }
+
+  return response.json();
 };
 
 export default async function Home() {
