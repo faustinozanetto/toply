@@ -4,7 +4,7 @@ import { siteConfig } from 'config/config';
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -55,7 +55,11 @@ export default async function Home() {
       return redirect('/sign-in');
     }
 
-    return <UserTops topTracks={data.topTracks} username={data.username} />;
+    return (
+      <Suspense fallback={null}>
+        <UserTops topTracks={data.topTracks} username={data.username} />
+      </Suspense>
+    );
   } catch (error) {
     console.log({ error });
 
