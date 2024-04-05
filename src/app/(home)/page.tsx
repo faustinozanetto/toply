@@ -1,5 +1,4 @@
 import type { TopTracksGetResponse } from '@modules/api/types/api.types';
-import { __URL__ } from '@modules/common/lib/common.constants';
 import UserTops from '@modules/user-tops/components/user-tops';
 import { siteConfig } from 'config/config';
 import type { Metadata } from 'next';
@@ -30,31 +29,36 @@ export const metadata: Metadata = {
 };
 
 const fetchTopTracks = async (): Promise<TopTracksGetResponse> => {
-  const url = new URL('/api/top-tracks', __URL__);
-  const response = await fetch(url, { method: 'GET', headers: headers() });
-  if (!response.ok) {
-    const errorResponse = await response.json();
-    let errorMessage = 'Failed to get top tracks!';
-    if (errorResponse.error && errorResponse.error.message) {
-      errorMessage = errorResponse.error.message;
-    }
-    throw new Error(errorMessage);
-  }
+  try {
+    const url = new URL('/api/top-tracks', siteConfig.url);
+    const response = await fetch(url, { method: 'GET', headers: headers() });
 
-  return response.json();
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      let errorMessage = 'Failed to get top tracks!';
+      if (errorResponse.error && errorResponse.error.message) {
+        errorMessage = errorResponse.error.message;
+      }
+      throw new Error(errorMessage);
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error('Failed to calculate top tracks');
+  }
 };
 
 export default async function Home() {
   try {
     const result = await fetchTopTracks();
-    if (!result.data) {
+    const { data } = result;
+
+    if (!data) {
       return redirect('/sign-in');
     }
 
-    const { data } = result;
-
     return <UserTops topTracks={data.topTracks} username={data.username} />;
-  } catch (err) {
+  } catch (error) {
     return redirect('/sign-in');
   }
 }
