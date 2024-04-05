@@ -19,6 +19,6 @@ export async function GET(): Promise<NextResponse<TopTracksGetResponse>> {
     let errorMessage = 'An error occurred!';
     if (err instanceof Error) errorMessage = err.message;
 
-    return new NextResponse(errorMessage, { status: 500 });
+    return NextResponse.json({ error: { message: errorMessage } }, { status: 500 });
   }
 }

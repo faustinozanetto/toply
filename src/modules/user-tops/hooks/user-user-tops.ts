@@ -1,56 +1,41 @@
-import type { Artist, Track } from '../types/user-tops.types';
+import type { TopTracksGetResponse } from '@modules/api/types/api.types';
+import { __URL__ } from '@modules/common/lib/common.constants';
+import { extractErrorMessage, handleFetchError } from '@modules/common/lib/errors.lib';
+import { useToast } from '@modules/ui/components/toasts/context/toast-context';
+import type { UseQueryResult } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
-type UseUserTopsAPI = {
-  getTopTracks: (timeRange: SpotifyTopTimeRange, limit: number) => Promise<Track[]>;
-  getTopArtists: (timeRange: SpotifyTopTimeRange, limit: number) => Promise<Artist[]>;
+type UseUserTopsReturn = Pick<UseQueryResult<TopTracksGetResponse>, 'error' | 'isFetching' | 'isLoading'> & {
+  data: TopTracksGetResponse;
 };
 
-type SpotifyTopTimeRange = 'short_term' | 'medium_term' | 'long_term';
+const useUserTops = (): UseUserTopsReturn => {
+  const { toast } = useToast();
+  const { data, isLoading, isFetching, error } = useQuery<TopTracksGetResponse>({
+    queryKey: ['top-tracks'],
+    refetchOnWindowFocus: false,
+    initialData: {},
+    queryFn: async () => {
+      try {
+        const url = new URL('/api/top-tracks', __URL__);
+        const response = await fetch(url, {
+          method: 'GET',
+        });
 
-const useUserTops = (accessToken: string | null): UseUserTopsAPI => {
-  const fetchSpotifyEndpoint = async <T>(endpoint: string, params?: URLSearchParams): Promise<T> => {
-    if (!accessToken) throw new Error('Access token is invalid!');
+        if (!response.ok) {
+          const errorMessage = await handleFetchError('Could not get top tracks!', response);
+          throw new Error(errorMessage);
+        }
 
-    let finalUrl = endpoint;
-    if (params) finalUrl = `${endpoint}?${params.toString()}`;
+        return await response.json();
+      } catch (err) {
+        const errorMessage = extractErrorMessage('Could not get top tracks!', err);
+        toast({ variant: 'error', content: errorMessage });
+      }
+    },
+  });
 
-    const response = await fetch(finalUrl, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
-
-    const parsed: T = await response.json();
-    return parsed;
-  };
-
-  const getTopTracks = async (timeRange: SpotifyTopTimeRange, limit: number) => {
-    const topTracksParams = new URLSearchParams();
-    topTracksParams.append('time_range', timeRange);
-    topTracksParams.append('limit', String(limit));
-    const response = await fetchSpotifyEndpoint<{ items: Track[] }>(
-      'https://api.spotify.com/v1/me/top/tracks',
-      topTracksParams
-    );
-    return response.items;
-  };
-
-  const getTopArtists = async (timeRange: SpotifyTopTimeRange, limit: number) => {
-    const topTracksParams = new URLSearchParams();
-    topTracksParams.append('time_range', timeRange);
-    topTracksParams.append('limit', String(limit));
-    const response = await fetchSpotifyEndpoint<{ items: Artist[] }>(
-      'https://api.spotify.com/v1/me/top/artists',
-      topTracksParams
-    );
-    return response.items;
-  };
-
-  return {
-    getTopTracks,
-    getTopArtists,
-  };
+  return { error, data, isLoading, isFetching };
 };
 
 export default useUserTops;

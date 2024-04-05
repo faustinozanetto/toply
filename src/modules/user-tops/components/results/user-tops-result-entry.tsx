@@ -15,8 +15,6 @@ type UserTopsResultEntryProps = {
 const UserTopsResultEntry: React.FC<UserTopsResultEntryProps> = (props) => {
   const { name, image, blurImage, index } = props;
 
-  const imageDimensions = index === 1 ? 200 : 150;
-
   return (
     <div className="fade-in-animate relative transition-transform hover:scale-105">
       <Image
@@ -26,8 +24,8 @@ const UserTopsResultEntry: React.FC<UserTopsResultEntryProps> = (props) => {
         priority={index <= 3}
         placeholder="blur"
         className="aspect-square w-full rounded-lg drop-shadow-xl"
-        width={imageDimensions}
-        height={imageDimensions}
+        width={200}
+        height={200}
       />
       <div className="absolute inset-x-0 bottom-0 flex h-6 items-center justify-center rounded-b-lg bg-neutral-50 text-center">
         <span className="clamp-text text-xs font-bold md:text-sm">{name}</span>

@@ -5,25 +5,17 @@ import UserCustomization from '@modules/customization/components/user-customizat
 import ImageExport from '@modules/image-export/components/image-export';
 import React, { useRef } from 'react';
 
-import type { Track } from '../types/user-tops.types';
 import UserTopsHeader from './header/user-tops-header';
 import UserTopsResults from './results/user-tops-results';
 
-type UserTopsProps = {
-  topTracks: Track[];
-  username: string;
-};
-
-const UserTops: React.FC<UserTopsProps> = (props) => {
-  const { topTracks, username } = props;
-
+const UserTops: React.FC = () => {
   const resultImageRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="flex flex-col space-y-4">
       <div ref={resultImageRef} className="space-y-4">
-        <UserTopsHeader username={username} />
-        <UserTopsResults topTracks={topTracks} />
+        <UserTopsHeader />
+        <UserTopsResults />
       </div>
       <UserCustomization />
       <div className="fixed bottom-0 right-0 flex gap-2 p-4">
