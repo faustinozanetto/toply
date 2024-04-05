@@ -53,12 +53,16 @@ export default async function Home() {
     const result = await fetchTopTracks();
     const { data } = result;
 
+    console.log({ data });
+
     if (!data) {
       return redirect('/sign-in');
     }
 
     return <UserTops topTracks={data.topTracks} username={data.username} />;
   } catch (error) {
+    console.log({ error });
+
     return redirect('/sign-in');
   }
 }
