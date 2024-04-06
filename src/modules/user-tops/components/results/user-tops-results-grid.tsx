@@ -23,8 +23,8 @@ const UserTopsResultsGrid: React.FC = () => {
 
       {!(isLoading || isFetching) &&
         data &&
-        data.data &&
-        data.data.topTracks.map((track, index) => {
+        data.tracks &&
+        data.tracks.map((track, index) => {
           const highQualityImage = track.album.images[1]?.url ?? fallbackImageUrl;
           const lowQualityImage = track.album.images[2]?.url ?? fallbackImageUrl;
           return (

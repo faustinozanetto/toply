@@ -12,6 +12,12 @@ export const customizationReducer = (
         background: action.payload.background,
       };
     }
+    case UserCustomizationActionType.SET_TIME_RANGE: {
+      return {
+        ...state,
+        timeRange: action.payload.timeRange,
+      };
+    }
     default:
       throw new Error('The action you requested does not exists!');
   }

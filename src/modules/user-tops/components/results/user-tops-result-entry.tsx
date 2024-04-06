@@ -23,7 +23,7 @@ const UserTopsResultEntry: React.FC<UserTopsResultEntryProps> = (props) => {
         blurDataURL={blurImage}
         priority={index <= 3}
         placeholder="blur"
-        className="aspect-square w-full rounded-lg drop-shadow-xl"
+        className="aspect-square rounded-lg drop-shadow-xl"
         width={200}
         height={200}
       />

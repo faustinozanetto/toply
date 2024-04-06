@@ -1,23 +1,13 @@
 import React from 'react';
 
-import { UserCustomizationActionType } from '../context/reducer/types';
-import { useCustomization } from '../hooks/use-customization';
-import { CUSTOMIZATION_BACKGROUNDS } from '../lib/customization.lib';
 import UserCustomizationBackground from './background/user-customization-background';
+import UserCustomizationTimeRange from './time-range/user-customization-time-range';
 
 const UserCustomization: React.FC = () => {
-  const { dispatch } = useCustomization();
-
-  const handleBackgroundCustomization = () => {
-    const randomIndex = Math.floor(Math.random() * CUSTOMIZATION_BACKGROUNDS.length);
-    const newBackgroundColor = CUSTOMIZATION_BACKGROUNDS[randomIndex] || CUSTOMIZATION_BACKGROUNDS[0];
-
-    dispatch({ type: UserCustomizationActionType.SET_BACKGROUND, payload: { background: newBackgroundColor } });
-  };
-
   return (
-    <div className="fixed bottom-0 left-0 p-4">
-      <UserCustomizationBackground onClick={handleBackgroundCustomization} />
+    <div className="fixed bottom-0 left-0 space-x-2 p-4">
+      <UserCustomizationBackground />
+      <UserCustomizationTimeRange />
     </div>
   );
 };

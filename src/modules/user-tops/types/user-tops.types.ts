@@ -1,3 +1,5 @@
+import type { SPOTIFY_TIME_RANGES } from '../lib/user-tops.lib';
+
 export type Track = {
   album: Album;
   artists: Artist[];
@@ -57,4 +59,4 @@ export type Image = {
   width: number;
 };
 
-export type SpotifyTopTimeRange = 'short_term' | 'medium_term' | 'long_term';
+export type SpotifyTopTimeRange = (typeof SPOTIFY_TIME_RANGES)[number];

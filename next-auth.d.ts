@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import 'next-auth';
 
 declare module 'next-auth' {
   /**
@@ -11,5 +11,12 @@ declare module 'next-auth' {
       image: string;
     };
     access_token: string;
+  }
+}
+
+declare module 'next-auth/jwt' {
+  /** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
+  interface JWT extends DefaultJWT {
+    accessToken?: string;
   }
 }
