@@ -3,15 +3,27 @@
 import { Button } from '@modules/ui/components/button/button';
 import { SpotifyIcon } from '@modules/ui/components/icons/spotify-icon';
 import { useToast } from '@modules/ui/components/toasts/context/toast-context';
-import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
+import { getSpotifyAuthorizationUrl } from '../lib/auth-options';
+
 const AuthSignIn: React.FC = () => {
+  const router = useRouter();
   const { toast } = useToast();
 
-  const handleAuthSignIn = async (): Promise<void> => {
+  const handleAuthSignIn = async () => {
     try {
-      await signIn('spotify', { callbackUrl: '/' });
+      const { url, verifier } = await getSpotifyAuthorizationUrl();
+
+      const respone = await fetch('/api/auth/set-verifier', {
+        method: 'POST',
+        body: JSON.stringify({
+          code: verifier,
+        }),
+      });
+      const data = await respone.json();
+      if (data.success) router.push(url);
     } catch (error) {
       toast({ variant: 'error', content: 'Failed to sign in with Spotify!' });
     }

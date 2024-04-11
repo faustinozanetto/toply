@@ -1,16 +1,19 @@
 import { Button } from '@modules/ui/components/button/button';
 import { useToast } from '@modules/ui/components/toasts/context/toast-context';
-import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const AuthLogout: React.FC = () => {
+  const router = useRouter();
   const { toast } = useToast();
 
   const handleSignOut = async () => {
     try {
-      await signOut();
-    } catch (err) {
-      toast({ variant: 'error', content: 'Could not sign out!' });
+      const respone = await fetch('/api/auth/logout', { method: 'POST' });
+      const data = await respone.json();
+      if (data.success) router.push('/auth/signin');
+    } catch (error) {
+      toast({ variant: 'error', content: 'Failed to sign out!' });
     }
   };
 

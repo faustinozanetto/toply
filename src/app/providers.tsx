@@ -6,7 +6,6 @@ import { ToastsContainer } from '@modules/ui/components/toasts/components/toasts
 import { ToastProvider } from '@modules/ui/components/toasts/context/toast-context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Analytics } from '@vercel/analytics/react';
-import { SessionProvider } from 'next-auth/react';
 import React from 'react';
 
 interface ProvidersProps {
@@ -20,14 +19,12 @@ const Providers: React.FC<ProvidersProps> = (props) => {
 
   return (
     <ToastProvider>
-      <SessionProvider>
-        <UserCustomizationProvider>
-          <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-          <Analytics />
-          <GoogleAnalytics />
-          <ToastsContainer />
-        </UserCustomizationProvider>
-      </SessionProvider>
+      <UserCustomizationProvider>
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        <Analytics />
+        <GoogleAnalytics />
+        <ToastsContainer />
+      </UserCustomizationProvider>
     </ToastProvider>
   );
 };
