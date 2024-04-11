@@ -11,7 +11,7 @@ const AuthLogout: React.FC = () => {
     try {
       const respone = await fetch('/api/auth/logout', { method: 'POST' });
       const data = await respone.json();
-      if (data.success) router.push('/auth/sign-in');
+      if (data.success) router.push('/sign-in');
     } catch (error) {
       toast({ variant: 'error', content: 'Failed to sign out!' });
     }
